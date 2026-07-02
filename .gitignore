@@ -1,0 +1,25 @@
+# === SIREC — archivos que NO se versionan ===
+
+# .NET (artefactos de compilación)
+bin/
+obj/
+*.user
+.vs/
+
+# Python (entornos y cachés)
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Node / Vite (dependencias y build)
+node_modules/
+dist/
+*.local
+
+# Sistema
+Thumbs.db
+.DS_Store
+
+# Nota: appsettings.Development.json SÍ se versiona (repo privado, credenciales
+# solo de desarrollo). Las credenciales de PRODUCCIÓN nunca van al repositorio.

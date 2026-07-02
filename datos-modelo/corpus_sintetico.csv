@@ -1,0 +1,901 @@
+texto,categoria,urgencia,etiquetador,origen
+"Hay un cable haciendo cchispas a un lado del OXXO, la gente pasa junto",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se desprendio un pedazo de aplanado atras de la secundaria, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+Se cayó un posste con los cables encima de la banqueta en Madero y hay niños jugando cerca,caida_poste_cable,alta,generador_sintetico,sintetico
+"Una señora se cayo frente a la gasolinera y no se puede levantar, esta herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+Cayó un derrumbe a un lado del OXXO y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+"cayó un derrumbe frente al mercado y hay un carro con personas debajo, urge apoyo",deslave,alta,generador_sintetico,sintetico
+"Un transformador explotó en El Palmar y los cablees quedaron en la calle donde pasan carros, ya nadie sabe qué hacer",caida_poste_cable,alta,generador_sintetico,sintetico
+"Cayo un derrumbe cerca de la iglesia y hay un carro con personas debajo, es en serio",deslave,alta,generador_sintetico,sintetico
+El muro de una vivienda en La Palma se botó y hay personas adentro,dano_estructural,alta,generador_sintetico,sintetico
+"se ahoga alguien en el arroyo de los pinos, vengan rápido, no sé a quién más avisar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay un incendio en un pastizal en las afueras de Las Brisas, lejos de las casas",incendio,media,generador_sintetico,sintetico
+"Se cayo un poste de luz en Buenavista, en un terreno baldio, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+"mi abuelita está atrapada en san rafael, necesita su oxígeno y se fue la luz",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente atrás de la secundaria, ayuda  por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+Hay mucha basura acumulada en la esquina de la farmacia por la lluvia de ayyer,otro,baja,generador_sintetico,sintetico
+"Hay un incendio en un negocio de Colinas de Santa Fe y hay gente en el edificio de arriba, manden a alguien porfa",incendio,alta,generador_sintetico,sintetico
+"Se desprendio un pedazo de aplanado cerca de la iglesia, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"El techo de la bodega cerca del parque se dañó con la lluvia y gotea feo, ya nadie sabe ué hacer",dano_estructural,media,generador_sintetico,sintetico
+"El poste de Zaragoza está un poco inclinado, quería reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+Se está deslavand el cerro arriba de las casas en Playa Linda y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+Se desbordó el canal de El Zapote y la calle 16 de Septiembre está bajo el agua,inundacion,media,generador_sintetico,sintetico
+"Un deslave tapó el camino a El Palmar, no hay paso pero nadie quedó atrapado",deslave,media,generador_sintetico,sintetico
+Se cayó un poste con los cables encima de la banqueta en Zaragoza y hay niños jugando cerca,caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay cables colgando muy bajo en la calle Morelos frente al mercado, manden a alguien porfa",caida_poste_cable,media,generador_sintetico,sintetico
+"Quedaron unas piedras en el camino de El Zapote después de la lluvia, no sé a quién más avisar",deslave,baja,generador_sintetico,sintetico
+"Un poste quedó chueco después del norrte en Río Medio, se ve que se va a caer, no sé a quién más avisar",caida_poste_cable,media,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Maddero, hay tierra en toda la vía",deslave,media,generador_sintetico,sintetico
+"Se deslavó un poco de tierra frente a la gasolinera, nada grave pero por i quieren revisar, es en serio",deslave,baja,generador_sintetico,sintetico
+Un transformador explotó en Villa Rica y los cables quedaron en la calle donde pasan carros,caida_poste_cable,alta,generador_sintetico,sintetico
+"se cayó una barda por el aire en la callle independencia, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"se quema el pastizal atras de la secundaria y el fuego va hacia las casas, ya nadie sabe que hacer",incendio,alta,generador_sintetico,sintetico
+"Se esta deslavando el cerro arriba de las casas en Playa Linda y la gente sigue adentro, manden a alguien porfa",deslave,alta,generador_sintetico,sintetico
+"Cayó un derrumbe cerca de la iglesia y hay un carro con personas debajo, es en serio",deslave,alta,generador_sintetico,sintetico
+"se cayo una barda por el aire en la calle 5 de mayo, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"Cayó material del cerro en La Loma, bloqueó media calle, es en serio",deslave,media,generador_sintetico,sintetico
+"se está incendiando una casa en el palmar, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"Se cayo una bada por el aire en la calle Reforma, bloquea el paso, ojala puedan venir pronto",dano_estructural,media,generador_sintetico,sintetico
+Hay mucha basura acumulada en la esquina de la farmacia por la lluvia de ayer,otro,baja,generador_sintetico,sintetico
+se quema el pastizal junto a la primaria y el fuego va hacia las casas,incendio,alta,generador_sintetico,sintetico
+Se está inundando la calle Allende cerca del parque y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Se cayó un poste de luz en Miradores del Mar, en un terreno baldío, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+El techo de la bodega por el puente se daño con la lluvia y gotea feo,dano_estructural,media,generador_sintetico,sintetico
+"se cayo un poste de luz en las flores, en un terreno baldio, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+El techo de la bodega por el puente se dañó con la lluvia y gotea feo,dano_estructural,media,generador_sintetico,sintetico
+"Una familia quedo incomunicada en La Palma por el agua, estan bien pero no pueden salir, ojala puedan venir pronto",persona_en_riesgo,media,generador_sintetico,sintetico
+"Una señora se cayo en la esquina de la farmacia y no se puede levantar, esta herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se está deslavando el cerro arriba de las casas en Playa Linda y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"Se deslavó un poco de tierra cerca de la iglesia, nada grave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+"Se inundó la calle Reforma en Las Flores, ya no pasan los carros",inundacion,media,generador_sintetico,sintetico
+Se quema el pastizal a un lado del OXXO y el fuego va hacia las casas,incendio,alta,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto atrás de la secundaria, no parece de luz",caida_poste_cable,baja,generador_sintetico,sintetico
+"Se deslavó un poco de tierra en la esquina de la farmacia, nada grave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en Playa Linda, quedamos varios sin nada, ojalá puedan venir pronto",otro,media,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en El Tejar, quedamos varios sin nada",otro,media,generador_sintetico,sintetico
+Una barda se está cayendo a un lado del OXXO justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+Se desbordó el canal de Río Medio y la calle Zaragoza está bajo el agua,inundacion,media,generador_sintetico,sintetico
+Quería agradecer a los rescatistas que vinieron a El Zapote,otro,baja,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle Independencia, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay un incendio en un pastizal en las afueras de Cocolapan, lejos de las casas, les agradezco cualquier apoyo",incendio,media,generador_sintetico,sintetico
+"un niño fue arrastrado por la corriente atrás de la secundaria, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+"hay una grieta grande en el muro de una casa en playa linda, se esta abriendo mas, ya nadie sabe que hacer",dano_estructural,media,generador_sintetico,sintetico
+"Una barda se esta cayendo frente a la gasolinera justo donde pasan los niños de la escuela, no se a quien mas avisar",dano_estructural,alta,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle 16 de Septiembre, hay tierra en toda la vía",deslave,media,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente a un lado del OXXO, ayuda por favor, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El muro de una vivienda en La Loma se botó y hay personas adentro, por favor manden ayuda",dano_estructural,alta,generador_sintetico,sintetico
+se esta inundando la calle reforma cerca de la iglesia y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+Hay mucha basura acumulada atrás de la secundaria por la lluvia de ayer,otro,baja,generador_sintetico,sintetico
+"Está bajando lodo y piedras hacia las viviendas de Lomas del Sol, hay familias ahí",deslave,alta,generador_sintetico,sintetico
+El muro de una vivienda en Los Pinos se botó y hay personas adentro,dano_estructural,alta,generador_sintetico,sintetico
+"una señora se cayó frente a la gasolinera y no se puede levantar, está herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se inundó la calle Xalapa en El Coyol, ya no passan los carros, manden a alguien porfa",inundacion,media,generador_sintetico,sintetico
+"Se desbordó el canal de San Rafael y la calle Independencia está bajo el agua, no sé a quién más avisar",inundacion,media,generador_sintetico,sintetico
+Quedaron unas piedras en el camino de Las Brisas despues de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de El Tejar, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un deslave tapo el camino a Las Brisas, no hay paso pero nadie quedo atrapado, es en serio",deslave,media,generador_sintetico,sintetico
+"Está bajando lodo y piedras hacia las viviendas de Cocolapan, hay familias ahí",deslave,alta,generador_sintetico,sintetico
+Se colapsó el techo de una casa en Playa Linda y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+Se desbordo el canal de Miradores del Mar y la calle Morelos esta baj el agua,inundacion,media,generador_sintetico,sintetico
+"Hay un herido frente al mercado, se le cayo una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+"hay una persona en silla de ruedas atrapada por el agua en la pochota, pero esta a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+Quedaron unas piedras en el camino de Las Flores despues de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Un transformador explotó en El Zapote y los cables quedaron en la calle donde pasan carros, urge apoyo",caida_poste_cable,alta,generador_sintetico,sintetico
+El agua de la lluvia se acumuló tantito en la banqueta de Zaragoza,inundacion,baja,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en Playa Linda, se ve que se va a caer, no sé a quién más avisar",caida_poste_cable,media,generador_sintetico,sintetico
+"¿van a abrir algún albergue por la zona de allende?, es en serio",otro,media,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de La Palma, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está incendiando una casa en Colinas de Santa Fe, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"el poste de juarez esta un poco inclinado, queria reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+"Fuego en un lote baldío en la calle Xalapa, no hay viiviendas cerca",incendio,media,generador_sintetico,sintetico
+"hay una persona atrapada en el tech de una casa en el palmar, el agua sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+Quería agradecer a los rescatistas que vinieron a Villa Rica,otro,baja,generador_sintetico,sintetico
+Se desbordó el canal de La Pochota y la calle Independencia está bajo el agua,inundacion,media,generador_sintetico,sintetico
+"Se desbordó el canal de Los Pinos y la calle 5 de Mayo está bajo el agua, les agradezco cualquier aapoyo",inundacion,media,generador_sintetico,sintetico
+"Hay un encharcamiento enorme a un lado del OXXO,el agua entró a los locales",inundacion,media,generador_sintetico,sintetico
+El muro de una vivienda en El Zapote se botó y hay personas adentro,dano_estructural,alta,generador_sintetico,sintetico
+"¿van a abrir algun albergue por la zona de insurgentes?, es en serio",otro,media,generador_sintetico,sintetico
+"Un deslave tapó el camino a Los Pinos, no hay paso pero nadie quedó atrapado",deslave,media,generador_sintetico,sintetico
+"Hay un encharcamiento enorme frente al mercado, el agua entró a los locales, es en serio",inundacion,media,generador_sintetico,sintetico
+Quedaron unas piedras en el camino de El Palmar después de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Solo quiero saber a que hora reabren las oficinas de proteccion civil, ya nadie sabe que hacer",otro,baja,generador_sintetico,sintetico
+"Hay un incendio en un pastizal en las afueras de La Loma, lejos de las casas",incendio,media,generador_sintetico,sintetico
+"El agua de la lluvia se acumulo tantito en la banqueta de Reforma, no se a quien mas avisar",inundacion,baja,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado junto a la primaria, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"hay una grieta grande en el muro de una casa en río medio, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+"Se está incendiando una casa en La Loma, hay mucho humo y vecinos ceca, ya nadie ssabe qué hacer",incendio,alta,generador_sintetico,sintetico
+Se está  inundando la calle Juárez frente al mercado y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Hay un herido atras de la secundaria, se le cayo una barda encima, manden a alguien porfa",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El agua ya se metio a la casa en El Coyol y estamos con niños en el segundo piso, les agradezco cualquier apoyo",inundacion,alta,generador_sintetico,sintetico
+"Hay un cable haciendo chispas frente al mercado, la gente pasa junto, no sé a quién más avisar",caida_poste_cable,alta,generador_sintetico,sintetico
+"hay un herido frente a la gaolinera, se le cayó una barda encima, manden a alguien porfa",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se esta deslavando el cerro arriba de las casas en Rio Medio y la gente sigue adentro, ojala puedan venir pronto",deslave,alta,generador_sintetico,sintetico
+"el poste de allende está un poco inclinado, quería reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+"Cayó material del cerro en Playa Linda, bloqueó media calle",deslave,media,generador_sintetico,sintetico
+"solo aviso que hay un cable suelto por el puente, no parece de luz, no sé a quién más avisar",caida_poste_cable,baja,generador_sintetico,sintetico
+"Fuego en un lote baldío en la calle Zaragoza, no hay viviendas cerca",incendio,media,generador_sintetico,sintetico
+"La corriente en la calle Independencia está muy fuerte y arrastra cosas, hay personas cruzando, les agradezco cualquier apoyo",inundacion,alta,generador_sintetico,sintetico
+"¿Van a abrir algún albergue por la zona de Zaragoza?, no sé a quién más avisar",otro,media,generador_sintetico,sintetico
+"Está bajando lodo y piedras hacia las viviendas de La Loma, hay familias ahí, urge apoyo",deslave,alta,generador_sintetico,sintetico
+"¿van a abrir algun albergue por la zona de juarez?, por favor manden ayuda",otro,media,generador_sintetico,sintetico
+"Se derrumbo el talud de la calle Reforma, hay tierra en toda la via, les agradezco cualquier apoyo",deslave,media,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente cerca del paque, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Mi abuelita esta atrapada en Cocolapan, necesita su oxigeno y se fue la luz",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se esta deslavando el cerro arriba de las casas en El Palmar y la gente sigue adentro, no se a quien mas avisar",deslave,alta,generador_sintetico,sintetico
+"un poste quedó chueco después del norte en el coyol, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Hay gente atrapada dentro de un carro en la calle Allende, el agua los tapó",persona_en_riesgo,alta,generador_sintetico,sintetico
+Hubo un conato de incendio atrás de la secundaria pero los vecinos ya lo apagaron,incendio,baja,generador_sintetico,sintetico
+"Hay un cable haciendo chispas frente al mercado, la gente pasa juunto",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle 16 de Septiembre, hay tierra en toda la vía, urge apoyo",deslave,media,generador_sintetico,sintetico
+"Hay un incendio en un negocio de Rio Medio y hay gente en el edificio de arriba, manden a alguien porfa",incendio,alta,generador_sintetico,sintetico
+Una barda se esta cayendo frente a la gasolinera justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+"Hay un cable haciendo chispas cerca del parque, la gente pasa junto, es en serio",caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay un encharcamiento enorme atrás de la secundaria, el agua entró a los locale, ojalá puedan venir pronto",inundacion,media,generador_sintetico,sintetico
+"Un deslave tapó el camino a Los Pinos, no hay paso pero nadie quedó atrapado, por favor manden ayuda",deslave,media,generador_sintetico,sintetico
+Se fue la luz en toda la colonia El Tejar desde hace horas,otro,media,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en El Tejar, quedamos varios sin nada, es en serio",otro,media,generador_sintetico,sintetico
+"Se está quemando basura acumulada frente al mercado, sale bastante humo, es en serio",incendio,media,generador_sintetico,sintetico
+"Solo quiero avisar quefrente al mercado sigue encharcado desde ayer, por favor manden ayuda",inundacion,baja,generador_sintetico,sintetico
+"un niño fue arrastrado por la corriente frente al mercado, ayuda por favor, por favor manden ayuda",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un transformador explotó en Villa Rica y los cables quedaron en la calle donde pasan carross, ya nadie sabe qué hacer",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se cayó una barda por el aire en la calle Juárez, bloquea el paso, por favor manden ayuda",dano_estructural,media,generador_sintetico,sintetico
+"Un deslave tapó el camino a Cocolapan, no hay paso pero nadie quedó atrapado, ojalá puedan venir pronto",deslave,media,generador_sintetico,sintetico
+Cayó n derrumbe atrás de la seccundaria y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+"salió una grieta chica en la barda del patio en el palmar, quería reportarla, por favor manden yuda",dano_estructural,baja,generador_sintetico,sintetico
+"Se deslavo un poco de tierra en la esquina de la farmacia, nada grave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+"Se cayó una barda por el aire en la calle Hidalgo, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"Una señora se cayo frente al mercado y no se puede levantar, esta herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Independencia, hay tierra en toda la vía",deslave,media,generador_sintetico,sintetico
+"¿Van a abrir algún albergue por la zona de 5 de Mayo?, ya nadie sabe qué hacer",otro,media,generador_sintetico,sintetico
+"Se está quemando basura acumulada frente a la gasolinera, sale bastante humo",incendio,media,generador_sintetico,sintetico
+Un transformador explotó en La Palma y los cables quedaron en la calle donde pasan caarros,caida_poste_cable,alta,generador_sintetico,sintetico
+"Se está inundando la calle Allende cerca de la iglesia y hay una señora que no puede salir, ojalá puedan venir pronto",inundacion,alta,generador_sintetico,sintetico
+"Salió una grieta chica en la barda del patio en El Zapote, quería reportarla",dano_estructural,baja,generador_sintetico,sintetico
+"El muro de una vivienda en Las Brisas se botó y hay personas adentro, por favor manden ayuda",dano_estructural,alta,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en Las Flores, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"hay una persona en silla de ruedas atrapada por el agua en el palmar, pero está a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"Se derrumbo el talud de la calle Zaragoza, hay tierra en toda la via",deslave,media,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en El Tejr, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+Hay un incendio enun negocio de La Palma y hay gente en el edificio de arriba,incendio,alta,generador_sintetico,sintetico
+"fuego en un lote baldío en la calle insurgentes, no hay viviendas cerca, ya nadie sabe qué hacer",incendio,media,generador_sintetico,sintetico
+"Hubo un conato de incendio cerca de la iglesia pero los vecinos ya lo apagaron, urge apoyo",incendio,baja,generador_sintetico,sintetico
+"hay gente atrapada dentro de un carro en la calle 5 de mayo, el agua los tapó",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se desprendio un pedazo de aplanado ffrente al mercado, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+El agua ya se metió a la casa en Villa Rica y estamos con niños en el segundo piso,inundacion,alta,generador_sintetico,sintetico
+"¿Van a abrir algun albergue por la zona de Zaragoza?, no se a quien mas avisar",otro,media,generador_sintetico,sintetico
+Se colapsó el techo de una casa en Villa Rica y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+se está incendiando una casa en la loma y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+el muro de una vivienda en el palmar se botó y hay personas adentro,dano_estructural,alta,generador_sintetico,sintetico
+Cayó un derrumbe cerca de la iglesia y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+"Hay una persona atrapada en el techo de una casa en El Tejar, el agua sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay un herido cerca del parque, se le cayó una barda encima, ojalá puedan venir pronto",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se cayo un poste con los cables encima de la banqueta en Zaragoza y hay niños jugando cerca,caida_poste_cable,alta,generador_sintetico,sintetico
+Se está inundando la calle Xalapa atrás de la secundaria y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Se fue la luz en toda la colonia La Pochota desde hace horas, ya nadie sabe que hacer",otro,media,generador_sintetico,sintetico
+"Solo quiero avisar que por el puente sigue encharcado desde ayer, no se a quien mas avisar",inundacion,baja,generador_sintetico,sintetico
+"Un carro se prendió en fuego en la calle Independencia frente al mercado, hay tanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+"Se cayó un poste con los cables encima de la banqueta en 16 de Septiembre y hay niños jugando cerca,, urge apoyo",caida_poste_cable,alta,generador_sintetico,sintetico
+Una barda se está cayendo frente a la gasolinera justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+"Hubo un conato de incendio junto a la primaria pero los vecinos ya lo apagaron, ojala puedan venir pronto",incendio,baja,generador_sintetico,sintetico
+"Cayó material del cerro en El Palmarr, bloqueó media calle",deslave,media,generador_sintetico,sintetico
+Se quema el pastizal atras de la secundaria y el fuego va haciia las casas,incendio,alta,generador_sintetico,sintetico
+"En La Palma el agua nos llega al pecho y hay gente adulta mayor adentro, manden a alguien porfa",inundacion,alta,generador_sintetico,sintetico
+"Se está quemando basura acumulada cerca del parque, sale bastante humo, es en serio",incendio,media,generador_sintetico,sintetico
+"Se cayo un poste de luz en Cocolapan, en un terreno baldio, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+"Cayo material del cerro en Buenavista, bloqueo media calle, es en serio",deslave,media,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en Buenavista, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+Hubo un conato de incendio frente a la gasolinera pero los vecinos ya lo apagaron,incendio,baja,generador_sintetico,sintetico
+Queria agradecer a los rescatistas que vinieron a Villa Rica,otro,baja,generador_sintetico,sintetico
+Se quema el pastizal atrás de la secundaria y el fuego va hacia las casas,incendio,alta,generador_sintetico,sintetico
+"Hay un incendio en un pastizal en las afueras de La Palma, lejos de las casas, ya nadie sabe que hacer",incendio,media,generador_sintetico,sintetico
+"Salió una grieta chica en la barda del patio en San Rafael, quería reportarla, urge apoyo",dano_estructural,baja,generador_sintetico,sintetico
+"Un niño fue arrastrao por la corriente a un lado del OXXO, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El poste de Hidalgo está un poco inclinado, quería reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en Los Pinos, pero está a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+En Buenavista el agua nos llega al pecho y hay gente adulta mayor adenttro,inundacion,alta,generador_sintetico,sintetico
+"Se inundó la calle Hidalgo en Los Pinos, ya no pasan los carros, les agradezco cualquier apoyo",inundacion,media,generador_sintetico,sintetico
+hay un incendio en un negocio de cocolapan y hay gente en el edifico de arriba,incendio,alta,generador_sintetico,sintetico
+"Solo quiero avisar que en la esquina de la farmacia sigue encharcado desde ayer, urge apoyo",inundacion,baja,generador_sintetico,sintetico
+"Hay un cable haciendo chispas a un lado del OXXO, la gente pasa junto",caida_poste_cable,alta,generador_sintetico,sintetico
+Quedaron unas piedras en el camino de Lomas del Sol después de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Se drrumbo el talud de la calle Madero, hay  tierra en toda la via",deslave,media,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de La Palma, vengan rápido, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se deslavó un poco de tierra cerca de la iglesia, nada grave pero por si quieren revisar, ojalá puedan venir pronto",deslave,baja,generador_sintetico,sintetico
+"Se deslavó un poco de tierra cerca del parque, nada grave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+"Salio una grieta chica en la barda del patio en Las Brisas, queria reportarla",dano_estructural,baja,generador_sintetico,sintetico
+"Hay un incendio en un negocio de Los PPinos y hay gente en el edificio de arriba, es en serio",incendio,alta,generador_sintetico,sintetico
+¿Dónde reporto un bache que salió en la calle Reforma?,otro,baja,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de La Loma, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se inundó la calle Allende en El Manantial, ya no pasan los carros, por favor manden ayuda",inundacion,media,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto frente al mercado, no parece de luz",caida_poste_cable,baja,generador_sintetico,sintetico
+"mi abuelita está atrapada en lomas del sol, necesita su oxígeno y se fue la luz",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se cayó un poste con los cables encima de la banqueta en Madero y hay niños jugando cerca,caida_poste_cable,alta,generador_sintetico,sintetico
+Ya bajó el agua en El Tejar pero quedó mucho lodo en la calle Xalapa,inundacion,baja,generador_sintetico,sintetico
+Se fue la luz en toda la colonia La Palma desde hace horas,otro,media,generador_sintetico,sintetico
+"Hay un cable haciendo chispas frente a la gasolinera, la gene pasa junto",caida_poste_cable,alta,generador_sintetico,sintetico
+"Una familia quedo incomunicada en Playa Linda por el agua, estan bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"Un poste quedo chueco despues del norte en Colinas de Santa Fe, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Cable de luz caido y energizado en la calle Alleende, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay gente atrapada dentro de un carro en la calle Madero, el agua los tapo",persona_en_riesgo,alta,generador_sintetico,sintetico
+¿Van a abrir algun allbergue por la zona de Insurgentes?,otro,media,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado en la esquina de la farmacia, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"Hay un incendio en un pastizal en las afueras de Río Medio, lejos de las casas",incendio,media,generador_sintetico,sintetico
+hay mucha basura acumulada atras de la secundaria por la lluvia de ayer,otro,baja,generador_sintetico,sintetico
+"Se está quemando basura acumulada cerca del parque, sale bastante humo",incendio,media,generador_sintetico,sintetico
+"Fuego en un llote baldío en la calle Xalapa, no hay viviendas cerca",incendio,media,generador_sintetico,sintetico
+"hay una grieta grande en el muro de una casa en la palma, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+Se esta incendiando una casa en Buenavista y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está deslavando el cerro arriba de las casas en Playa Linda y la gente sigue adentro, ya nadie sabe qué hacer",deslave,alta,generador_sintetico,sintetico
+Solo quiero avisar que cerca de la iglesia  sigue encharcado desde ayer,inundacion,baja,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado cerca de la iglesia, cosa menor, por favor manden ayuda",dano_estructural,baja,generador_sintetico,sintetico
+"necesitamos despensas y cobijas en san rafael, quedamos varios sin nada",otro,media,generador_sintetico,sintetico
+"salió una grieta chica en la barda del patio en playa linda, quería reportarla, manden a alguien porfa",dano_estructural,baja,generador_sintetico,sintetico
+"La corriente en la calle Morelos está muy fuerte y arrastra cosas, hay personas cruzando",inundacion,alta,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por Buenavista, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por Playa Linda, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle Hidalgo, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay una persona en silla deruedas atrapada por el agua en El Manantial, pero está a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"Una señora s cayó junto a laa primaria y no se puede levantar, está herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El poste de Independencia está un poco inclinado, quería reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto por el puente, no parece de luz, ya nadie sabe que hacer",caida_poste_cable,baja,generador_sintetico,sintetico
+"La corriente en la calle Zaragoza está muy fuerte y arrastra cosas, hay personas cruzando, ojalá puedan venir pronto",inundacion,alta,generador_sintetico,sintetico
+"Cayo material del cerro en Los Pinos, bloqueo media calle",deslave,media,generador_sintetico,sintetico
+quedaron unas piedras en el camino de el manantial despues de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Una familia quedó incomunicada en El Coyol por el agua, están bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"Se desprendio un pedazo de aplanado frente al mercado, cosa menor, ya nadie sabe que hacer",dano_estructural,baja,generador_sintetico,sintetico
+Se está deslavando el cerro ariba de las casas en Miradores del Mar y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"Un carro se prendió en fuego en la calle Allende frente al mercado, hay tanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en Colinas de Santa FFe, pero está a salvo por ahora, urge apoyo",persona_en_riesgo,media,generador_sintetico,sintetico
+Se colapso el techo de unna casa en El Manantial y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+"una familia quedó incomunicada en lomas del sol por eel agua, están bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"Se quema el pastizal junto a la primaria y el fuego va hacia las casas, manden a alguien porfa",incendio,alta,generador_sintetico,sintetico
+"la corriente en la calle zaragoza está muy fuerte y arrastra cosas, hay personas cruzando, es en serio",inundacion,alta,generador_sintetico,sintetico
+Cayo un derrumbe cerca del parque y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+Cayó un derrumbe junto a la primaria y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+"salió una grieta chica en la barda del patio en el manantial, quería reportarla, por favor manden ayuda",dano_estructural,baja,generador_sintetico,sintetico
+Se está incendiando una casa en El Tejar y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se cayó una barda por el aire en la calle 16 de Septiembre, bloquea el paso, no sé a quién más avisar",dano_estructural,media,generador_sintetico,sintetico
+"Mi vecino de Buenavista no puede salir, está solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se cayo una barda por el aire en la calle Allende, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"Se está incendiando una casa en El Coyol y dicen que hay alguien adentro, ya nadie sabe qué hacer",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se cayó un poste de luz en Los Pinos, en un terreno baldío, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+Ya bajó el agua en El Manantial pero quedó mucho lodo en la calle Zaragoza,inundacion,baja,generador_sintetico,sintetico
+"Fuego en un lote baldío en la calle Juárez, no hay viviendas cerca",incendio,media,generador_sintetico,sintetico
+"una familia quedo incomunicada en la pochota por el agua, estan bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto frente a la gasolinera, no parece de luz",caida_poste_cable,baja,generador_sintetico,sintetico
+hay un incendio en un negocio de cocolapan y hay gente en el edificio dde arriba,incendio,alta,generador_sintetico,sintetico
+"Se desbordó el canal de Miradores del Mar y la calle Hidalgo está bajo el agua, ojalá puedan venir pronto",inundacion,media,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto en la esquina de la farmacia, no parece de luz",caida_poste_cable,baja,generador_sintetico,sintetico
+"Hay un herido cerca de la iglesia, se le cayo una barda encima, ojala puedan venir pronto",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El agua ya se metio a la casa en Villa Rica y estamos con niños en el segundo piso, manden a alguien porfa",inundacion,alta,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en Playa Linda, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Se cayó una barda por el aire en la calle Madero, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"Se desprendio un pedazo de aplanado frente a la gasolinera, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+¿A dónde puedo llevar a mi familia? Se nos metió el agua en Playa Linda,otro,media,generador_sintetico,sintetico
+"Cayó un derrumbe atrás de la secundaria y hay un carro con personas debajo, no sé a quién más avisaar",deslave,alta,generador_sintetico,sintetico
+Ya bajó el agua en Buenavista pero quedó mucho lodo en la calle Reforma,inundacion,baja,generador_sintetico,sintetico
+"hay un incendio en un pastizal en las afueras de las flores, lejos de las casas, manden a alguien porfa",incendio,media,generador_sintetico,sintetico
+"Fuego en un lote baldio en la calle Hidalgo, no hay viviendas cerca",incendio,media,generador_sintetico,sintetico
+"Se cayó una bardapor el aire en la calle Zaragoza, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"La corriente en la calle Xalapa está muy fuerte y arrastra cosas, hay personas cruzando",inundacion,alta,generador_sintetico,sintetico
+Se desbordó el canal de l Tejar y la calle Allende está bajo el agua,inundacion,media,generador_sintetico,sintetico
+se fue la luz en toda la colonia colinas de santa fe desde hace horas,otro,media,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle Allende, alguien lo va a tocar, manden a lguien porfa",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado atrás de la secundaria, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle Hidalgo en la esquina de la farmacia,caida_poste_cable,media,generador_sintetico,sintetico
+"Se cayó un poste de luz en Las Brisas, en un terreno baldío, no hay nadie cerca, les agradezco cualquier apoyo",caida_poste_cable,media,generador_sintetico,sintetico
+"Solo quiero saber a qué hora reabren las oficinas de protección civil, ojalá puedan venir pronto",otro,baja,generador_sintetico,sintetico
+Solo quiero saber a qué hora reabren las oficinas de protección civil,otro,baja,generador_sintetico,sintetico
+"Esta bajando lodo y piedras hacia las viviendas de Rio Medio, hay familias ahi",deslave,alta,generador_sintetico,sintetico
+"El agua está subiendo en Lomas del Sol, todavía no entra a las casas pero va rápido",inundacion,media,generador_sintetico,sintetico
+Se está incendiando una casa en Cocolapan y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+Hubo unn conato de incendio por el puente pero los vecinos ya lo apagaron,incendio,baja,generador_sintetico,sintetico
+Se está incendiando una casa en Las Brisas y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+cayo un derrumbe en la esquina de la farmacia y hy un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+Se está inundando la calle Madero frente a la gasolinera y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Una familia quedo incomunicada en Lomas del Sol por el agua, estan bien pero no pueden salir, es en serio",persona_en_riesgo,media,generador_sintetico,sintetico
+"Fuego en un lote baldio en la calle Hidalgo, no hay viviendas cerca, por favor manden ayuda",incendio,media,generador_sintetico,sintetico
+"salió ua grieta chica en la barda del patio en villa riica, quería reportarla",dano_estructural,baja,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente cerca de la iglesia, ayuda por favor, por favor manden ayuda",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un carro se prendió en fuego en la calle Juárez a un lado del OXXO, hay tanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+Ya bajó el agua en Miradores del Mar pero quedó mucho lodo en la calle Madero,inundacion,baja,generador_sintetico,sintetico
+El agua de la lluvia se acumuló tantito en la banqueta de Independencia,inundacion,baja,generador_sintetico,sintetico
+"salió una grieta chica en la barda del patio en lomas deel sol, quería reportarla, ojalá puedan venir pronto",dano_estructural,baja,generador_sintetico,sintetico
+Un transformador explotó een El Palmar y los cables quedaron en la calle donde pasan carros,caida_poste_cable,alta,generador_sintetico,sintetico
+¿A dónde puedo llevar a mi familia? Se nos metió el agua en Buenavista,otro,media,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en San Rafael, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Hay un encharcamiento enorme junto a la primaria, el agua entró a los locales",inundacion,media,generador_sintetico,sintetico
+"Un carro se prendio en fuego en la calle Independencia frent al mercado, hay tanque de gas al lado, ojala puedan venir pronto",incendio,alta,generador_sintetico,sintetico
+Hay cables colganndo muy bajo en la calle 5 de Mayo cerca de la iglesia,caida_poste_cable,media,generador_sintetico,sintetico
+"Hay una persona atrapada n el techo de una casa en La Lomaa, el agua sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"necesitamos despensas y cobijas en las brisas, quedamos varios sinnada",otro,media,generador_sintetico,sintetico
+"Hay un encharcamiento enorme por el puente, el agua enttró a los locales",inundacion,media,generador_sintetico,sintetico
+"Está bajando lodo y piedras hacia las viviendas de El Coyol, hay familias ahí, manden a alguien porfa",deslave,alta,generador_sintetico,sintetico
+"Está bajando lodo y piedras hacia las viiendas de Cocolapan, hay familias ahí, no sé a quién más avisar",deslave,alta,generador_sintetico,sintetico
+Se está inundando la calle Allende atrás de la secundaria y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Mi abuelita está atrapada en La Loma, necesita su oxígeno y se fue la luz",persona_en_riesgo,alta,generador_sintetico,sintetico
+Ya bajó el agua en El Coyol pero quedó mucho lodo en la calle Zaragoza,inundacion,baja,generador_sintetico,sintetico
+"La corriente en la calle Allende está muy  fuerte y arrastra cosas, hay personas cruzando",inundacion,alta,generador_sintetico,sintetico
+"Hay una persona atrapada en el techo de una casa en El Palmar, el agua sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se esta deslavando el cerro arriba de las casas en Rio Medio y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en Los Pinos, quedamos varios sin nada",otro,media,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle Morelos cerca de la iiglesia,caida_poste_cable,media,generador_sintetico,sintetico
+"quería agradecer a los rescatistas que vinieron a villa rica, les agradezco cualquier apoyo",otro,baja,generador_sintetico,sintetico
+"El agua está subiendo en Villa Rica, todavía no entra a las casas pero va rápido",inundacion,media,generador_sintetico,sintetico
+"El agua de la lluvia se acumuló tantito en la banqueta de Reforma, manden a alguien porfa",inundacion,baja,generador_sintetico,sintetico
+Solo quiero saber a qué hra reabren las oficinas de protección civil,otro,baja,generador_sintetico,sintetico
+"Se deslavó un poco de tierra frente al mercado, nada grave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle Madero, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Cable deluz caído y energizado en la calle 16 de Septiembre, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se inundó la calle 16 de Septiembre en La Loma, ya no pasan los carros",inundacion,media,generador_sintetico,sintetico
+Una barda se esta cayendo en la esquina de la farmacia justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+"Se está quemando basura acumulada junto a la primaria, sale bastante humo, ya nadie sabe qué hacer",incendio,media,generador_sintetico,sintetico
+"Se cayo un poste con los cables encima de la banqueta en 16 de Septiembre y hay niños jugando cerca, por favor manden ayuda",caida_poste_cable,alta,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente en la esquina de la farmacia, ayuda por favor, por favor manden ayuda",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se cayó una barda por el aire en la calle Independencia, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"Mi abuelita está atrapada en Miradores del Mar, necesita su oxígeno y se fue la luz",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se colapso el techo de una casa en El Coyol y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+"Se derrumbo el talud de la calle 5 de Mayo, hay tierra en toda la via",deslave,media,generador_sintetico,sintetico
+"Queria agradecer a los rescatistas que vinieron a La Loma, es en serio",otro,baja,generador_sintetico,sintetico
+Se desbordo el canal de Las Brisas y la calle Xalapa esta bajo el agua,inundacion,media,generador_sintetico,sintetico
+Se está incendiando una casa en El Palmar y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se esta deslavando el cerro arriba de las casas en Colinas de Santa Fe y la gente sigue adentro, les agradezco cualquier apoyo",deslave,alta,generador_sintetico,sintetico
+"Hay cables colgando muy bajo en la calle Insurgentes por el puente, no sé a quién más avisar",caida_poste_cable,media,generador_sintetico,sintetico
+"Mi vecino de Las Brisas no puede salir, esta solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+"hay una persona atrapada en el techo de una casa en río medio, el agua  sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+una barda se está cayendo frente al mercado justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+Ya bajó el agua en Colinas de Santa Fe pero quedó mucho lodo en la calle Independencia,inundacion,baja,generador_sintetico,sintetico
+"hay cables colgando muy bajo en la calle 16 de septiembre frente a la gasolinera, por favor manden ayuda",caida_poste_cable,media,generador_sintetico,sintetico
+"Hay gente atrapada dentro de un carro en la calle Reforma, el agua los tapo, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se inundó la calle Insurgentes en San Rafael, ya no pasan los carros, les agradezco cualquier apoyo",inundacion,media,generador_sintetico,sintetico
+"Se esta inundando la calle Independencia cerca del parque y hay una señora que no puede salir, ya nadie sabe que hacer",inundacion,alta,generador_sintetico,sintetico
+"Se cayó un poste de luz en El Cool, en un terreno baldío, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+Un transformaador explotó en Cocolapan y los cables quedaron en la calle donde pasan carros,caida_poste_cable,alta,generador_sintetico,sintetico
+"El agua ya se metió a la casa en Playa Linda y estamos con niños en el segundo piso, es en serio",inundacion,alta,generador_sintetico,sintetico
+¿A dónde puedo llevar a mi familia? Se nos metió el agua en Villa Rica,otro,media,generador_sintetico,sintetico
+"Una señora se cayó atrás de la secundaria y no se puede levantar, está herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+¿A dónde puedo llevar a mi familia? Se nos metió el agua en Las Flores,otro,media,generador_sintetico,sintetico
+Una barda se está cayendo cerca del parque justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+Se está incediando una casa en Villa Rica y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+"un deslave tapó el camino a las flores, no hay paso pero nadie quedó atrapado",deslave,media,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle 5 de Mayo por el puente,caida_poste_cable,media,generador_sintetico,sintetico
+"Mi abuelita está atrapada en El Zapote, necesita su oxígeno y se fue la luz, ya nadie sabe qué hacer",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Mi vecino de Cocolapan no puede salir, está solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+El agua ya se metió a la casa en San Rafael y estamos con niños en el segundo piso,inundacion,alta,generador_sintetico,sintetico
+Se desbordó el canal de El Zapote y la calle Madero está bajo el agua,inundacion,media,generador_sintetico,sintetico
+"Una familia quedó incomunicada en El Tejar por el agua, están bien pero no pueden salir, es en serio",persona_en_riesgo,media,generador_sintetico,sintetico
+Se está inundando la calle Juárez cerca de la iglesia y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Hay un herido por el puente, se le cayó una barda encima, les agradezco cualquier apoyo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está incendiandoo una casa en Río Medio, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"un poste quedo chueco despues del norte en cocolapan, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Hubo un conato de incendio junto a la primaria pero los vecinos ya lo apagaron, ya nadie sabe qué hacer",incendio,baja,generador_sintetico,sintetico
+Se está inundando la calle Reforma por el puente y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Cayo material del cerro en Buenavista, bloqueo media calle, urge apoyo",deslave,media,generador_sintetico,sintetico
+"Hay un incendio en un pastizal en las afueras de La Palma, lejos de las casas, les agradezco cualquier apoyo",incendio,media,generador_sintetico,sintetico
+"salio una grieta chica en la barda del patio en rio medio, queria reportarla",dano_estructural,baja,generador_sintetico,sintetico
+"un deslave tapo el camino a san rafael, no hay paso pero nadie quedo atrapado, no se a quien mas avisar",deslave,media,generador_sintetico,sintetico
+"Un transformador explotó en La Loma y los cables quedaron en la calle donde pasan carros, por favor manden ayuda",caida_poste_cable,alta,generador_sintetico,sintetico
+¿A dónde puedo llevar a mi familia? Se nos metió el agua en La Loma,otro,media,generador_sintetico,sintetico
+"estamos en la azotea de una vivienda en villa rica, somos cuatro y no podemos bajar, no se a quien mas avisar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se deslavó un poco de tierra frente al mercado, nada grave pero por si quieren revisar, es en serio",deslave,baja,generador_sintetico,sintetico
+"Mi vecino de Villa Rica no puede salir, esta solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El poste de Independencia está un poco inclinado, quuería reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+El techo de la bodegga rente a la gasolinera se dañó con la lluvia y gotea feo,dano_estructural,media,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en Cocolapan, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Se cayó una barda por el aire en a calle Insurgentes, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"se está deslavando el cerro arriba de las casas en la palma y la gente sigue adentro, ya nadie sabe qué hacer",deslave,alta,generador_sintetico,sintetico
+"Hay un cable haciendo chispas cerca del parque, la gente pasa junto",caida_poste_cable,alta,generador_sintetico,sintetico
+Una barda se está cayendo cerca de la iglesia justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+"Mi vecino de El Zapote no puede salir, está solo y es de la tercera edad, ojalá puedan venir pronto",persona_en_riesgo,alta,generador_sintetico,sintetico
+"se derrumbo el taud de la calle independencia, hay tierra en toda la via",deslave,media,generador_sintetico,sintetico
+"se colapsó el techo de una casa en la palma y creemos que hay alguien debajo, es en serio",dano_estructural,alta,generador_sintetico,sintetico
+"Una familia quedo incomunicada en Cocolaapan por el agua, estan bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en Los Pinos, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+En Los Pinos el agua nnos llega al pecho y hay gente adulta mayor adentro,inundacion,alta,generador_sintetico,sintetico
+¿Van a abrir algun albergue por la zona de Allende?,otro,media,generador_sintetico,sintetico
+"cayó material del cerro en el manantial, bloqueó media calle",deslave,media,generador_sintetico,sintetico
+"Se cayó un barda por el aire en la calle Reforma, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+Se desbordo el canal de Rio Medio y la calle Hidalgo esta bajoo el agua,inundacion,media,generador_sintetico,sintetico
+"Una señora se cayó en la esquina de la farmacia y no se puede levantar, está herida, urge apoyo",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se desbordó el canal de Buenavista y la calle 5 de Mayo está bajo el agua,inundacion,media,generador_sintetico,sintetico
+"se está inundando la calle 5 de mayo a un lado del oxxo y hay una señora que no puede salir, no séé a quién más avisar",inundacion,alta,generador_sintetico,sintetico
+"Se inundó la calle 5 de Mayo en La Loma, ya no pasan los carros",inundacion,media,generador_sintetico,sintetico
+"estamos en la azotea de una vvivienda en villa rica, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se está deslavando el cerro arriba de las casas en Miradores del Mar y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"el agua está subiendo en san rafael, todavía no entra a las casas pero va rápido",inundacion,media,generador_sintetico,sintetico
+"Salió una grieta chica en la barda del patio en La Palma, quería reportarla",dano_estructural,baja,generador_sintetico,sintetico
+Hubo un conato de incendio en la esquina de la farmacia pero los vecinos ya o apagaron,incendio,baja,generador_sintetico,sintetico
+"El agua está subiendo en El Manantial, todavía no entra a las casas pero va rápido",inundacion,media,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Morelos, hay tierra en toda la vía",deslave,media,generador_sintetico,sintetico
+Se esta inundando la calle Juarez frente al mercado y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Una señora se cayó junto a la primaria y no se puede levantar, esstá herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+El muro de una vivienda en San Rafael se boto y hay personas adentro,dano_estructural,alta,generador_sintetico,sintetico
+Quedaron unas piedras en el camino de La Pochota después de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Fuego en un lote baldio en la calle 5 de Mayo, no hay viviendas cerca",incendio,media,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle Hidalgo, alguien lo v a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Queria agradecer a los rescatitas que vinieron a El Zapote, no se a quien mas avisar",otro,baja,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado en la esquina de la farmacia, cosa menor, es en srio",dano_estructural,baja,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle Xalapa junto a la primaria,caida_poste_cable,media,generador_sintetico,sintetico
+"¿A dónde puedo llevar a mi familia? Se nos metió el agua en Playa Linda, es en serio",otro,media,generador_sintetico,sintetico
+Se está inundando la calle 5 de Mayo frente al mercado y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Madero, hay tierra en toda la vía",deslave,media,generador_sintetico,sintetico
+Un transformador exploto en Colinas de Santa Fe y los cables quedaron en la calle dond pasan carros,caida_poste_cable,alta,generador_sintetico,sintetico
+Solo quiero avisar que frente al mercado sigue encharcado desde ayer,inundacion,baja,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en La Lomaa, quedamos varios sin nada, no sé a quién más avisar",otro,media,generador_sintetico,sintetico
+"el agua de la lluvia se acumuló tantito en la banqueta de 16 de septiembre, es en serio",inundacion,baja,generador_sintetico,sintetico
+"Se está inundando la calle 16 de Septiembre en la esquina de la farmacia y hay una señora que no puede salir, ojalá puedan venir pronto",inundacion,alta,generador_sintetico,sintetico
+"cayó material del cerro en las brisas, bloqueó media calle",deslave,media,generador_sintetico,sintetico
+"¿A donde puedo llevar a mi familia? Se nos metio el agua en Playa  Linda, es en serio",otro,media,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto cerca de la iglesia, no parece de luz, ojala puedan venir pronto",caida_poste_cable,baja,generador_sintetico,sintetico
+Hubo un conato de incendio junto a la primaria pero los vecinos ya lo apagaron,incendio,baja,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en Villa Rica, pero está a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"se derrumbó el talud de la calle hidalgo, hay tierrra en toda la vía, ojalá puedan venir pronto",deslave,media,generador_sintetico,sintetico
+Se quema el pastizal atras de la secundaria y el fuego va hacia las casas,incendio,alta,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle Independencia cerca del parque,caida_poste_cable,media,generador_sintetico,sintetico
+"solo aviso que hay un cable suelto junto a la primaria, no parece de luz",caida_poste_cable,baja,generador_sintetico,sintetico
+Queria agradecer a los rescatistas que vinieron a Buenavista,otro,baja,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en El Manantial, somos cuatro y no podemos bajar, ya nadie sabe qué hacer",persona_en_riesgo,alta,generador_sintetico,sintetico
+"solo quiero avisar que frente a  la gasolinera sigue encharcado desde ayer, ojalá puedan venir pronto",inundacion,baja,generador_sintetico,sintetico
+"el agua está subiendo en cocolapan, todavía no enntra a las casas pero va rápido, es en serio",inundacion,media,generador_sintetico,sintetico
+El agua ya se metió a la casa en Lomas del Sol y estamos con niños en el segundo piso,inundacion,alta,generador_sintetico,sintetico
+"Hay una persona en sillla de ruedas atrapada por el agu en El Coyol, pero esta a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"una familia quedó incomunicada en la pochota por el agua, están bien pero no pueden saalir, ojalá puedan venir pronto",persona_en_riesgo,media,generador_sintetico,sintetico
+El techo de la bodega frente al mercado se daño con la lluvia y gotea feo,dano_estructural,media,generador_sintetico,sintetico
+"El agua ya se metió a la casa en Villa Rica y estamos con niños en el segundo piso, ya nadie sabe qué hacer",inundacion,alta,generador_sintetico,sintetico
+Se esta deslavando el cerro arriba de las casas en Las Flores y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Zaragoza, hay tierra en toda la vía, ya nadie sabe qué hacer",deslave,media,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por El Tejar, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Reforma, hay tierra en toda la vía, por favor manden ayuda",deslave,media,generador_sintetico,sintetico
+"Hay una grieta grande en el muro de una casa en Los Pinos, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+"Está bajando lodo y piedras hacia las viviendas de Playa Linda, hay familias ahí",deslave,alta,generador_sintetico,sintetico
+¿Van a abrir algún albergue por la zona de Morelos?,otro,media,generador_sintetico,sintetico
+"Un deslave tapó el camino  a El Palmar, no hay paso pero nadie quedó atrapado, ya nadie sabe qué hacer",deslave,media,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto a un lado del OXXO, no parece de luz",caida_poste_cable,baja,generador_sintetico,sintetico
+"Se cayo un poste de luz en El Tejar, en un terreno baldio, no hay nadie cerca, urge apoyo",caida_poste_cable,media,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en Las Flores, quedamos varios sin nada, por favor manden ayuda",otro,media,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle Allende frente a la gasolinera,caida_poste_cable,media,generador_sintetico,sintetico
+"está bajando lodo y piedras hacia las viviendas de río medio, hay familias ahí",deslave,alta,generador_sintetico,sintetico
+Hay mucha basura acumulada a un lado del OXXO por la lluvia de ayer,otro,baja,generador_sintetico,sintetico
+"fuego en un lote baldío en la calle madero, no hay viviendas cerca, ojalá puedan venir pronto",incendio,media,generador_sintetico,sintetico
+"Se cayo un poste con los cables encima de la banqueta en Independencia y hay niños jugando cerca, urge apoyo",caida_poste_cable,alta,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en El Manantial, somos cuatro y no podemos bajar, urge apoyo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado atrás de la secundaria, cosa menor, no sé a quién más avisar",dano_estructural,baja,generador_sintetico,sintetico
+"Se deslavó un poco de tierra frente a la gasolinera, nada grave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+¿Dónde reporto un bache que salió en la calle Independenia?,otro,baja,generador_sintetico,sintetico
+"Se cayó un poste de luz en La Pochota, en un terreno baldío, no hay nadie cerca, no sé a quién más avisar",caida_poste_cable,media,generador_sintetico,sintetico
+"Fuego en un lote baldio en la callle Zaragoza, no hay viviendas cerca",incendio,media,generador_sintetico,sintetico
+"Una señora se cayó por el puente y no se puede levantar, está herida, ya nadie sabe qué hacer",persona_en_riesgo,alta,generador_sintetico,sintetico
+¿Donde reporto un bache que salio en la calle Reforma?,otro,baja,generador_sintetico,sintetico
+"Hay un incendio en un negocio de Miradores del Mar y hay gente en el edificio de arriba, no se a quien mas avisar",incendio,alta,generador_sintetico,sintetico
+"hay un incendio en un negocio de el tejar y hay gente en el edificio de arriba, manden a alguien porfa",incendio,alta,generador_sintetico,sintetico
+"Se está incendiando una casaen El Zapote, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"Hay un herido junto a la primaria, se le cayo una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en El Zapote, pero está a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado frente al mercado, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"solo quiero avisar que frente a la gasolinera sigue encharcado desde ayer, ojalá puedan venir pronto",inundacion,baja,generador_sintetico,sintetico
+"Se derrumbo el talud de la calle Independencia, hay tierra en toda la via",deslave,media,generador_sintetico,sintetico
+"cable de luz caido y energizado en la calle independencia, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay una grieta grande en el muro de una casa en La Pochota, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+Solo quiero avisar que por el puente sigue encharcado desde ayer,inundacion,baja,generador_sintetico,sintetico
+El techo de la bodega frente a la gasolinera se dañó con la lluvia y gotea feo,dano_estructural,media,generador_sintetico,sintetico
+"el poste de 5 de mayo esta un poco inclinado, queria reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle Insurgentes a un lado del OXXO,caida_poste_cable,media,generador_sintetico,sintetico
+"Un deslave tapó el camino a El Tejar, no hay paso pero nadie quedó atrapado",deslave,media,generador_sintetico,sintetico
+"Un carro se prendio en fuego en la calle 16 de Septiembre junto a la primaria, hay tanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+"Se esta quemando basura acumulada cerca del parque, sale bastante humo",incendio,media,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de San Rafael, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en La Loma, quedamos varios sin nada",otro,media,generador_sintetico,sintetico
+¿Van a abrir algún albergue por la zona de Madero?,otro,media,generador_sintetico,sintetico
+"Una brda se está cayendo junto a la primaria justo donde pasan los niños de la escuela, manden a alguien porfa",dano_estructural,alta,generador_sintetico,sintetico
+Hubo un conato de incendio frente al mercado pero los vecinos ya lo apagaron,incendio,baja,generador_sintetico,sintetico
+"Hay una grieta grande en el muro de una casa en Cocolapan, se esta abriendo mas, urge apoyo",dano_estructural,media,generador_sintetico,sintetico
+"El poste de 16 de Septiembre está un poco inclinado, quería reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+"Solo quiero saber a qué hora reabren las oficinas de protección civil, ya nadie sabe qué hacer",otro,baja,generador_sintetico,sintetico
+"Se inundó la calle Insurgentes en Buenavista, ya no pasan los carros",inundacion,media,generador_sintetico,sintetico
+"hay una persona en silla de ruedas atrapada por el agua en el tejar, pero está a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"El techo de la bodega frente al mercado se dañó con la lluvia y gotea feo, urge apoyo",dano_estructural,media,generador_sintetico,sintetico
+Se está inundando la calle Juárez frente a la gasolinera y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+se quema el pastizal atrás de la secundaria y el fuego va  hacia las casas,incendio,alta,generador_sintetico,sintetico
+¿Van a abrir algún albergue por la zona de Allende?,otro,media,generador_sintetico,sintetico
+"Se desprendio un pedazo de aplanaddo cerca del parque, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada or el agua en Miradores del Mar, pero está a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"Se aoga alguien en el arroyo de El Manantial, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+Hubo un conato de incendio frente a la gasolinera pero los vecios ya lo apagaron,incendio,baja,generador_sintetico,sintetico
+El agua ya se metió a la casa en Las Brisas y estamos con niños en el segundo piso,inundacion,alta,generador_sintetico,sintetico
+"¿Dónde reporto un bache que salió en la calle Independencia?, les agradezco cualquier apoyo",otro,baja,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de Colinas de Santa Fe, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+"se derrumbó el talud de la calle 5 de mayo, hay tierra en toda la vía, ya nadie sabe qué hacer",deslave,media,generador_sintetico,sintetico
+"Cable de luz caido y energizado en la calle 5 de Mayo, alguien lo va a tocar, no se a quien mas avisar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado junto a la primariia, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"Se está deslavando el cerro arriba de las casas en El Palmar y la gent sigue adentro, manden a alguien porfa",deslave,alta,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en El Manantial, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente en la esquina de la farmacia, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+Hay un incendio en un negocio de El Tejar y hay gente en el edificio de arriba,incendio,alta,generador_sintetico,sintetico
+¿a dónde puedo llevar a mi familia? se nos metió el agua en río medio,otro,media,generador_sintetico,sintetico
+"Se esta incendiando una casa en EEl Tear, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"Quería agradecer a los rescatistas que vinieron a Miradores del Mar, no sé a quién más avisar",otro,baja,generador_sintetico,sintetico
+Se desbordó el canal de Cocolapan y la calle 5 de Mayo está bajo el agua,inundacion,media,generador_sintetico,sintetico
+"Se colapsó el techo de una casa en Cocolapan y creemos que hay alguien debajo, manden a alguien porfa",dano_estructural,alta,generador_sintetico,sintetico
+"Una señora se cay cerca de la iglesia y no se puede levantar, está herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por Miradores del Mar, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Allende, hay tierra en toda la vía",deslave,media,generador_sintetico,sintetico
+"Una señora se cayo cerca del parque y no se puede levantar, esta herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se desbordo el canal de Miradores del Mar y la calle Xalapa esta bajo el agua,inundacion,media,generador_sintetico,sintetico
+"Se cayo un poste de luz en La Palma, en un terreno baldio, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+Se está deslavando el cerro arriba de las casas en El Tejar y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"El techo de la bodega frente a la gasolinera se dañó con la lluvia y gotea feo, urge apoyo",dano_estructural,media,generador_sintetico,sintetico
+Se esta incendiando una casa en El Coyol y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en El Zapote, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"¿van a abrir algún albergue por la zona de madero?, les agradezco cualquier apoyo",otro,media,generador_sintetico,sintetico
+"¿Van a abrir algún albergue por la zona de Xalapa?, por favor manden ayuda",otro,media,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle Morelos, alguien lo va a tocar, es en serio",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se  ahoga alguien en el arroyo de La Pochota, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se está incendiando una casa  en Lomas del Sol y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se esta quemando basura acumulada por el puente, sale bastante humo",incendio,media,generador_sintetico,sintetico
+Se desbordó el canal de El Coyol y la calle Insurgentes está bajo el agua,inundacion,media,generador_sintetico,sintetico
+"Se cayó una barda por el aire en la cale Xalapa, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"Se desprendio un pedazo de aplanado cerca de la iglesia, cosa menor, es en serio",dano_estructural,baja,generador_sintetico,sintetico
+"Cable de luz caido y energizado en la calle 5 de Mayo, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+El agua de la lluvia se acumuló tantito en la banqueta de Madero,inundacion,baja,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle Morelos, alguien lo va a tocar, urge apoyo",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se está incendiando una casa en Buenavista, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+En Río Medio el agua nos llega al peco y hay gente adulta mayor adentro,inundacion,alta,generador_sintetico,sintetico
+"hubo un conato de incendio por el puente pero los vecinos ya lo apagaron, por favor manden ayuda",incendio,baja,generador_sintetico,sintetico
+"Hubo un conato de incendio por el puente pero los vecinos ya lo apagaron, es en serio",incendio,baja,generador_sintetico,sintetico
+"Mi vecino de La Palma no puede salir, está solo y es de la tercera edad, ojalá puedan venir pronto",persona_en_riesgo,alta,generador_sintetico,sintetico
+¿Dónde reporto un bache que salió en la calle Xalapa?,otro,baja,generador_sintetico,sintetico
+"en las flores el agua nos llega al pecho y hay gente adulta mayor adentro, por favor manden ayuda",inundacion,alta,generador_sintetico,sintetico
+¿A donde puedo llevar a mi familia? Se nos metio el agua en La Loma,otro,media,generador_sintetico,sintetico
+"hay un herido por el puente, se le cayó una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Una familia quedo incomunicada en La Loma por el agua, estan bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+Se cayó un poste con los cables encima de la banqueta en Xalapa y hay niños jugando cerca,caida_poste_cable,alta,generador_sintetico,sintetico
+"Una familia quedo incomunicada en El Palmar por el agua, estan bien pero no pueden salir, ya nadie sabe que hacer",persona_en_riesgo,media,generador_sintetico,sintetico
+"Cable de luz caido y energizado en la calle Morelos, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+Queria agradecer a los rescatistas que vinieron a Lomas del Sol,otro,baja,generador_sintetico,sintetico
+"Hay un herido a un lado del OXXO, se le cayó una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se desbordo el canal de Colinas de Santa Fe y la calle Insurgentes esta bajo el agua,inundacion,media,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado cerca de la iglesia, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"Se está incendiando una casa en El Zapote, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de La Pochota, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se cayó un poste de luz en Cocolpan, en un terreno baldío, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+¿Dónde reporto un bache que salió en la calle Juárez?,otro,baja,generador_sintetico,sintetico
+"Se desprendio un pedazo de aplanado cerca del parque, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"se cayó una barda por el aire en la calle morelos, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"cayó material del cerro en villa rica, bloqueó media calle, manden a alguien porfa",deslave,media,generador_sintetico,sintetico
+Quería agradecer a los rescatistas que vinieron a Lomas del Sol,otro,baja,generador_sintetico,sintetico
+Solo quiero avisar que cerca del parque sigue encharcado desde ayer,inundacion,baja,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por Buenavista, no veo llamas, les agradezco cualquier apoyo",incendio,baja,generador_sintetico,sintetico
+"Hay un encharcamiento enorme cerca de la iglesia, el agua entro a ls locales",inundacion,media,generador_sintetico,sintetico
+Hay un incendio en un negocio de Lomas del Sol y hay gente en el edificio de arriba,incendio,alta,generador_sintetico,sintetico
+"Hay un hrido cerca de la iglesia, se le cayo una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+"cayó un derrumbe cerca de la iglesia y hay un carro con personas debajo, manden a alguien porfa",deslave,alta,generador_sintetico,sintetico
+"Se desbordo el canal de Villa Rica y la call Allende esta bajo el aguua, es en serio",inundacion,media,generador_sintetico,sintetico
+"Estamos en la azoteaa de una vivienda en El Manantial, somos cuatro y no podemos bajar, ojalá puedan venir pronto",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está incendiando una casa en San Rafael y dicen que hay alguiien adentro, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+"hay un incendio en un pastizal en las afueras de playa linda, lejos de las casas, no sé a quién más avisar",incendio,media,generador_sintetico,sintetico
+"Se cayo una barda por el aire en la calle Morelos, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"Mi vecino de San Rafael no puede salir, está solo yes de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Mi abuelita está atrapada en La Palma, necesita su oxígeno y se fue la luz, urge apoyyo",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se está deslavando el cerro arriba de las casas en Las Flores y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"Se está incendiando una casa en Miradores del Mar, hay mucho humo y vecinos cerca, no sé a quién más avisar",incendio,alta,generador_sintetico,sintetico
+"Se deslavo un poco de tierra por el puente, nada grave pero por si quieren revisar, les agradezco cualquier apoyo",deslave,baja,generador_sintetico,sintetico
+"Una familia quedó incomunicada en Lomas del Sol por el agua, están bien pero no pueden salir, manden a alguien porfa",persona_en_riesgo,media,generador_sintetico,sintetico
+"Mi vecino de Cocolapan no puede salir, esta solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+el agua de la lluvia se acumuló tantito en la banqueta de insurgentes,inundacion,baja,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle 5 de Mayo atrás de la secundaria,caida_poste_cable,media,generador_sintetico,sintetico
+"Se está deslavando el cerro arriba de las casas en Lomas del Sol y la gente sigue adentro, manden a alguien porfa",deslave,alta,generador_sintetico,sintetico
+"¿A dónde puedo llevar a mi familia? Se nos metió el agua en Los Pinos, es en serio",otro,media,generador_sintetico,sintetico
+Se colapsó el techo de una casa en Colinas deSanta Fe y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+"Fueo en un lote baldío en la calle Madero, no hay viviendas cerca",incendio,media,generador_sintetico,sintetico
+Se quema el pastizal en la esquina de la farmacia y el fuego va hacia las casas,incendio,alta,generador_sintetico,sintetico
+"Hay una grieta grande en el muro de una casa en El Tejar, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+"hay un incendio en un pastizal en las afueras de villa rica, lejos de las casas",incendio,media,generador_sintetico,sintetico
+hay un incendio en un negocio de el coyol y hay gente en el edificio de arriba,incendio,alta,generador_sintetico,sintetico
+"Quería agradecer a los rescatistas que vinieron a La Pochota, no sé a quién más avisar",otro,baja,generador_sintetico,sintetico
+"se desprendió un pedazo de aplanado en la esquina de la  farmacia, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"¿A dónde puedo llevar a mi familia? Se nos metió el agua en Cocolapan, ya nadie sabe qué hacer",otro,media,generador_sintetico,sintetico
+Hay mucha basura acumulada atras de la secundarria por la lluvia de ayer,otro,baja,generador_sintetico,sintetico
+"Hay una  grieta grande en el muro de una casa en Lomas del Sol, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+Hay mucha basura acumulada junto a la primaria por la lluvia de ayer,otro,baja,generador_sintetico,sintetico
+"Hay cables colgando muy bajo en la calle Allende por el uente, les agradezco cualquier apoyo",caida_poste_cable,media,generador_sintetico,sintetico
+Una barda se está cayendo por el puente justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+El agua ya se metió a la casa en Río Medio y estamos con niños en el segundo piso,inundacion,alta,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de El Palmar, vengan rápido",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un deslave tapó el camino a El Tejar, no hay paso pero nadie quedó atrapado, no sé a quién más avisar",deslave,media,generador_sintetico,sintetico
+"Se inundó la calle Hidalgo en Miradores del Mar, ya no pasan los carros, por favor manden ayuda",inundacion,media,generador_sintetico,sintetico
+"Se cayó un poste de luz en El Palmar, en un terreno baldío, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+"se deslavo un poco de tierra atras de la secundaria, nada grave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+"Se está inceendiando una casa en Río Medio y dicen que hay alguien adentro, manden a alguien porfa",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en Playa Linda, quedamos varios sin nada, no sé a quién más avisar",otro,media,generador_sintetico,sintetico
+Se esta inundando la calle Independencia frente al mercado y hay una señora que no puede salir,inundacion,alta,generador_sintetico,sintetico
+Se está incendiando una casa en Las Flores y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+Ya bajó el agua en La Pochota pero quedó mucho lodo en la calle 5 de Mayo,inundacion,baja,generador_sintetico,sintetico
+"un niño fue arrastrado por la corriente frente a la gasolinera, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+"un poste quedó chueco después del norte e la palma, se ve que se va a caer, ojalá puedan venir pronto",caida_poste_cable,media,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en Las Flores, pero esta a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en La Loma, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Una señora se cayó cerca del parque y no se puede levanntar, está herida, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+El agua ya se metio a la casa en Rio Medio y estamos con niños en el segundo piso,inundacion,alta,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en La Pochota, somos cuatro y no podemos bajar, no se a quien mas avisar",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se está  incendiando una casa en Miradores del Mar y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+"quedaron unas piedras en el camino de cocolapan despues de la lluvia, es en serio",deslave,baja,generador_sintetico,sintetico
+se quema el pstizal cerca de la iglesia y el fuego vva hacia las casas,incendio,alta,generador_sintetico,sintetico
+"Se fue la luz en toda la colonia El Manantial desde hace horas, por favor manden ayuda",otro,media,generador_sintetico,sintetico
+"Solo aviso qu huele a quemado por El Tejar, noo veo llamas",incendio,baja,generador_sintetico,sintetico
+Solo quiero saber a que hora reabren las oficinas de proteccion civil,otro,baja,generador_sintetico,sintetico
+"Está bajando lodo y piedras hacia las viviendas de El Zapote, hay familias ahí, ya nadie sabe qué hacer",deslave,alta,generador_sintetico,sintetico
+¿Dónde reporto un bache que salió en la calle Zaragoza?,otro,baja,generador_sintetico,sintetico
+Quedaron unas piedras en el camino de La Loma después de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Hay un encharcamiento enorme atrás de la secundaria, el agua entró a los locales",inundacion,media,generador_sintetico,sintetico
+¿Van a abrir algún albergue por la zona de Xalapa?,otro,media,generador_sintetico,sintetico
+Se colapsó el techo de una casa en San Rafael y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+"hay un incendio en un pastizal en las afueras de cocolpan, lejos de las casas",incendio,media,generador_sintetico,sintetico
+Se está deslavando el cerro arriba de las casas en El Palmar y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"mi vecino de el coyol no puede salir, esta solo y es de la tercera edad, les agradezco cualquier apoyo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se colapso el techo de una casa en La Palma y creemos que hay alguien debajo, ojala puedan venir pronto",dano_estructural,alta,generador_sintetico,sintetico
+"Hay una persona atrapada en el techo de una casa en El Zapote, el agua sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle 16 de Septiembre, alguien lo va a tocar",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se está incendiando una casa en El Coyol, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente cerca del parque, ayuda por favor, ojala puedan venir pronto",persona_en_riesgo,alta,generador_sintetico,sintetico
+Hay mucha basura acumulada por el puente por la lluvia de aayer,otro,baja,generador_sintetico,sintetico
+"Se quema el pastizal frente al mercado y el fuego va hacia las casas, es en serio",incendio,alta,generador_sintetico,sintetico
+"hay una grieta grande en el muro de una casa en los pinos, se está abriendo más, manden a alguien porfa",dano_estructural,media,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Xalapa, hay tierra en toda la vía",deslave,media,generador_sintetico,sintetico
+"Se cayó una barda por el aire en la calle Juárez, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+"Hay un incendio en un pastizal en las afueras de El Manantial, lejos de las casas",incendio,media,generador_sintetico,sintetico
+"Se está incendiando una casa en Lomas del Sol, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"Un carro se prendió en fuego en la calle Xalapa en la esquina de la farmacia, hay tanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en Villa Rica, somos cuatro y no podemos bajar, ojalá puedan venir pronto",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en Río Medio, se ve que se va a caer, es en serio",caida_poste_cable,media,generador_sintetico,sintetico
+"Se cayo una barda por el aire en la cale Morelos, bloquea el paso",dano_estructural,media,generador_sintetico,sintetico
+hubo un conato de incendio a un lado dell oxxo pero los vecinos ya lo apagaron,incendio,baja,generador_sintetico,sintetico
+"Se está deslavando el cerro arriba de las casas en Buenavisa y la gente sigue adentro, ojalá puedan venir pronto",deslave,alta,generador_sintetico,sintetico
+En La Pochota el agua nos llega al pecho y hay gente adulta mayor adentro,inundacion,alta,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en Lomas del Sol, pero estáá a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente a un lado del OXXO, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+¿Van a  abrir algun albergue por la zona de Reforma?,otro,media,generador_sintetico,sintetico
+"Hay un herido junto a la primaria, se le cayo una barda encima, por favor manden ayuda",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay un cable haciendo chispas frente a la gasolinera, la gente pasa junto, es en serio",caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay un encharcamiento enorme frente a la gasolinera, el agua entró a los locales",inundacion,media,generador_sintetico,sintetico
+"Un carro se prendio en fuego en la ccalle Morelos cerca de la iglesia, hay tanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+"La corriente en la ccalle Madero esta muy fuerte y arrastra cosas, hay personas cruzando",inundacion,alta,generador_sintetico,sintetico
+"Se está quemando basura acumulada atrás de la secundaria, sale bastante humo",incendio,media,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en La Palma, somos cuatro y no podemmos bajar, no sé a quién más avisar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"solo aviso que huele a quemado por las flores, no veo llamas",incendio,baja,generador_sintetico,sintetico
+Un transformador explotó en Las Brisas y los cables quedaron en la calle donde pasan carros,caida_poste_cable,alta,generador_sintetico,sintetico
+Quería agradecer a los rescatistas que vinieron a Las Brisas,otro,baja,generador_sintetico,sintetico
+"Mi vecino de La Palma no puede salir, está solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está incendiandoo una casa en Lomas del Sol, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+ya bajó el agua en las brisas pero quedó mucho lodo en la calle madero,inundacion,baja,generador_sintetico,sintetico
+"Hay cables colgando muy bajo en la calle Hidalgo por el uente, no sé a quién más avisar",caida_poste_cable,media,generador_sintetico,sintetico
+"se cayó un poste e luz en los pinos, en un terreno baldío, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+"Hay una grieta grande en el muro de una casa en El Coyol, se esta abriendo mas",dano_estructural,media,generador_sintetico,sintetico
+Hay un incendio en un negocio de Las Brisas y hay gente en el edificio de arriba,incendio,alta,generador_sintetico,sintetico
+"Hay una grieta grande en el muro de una casa en Buenavista, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por Colinas de Santa Fe, no veo llamas, manden a alguien porfa",incendio,baja,generador_sintetico,sintetico
+"El agua ya se metió a la casa en Las Brisas y estamos con niños en el segundo piso, por favor manden ayuda",inundacion,alta,generador_sintetico,sintetico
+"Ya bajó el agua en Miradores del Mar pero quedó mucho lodo en la calle Independencia, mandenn a alguien porfa",inundacion,baja,generador_sintetico,sintetico
+Cayo un derrumbe en la esquina de la farmacia y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+"Una barda se está cayendo cerca del parque justo donde pasan los niños de la escuela, por favor manden ayuda",dano_estructural,alta,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente atrás de la secundaria, ayuda por favor, no sé a quién más avisar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hubo un conato de incendio atras de la secundaria pero los vecinos ya lo apagaron, es en serio",incendio,baja,generador_sintetico,sintetico
+Se fue la luz en toda la colonia Las Brisas desde hace horas,otro,media,generador_sintetico,sintetico
+"hay un herido cerca del parque, se le cayo una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El agua de la lluvia se acumulo tantito en la banqueta de Insurgentes, les agradezco cualquier apoo",inundacion,baja,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en Buenavista, pero está a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"Una familia quedo incomunicada en Buenavista por el agua, estan bien pero no pueden salir, manden a alguien porfa",persona_en_riesgo,media,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por Colinas de Santa Fe, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"Se inundó la calle Juárez en El Coyol, ya no pasan los carros",inundacion,media,generador_sintetico,sintetico
+"estamos en la azotea de una vivienda en san rafael, somos cuatro y no podemos bajar, ees en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+Una barda se esta cayendo cerca de la iglesia justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+"hay una grieta grande en el muro de una casa en colinas de santa fe, se esta abriendo mas",dano_estructural,media,generador_sintetico,sintetico
+El muro de una vivienda en Playa Linda se boto y hay personas adentro,dano_estructural,alta,generador_sintetico,sintetico
+"Una familia quedó incomunicada en La Pochota por el agua, están bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"Una familia quedó incomunicada en Lomas del Sol por el agua, están bien pero no pueden salir, ojalá puedan venir pronto",persona_en_riesgo,media,generador_sintetico,sintetico
+en colinas de santa fe el agua nos llega al pecho y hay gente adulta mayor adentro,inundacion,alta,generador_sintetico,sintetico
+"¿Dónde reporto un bache que salió en la calle Hidalgo?, urge apoyo",otro,baja,generador_sintetico,sintetico
+"Hay gente atrapada dentro de un carro en la calle 16 de Septiembre, el agua los tapó",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en La Pochota, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay una persona atrapada en el techo de una casa en La Pochota, el agua sigue subiendo, ya nadie sabe qué hacer",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Una familia quedó incomunicada en Lomas del Sol por el agua, están bien pero no puedn salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"hay un herido atrás de la secundaria, se le cayó una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+¿A dónde puedo llevar a mi familia? Se nos metió el agua en La Pochota,otro,media,generador_sintetico,sintetico
+El muro de una vivienda en Cocolapan se botó y hay personas adentro,dano_estructural,alta,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Zaragoza, hay tierra en toda la vía, manden a alguien porfa",deslave,media,generador_sintetico,sintetico
+"Hay una grieta grande en el muro de una casa en El Manantial, se esta abriendo mas, ojala puedan venir pronto",dano_estructural,media,generador_sintetico,sintetico
+En La Palma el agua nos llega al pecho y hay gente adulta mayor adentro,inundacion,alta,generador_sintetico,sintetico
+"solo aviso que huele a quemado por san rafael, no veo llamas, les agradezco cualquier apoyo",incendio,baja,generador_sintetico,sintetico
+"Hay ente atrapada dentro de un carro en la calle Hidalgo, el agua los tapó",persona_en_riesgo,alta,generador_sintetico,sintetico
+se quema el pastizal frente al mercado y el fuego va hacia las casas,incendio,alta,generador_sintetico,sintetico
+"una familia quedó incomunicada en colinas de santa fe por el agua, están bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"Hay un encharcamiento enorme atrás de la secundaria, el agua entró a los locales, ya nadie sabe qué hacer",inundacion,media,generador_sintetico,sintetico
+"Hay una persona atrapada en el techo  de una casa en Lomas del Sol, el agua sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en El Tejar, pero esta a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+"Hay gente atrapada dentro de un carro en la calle Zaragoza, el agua los tapo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"¿Van a abrir algún albergue por la ona de Hidalgo?, urge apoyo",otro,media,generador_sintetico,sintetico
+Se fue la luz en toda la colonia El Coyol desde hace horas,otro,media,generador_sintetico,sintetico
+"Un transformador explotó en Miradores del Mar y los cables quedaron en la calle donde pasan carros, por avor manden ayuda",caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay un incendio en un pastizal en las afueras de Cocolapan, lejos de las casas",incendio,media,generador_sintetico,sintetico
+"Se fue la luz en toda la colonia La Loma desde hace horas, manden a alguien porfa",otro,media,generador_sintetico,sintetico
+"Un deslave tapó el camino a Río Medio, no hay paso pero nadie quedó atrapado, ojalá puedan venir pronto",deslave,media,generador_sintetico,sintetico
+Cayó un derrumbe en la esquina de la farmacia y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en La Palma, somos cuatro y no podemos bajar, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Salió una grieta chica en la barda del patio en Las Flores, quería reportarla",dano_estructural,baja,generador_sintetico,sintetico
+Quedaron unas piedras en el camino de San Rafael después de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Cayó material del cerro en Lomas del Sol, bloqueó media calle",deslave,media,generador_sintetico,sintetico
+"Salió una grieta chica en la barda del patio en La Pochota, quería reportarla",dano_estructural,baja,generador_sintetico,sintetico
+"Se esta deslavando el cerro arriba de las casas en Las Flores y la gente sigue adentro, es en serio",deslave,alta,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en La Palma, se ve que se va a caer, ya nadie sabe qué hacer",caida_poste_cable,media,generador_sintetico,sintetico
+"Una señora se cayó frente a la gasolinera yy no se puede levantar, está herida",persona_en_riesgo,alta,generador_sintetico,sintetico
+"salió una grieta chica en la barda del patio en lomas del sol, quería reportarla, es en serio",dano_estructural,baja,generador_sintetico,sintetico
+"Hay mucha basura acumulada cerca de la iglesia por la lluvia de ayer, urge apoyo",otro,baja,generador_sintetico,sintetico
+"Se está incendiando una casa en La Palma, hay mucho humo y vecinos cerca, es en serio",incendio,alta,generador_sintetico,sintetico
+En Lomas del Sol el agua nos llega al pecho y hay gente adulta mayor adentro,inundacion,alta,generador_sintetico,sintetico
+"Hay una persona atrapada en el techo de una casa en La Palma, el agua sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Ya bajó el agua en Las Flores pero quedó  mucho lodo en la calle Madero, por favor manden ayuda",inundacion,baja,generador_sintetico,sintetico
+"Salió una grieta chica en la barda del patioo en Lomas del Sol, quería reportarla",dano_estructural,baja,generador_sintetico,sintetico
+¿A dónde puedo llevar a mi familia? e nos metió el agua en Las Flores,otro,media,generador_sintetico,sintetico
+Hay un incendio en un negocio de Villa Rica y hay gente en el edificio de arriba,incendio,alta,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente cerca del parque, ayuda por favor, no sé a quién más avisar",persona_en_riesgo,alta,generador_sintetico,sintetico
+En El Manantial el agua nos llega al pecho y hay gente adulta mayor adentro,inundacion,alta,generador_sintetico,sintetico
+"Cayó un derrumbe frente a la gaolinera y hay un carro con personas debajo, les agradezco cualquier apoyo",deslave,alta,generador_sintetico,sintetico
+"Se derrumbó el talud de la calle Juárez, hay tierra en toda la vía, urge apoyo",deslave,media,generador_sintetico,sintetico
+"un poste quedó chueco después del norte en las brisas, se ve que se va a caer, urge apoyo",caida_poste_cable,media,generador_sintetico,sintetico
+"Cayó un derrumbe atrás de la secundaria y hay un carro con personas debajo, les agradezco cualquier apoyo",deslave,alta,generador_sintetico,sintetico
+"La corriente en la calle Juarez esta muy fuerte y arrastra cosas, hay personas cruzando",inundacion,alta,generador_sintetico,sintetico
+Cayó un derrumbe por el puente y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+Solo quiero avisar que cercaa del parque sigue encharcado desde ayer,inundacion,baja,generador_sintetico,sintetico
+"Una barda se está cayendo frente a la gasolinera justo donde pasan los niños de la escuela, no sé a quién más avisar",dano_estructural,alta,generador_sintetico,sintetico
+"Se colapsó el techo de una casa en Miradores del ar y creemos que hay alguien debajo, es en serio",dano_estructural,alta,generador_sintetico,sintetico
+"Cayó material del cerro en Los Pinos, bloqueó media calle",deslave,media,generador_sintetico,sintetico
+"Cable de luz caído y energizado en la calle Xalapa, alguien lo va a tocar, por favor manden ayuda",caida_poste_cable,alta,generador_sintetico,sintetico
+"un poste quedo chueco despues del norte en el zapote, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Un carro se prendió en fuego en la calle Zaragoza por el puuente, hay tanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+quería agradecer a los rescatistas que vinieron a buenaviista,otro,baja,generador_sintetico,sintetico
+"¿A donde puedo llevar a mi familia? Se nos metio el agua en La Pochota, les agradezco cualquier apoyo",otro,media,generador_sintetico,sintetico
+Hubo un conato de incendio atras de la secundaria pero los vecinos ya lo apagaron,incendio,baja,generador_sintetico,sintetico
+¿Van a abriralgun albergue por la zona de Morelos?,otro,media,generador_sintetico,sintetico
+¿Van a abrir algún albergue por la zona de Reforma?,otro,media,generador_sintetico,sintetico
+Ya bajo el agua en Miradores del Mar pero quedo mucho lodo en la calle Hidalgo,inundacion,baja,generador_sintetico,sintetico
+"El agua está subiendo en Playa Linda, todavía no entra a las casas pero va rápido",inundacion,media,generador_sintetico,sintetico
+"Hay una persona atrapada en el techo de una casa en Lomas del Sol, el agua sigue subiendo, urge apoyo",persona_en_riesgo,alta,generador_sintetico,sintetico
+Una barda se está cayendo en la esquina de la farmacia justo donde pasan los niñosde la escuela,dano_estructural,alta,generador_sintetico,sintetico
+"Se deslavó un poco de tierra frente al mercado, nadagrave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente cerca del parque, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+Se fue la luz en toda la colonia Buenavista desde hace horas,otro,media,generador_sintetico,sintetico
+"El muro de una vivienda en El Zapote se botó y hay personas adentro, jalá puedan venir pronto",dano_estructural,alta,generador_sintetico,sintetico
+"Hay una persona atrapada en el techo de una casa en Villa Rica, el agua sigue subiendo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Un transformador exploto en El Zapote y los cables quedaron en la calle donde pasan carros, les agradezco cualquier apoyo",caida_poste_cable,alta,generador_sintetico,sintetico
+"se esta incendiando una casa en la loma, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+Cayó un derrumbe atrás de la secundaria y hay un carro con personas debajo,deslave,alta,generador_sintetico,sintetico
+"La corriente en la calle 5 de Mayo esta muy fuerte y arrastra cosas, hay personas cruzando, urge apoyo",inundacion,alta,generador_sintetico,sintetico
+"Se inundo la calle 5 de Mayo en Buenavista, ya no pasan los carros",inundacion,media,generador_sintetico,sintetico
+Se está deslavando el cerro arriba de las casas en El Zapote y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+Se colapso el techo de una casa en El Tejar y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+"Hay un herido cerca de la iglesia, se le cayó una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Estamos en la azotea de una vivienda en Cocolapan, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por El Manantial, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por La Pochota, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"El agua de la lluvia se acumuló tantito en la banqueta de Allende, ya nadie sabe qué hacer",inundacion,baja,generador_sintetico,sintetico
+"Queria agradecer a los rescatistas que vinieron a Lomas del Soll, manden a alguien porfa",otro,baja,generador_sintetico,sintetico
+hay un incendio en un negocio de los pinos y hay gente en el edificio de arriba,incendio,alta,generador_sintetico,sintetico
+"Salió una grieta chica en la barda del patio en Buenavista, quería reportarla",dano_estructural,baja,generador_sintetico,sintetico
+"necesitamos despensas y cobijas en el tejar, quedamos varios sin nada, ure apoyo",otro,media,generador_sintetico,sintetico
+Se fue la luz en toda la colonia La Loma desde hace horas,otro,media,generador_sintetico,sintetico
+El agua de la lluvia se acumulo tantito e la banqueta de Zaragoza,inundacion,baja,generador_sintetico,sintetico
+"Se desbordó el canal de San Rafael y la calle Independencia está bajo el agua, les agradezco cualquier apoyo",inundacion,media,generador_sintetico,sintetico
+"Un transformador explotó en Cocolapan y los cables quedaron en la calle donde pasan carros, ya nadie sabe qué hacer",caida_poste_cable,alta,generador_sintetico,sintetico
+"un carro se prendió en fuego en la calle zaragoza cerca de la iglesia, hay taanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+"Mi abuelita está atrapada en El Tejar, necesita su oxígeno y se fue la luz",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Una familia quedó incomunicada en Los Pinos por el agua, están bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"solo aviso que huele a quemado por las brisas, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en Villa Rica, pero esta a salvo por ahora",persona_en_riesgo,media,generador_sintetico,sintetico
+Un transformador exploto en Rio Medio y los cables quedaron en la calle donde pasan carros,caida_poste_cable,alta,generador_sintetico,sintetico
+"Un carro se prendio en fuego en la calle Allende cerca del parque, hay tanque de gas al lao",incendio,alta,generador_sintetico,sintetico
+Quedaron unas piiedras en el camino de Colinas de Santa Fe despues de la lluvia,deslave,baja,generador_sintetico,sintetico
+"Fuego en un lote baldío en la calle Xalapa, no hay viviendas cerca, ojalá puedan venir pronto",incendio,media,generador_sintetico,sintetico
+"Se cayó una barda por el aire n la calle Juárez, bloquea el paso, ya nadie sabe qué hacer",dano_estructural,media,generador_sintetico,sintetico
+"Cable de luz caido y energizado en la calle Morelos, alguien lo va a tocar, urge apoyo",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se colapsó el techo de una casa en El Zapote y creemos que hay alguien debajo, no sé a quién más avisar",dano_estructural,alta,generador_sintetico,sintetico
+Un transformador explotó en Río Medio y los cables quedaron en la calle donde pasan carros,caida_poste_cable,alta,generador_sintetico,sintetico
+"Hay un cable haciendo chispas por el puente, la gente pasa junto",caida_poste_cable,alta,generador_sintetico,sintetico
+"solo quiero avisar que atrás de la secundaria sigue encharcado desde ayer, es en serio",inundacion,baja,generador_sintetico,sintetico
+"Se desprendio n pedazo de aplanado atras de lla secundaria, cosa menor, urge apoyo",dano_estructural,baja,generador_sintetico,sintetico
+"hay un incendio en un pastizal en las afueras de el coyol, lejos de las casas",incendio,media,generador_sintetico,sintetico
+Se colapsó el techo de una casa en Las Brisas y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+el agua ya se metió a la casa en la palma y estamos con niños en el segundo piso,inundacion,alta,generador_sintetico,sintetico
+"Hay una grieta grande en el muo de una casa en Buenavista, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+"Solo quiero avisar que cerca de la iglesia sigue encharcado desde ayer, ojalá puedan venir pronto",inundacion,baja,generador_sintetico,sintetico
+Solo quiero avisar que en la esquina de la farmacia sigue encharcado desde ayer,inundacion,baja,generador_sintetico,sintetico
+¿a donde puedo llevar a mi familia? se nos metio el agua en la pochota,otro,media,generador_sintetico,sintetico
+Un transfomador exploto en Rio Medio y los cables quedaron en la calle donde pasan carros,caida_poste_cable,alta,generador_sintetico,sintetico
+"¿Dónde reporto un bache que salió en la calle Reforma?, ya nadie sabe qué hacer",otro,baja,generador_sintetico,sintetico
+"Se deslavó un poco de tierra a un lado del OXXO, nada grave pero por si quieren revisar",deslave,baja,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de San Rafael, vengan rápido, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en Colinas de Santa Fe, pero está a salvo por ahora, no sé a quién más avisar",persona_en_riesgo,media,generador_sintetico,sintetico
+Se está deslavando el cerro arrib de las casas en Playa Linda y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+"La corriente en la calle Allende está muy fuerte y arrastra cosas, hay personas cruzando",inundacion,alta,generador_sintetico,sintetico
+Se quema el pastizal en la esquina de la farmaciia y el fuego va hacia las casas,incendio,alta,generador_sintetico,sintetico
+"Un niño fue aarrastrado por la corriente por el puente, ayudapor favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está deslavando el cerro arriba de las casas en Las Flores y la gente sigue adentro, ojalá puedan venir pronto",deslave,alta,generador_sintetico,sintetico
+"Una familia quedó incomunicada en El Palmar por el agua, están bien pero no pueden salir",persona_en_riesgo,media,generador_sintetico,sintetico
+"Hay un herido cerca del parqu, se le cayó una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El poste de Reforma está un poco inclinado, quería reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+El muro de una vivienda en Miradores del Mar se botó y hay personas adentro,dano_estructural,alta,generador_sintetico,sintetico
+"Se quema el pastizal frente al mercado y el fuego va hacia las casas, por favor manden ayuda",incendio,alta,generador_sintetico,sintetico
+"La corriente en la calle Morelos está muy fuerrte y arrastra cosas, hay personas cruzando",inundacion,alta,generador_sintetico,sintetico
+"El agua de la lluvia se acumuló tantito en la banquetade Hidalgo, urge apoyo",inundacion,baja,generador_sintetico,sintetico
+solo quiero avisar que junto a la primaria sigue encharcado desde ayer,inundacion,baja,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente por el puente, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+El agua de la  lluvia se acumuló tantito en la banqueta de Insurgentes,inundacion,baja,generador_sintetico,sintetico
+Se cayó un poste con los cables encima de la banqueta en Reforma y hay niños jugando cerca,caida_poste_cable,alta,generador_sintetico,sintetico
+"mi vecino de el palmar no puede salir, está solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay un cable haciendo chispas en la esquina de la farmacia, la gente pasa junto",caida_poste_cable,alta,generador_sintetico,sintetico
+"Se desprendió un pedazo de aplanado a un lado del OXXO, cosa menor",dano_estructural,baja,generador_sintetico,sintetico
+"Se cayó un poste de luz en El Tejar, en un terreno baldío, no hay nadie cerca",caida_poste_cable,media,generador_sintetico,sintetico
+"¿Dónde reporto un bache que salió en la calle Reforma?, es en serio",otro,baja,generador_sintetico,sintetico
+Se cayó un poste con los cables encima de la banqueta en Morelos y hay niños jugando cerca,caida_poste_cable,alta,generador_sintetico,sintetico
+"Un niño fue arrastrado por la corriente junto a la primaria, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+"El agua de la lluvia se acummuló tantito en la banqueta de Hidalgo, no sé a quién más avisar",inundacion,baja,generador_sintetico,sintetico
+"hay un  herido frente al mercado, se le cayó una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Necesitamos despensas y cobijas en La Pochota, quedamos varios sin nada, ya nadie sabe qué hacer",otro,media,generador_sintetico,sintetico
+"Fuego en un lote baldio en la calle Xalapa, no hay viviendas cerca",incendio,media,generador_sintetico,sintetico
+"UUn poste quedó chueco después del norte en La Palma, se ve que se va a caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Se está deslavando el cerro arriba de las casas en Los Pinos y la gente sigue adentro, manden a alguien porfa",deslave,alta,generador_sintetico,sintetico
+el agua ya se metió a la casa en los pinos y estamos ccon niños en el segundo piso,inundacion,alta,generador_sintetico,sintetico
+"Cayo un derrumbe frente aal mercado y hay un carro con personas debajo, uge apoyo",deslave,alta,generador_sintetico,sintetico
+¿A dónde puedo llevar a mi familia? Se nos metió el agua en El Palmar,otro,media,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto en la esquina de la farmacia, no parece de luuz",caida_poste_cable,baja,generador_sintetico,sintetico
+"Hay una persona en silla de ruedas atrapada por el agua en El Manantial, pero está a salvo por ahora, ya nadie sabe qué hacer",persona_en_riesgo,media,generador_sintetico,sintetico
+"Un nño fue arrastrado por la corriente frente a la gasolinera, ayuda por favor",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está quemando basura acumulada por el puente, sale bastante humo, no sé a quién más avisar",incendio,media,generador_sintetico,sintetico
+el techo de la bodega frente al mercado se dañó con la lluvia y gotea feo,dano_estructural,media,generador_sintetico,sintetico
+"Mi vecino de Lomas del Sol no puede salir, esta solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+"está bajando lodo y piedras hacia las viviendas de buenavista, hay familias ahí",deslave,alta,generador_sintetico,sintetico
+"El poste de Allende está  un poco inclinado, quería reportarlo por si acaso",caida_poste_cable,baja,generador_sintetico,sintetico
+Hay cables colgando muy bajo en la calle Juárez frente al mercado,caida_poste_cable,media,generador_sintetico,sintetico
+"Se desbordó el cana de San Rafael y la calle 5 de Mayo está bajo el agua, ojalá puedan venir pronto",inundacion,media,generador_sintetico,sintetico
+"El agua está subiendo en La Pochota, todavía no entra a las casas pero va rápido, ya nadie sabe qué hacer",inundacion,media,generador_sintetico,sintetico
+"Mi abuelita está atrapada en La Palma, necesita su oxígeno y se fue la luz, les agradezco cualquier apoyo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está incendiando una casa en Las Flores, hay mucho humo y vecinos cerca",incendio,alta,generador_sintetico,sintetico
+"La corrinte en la calle Juarez esta muy fuerte y arrastra cosas, hay personas cruzando, les agradezco cualquier apoyo",inundacion,alta,generador_sintetico,sintetico
+"Un poste quedó chueco después del norte en Los Pinos, se ve que se vaa caer",caida_poste_cable,media,generador_sintetico,sintetico
+"Mi abuelita está atrapada en El Coyol, necesita su oxígeno y se fue la luz",persona_en_riesgo,alta,generador_sintetico,sintetico
+"hay gente atrappada dentro de un carro en la calle zaragoza, el agua los tapó, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se está incendiando una casa en El Manantial y dicen que hay alguien adentro, no sé a quién más avisar",persona_en_riesgo,alta,generador_sintetico,sintetico
+el agua de la lluvia se acumuló tantito en la banqueta de morelos,inundacion,baja,generador_sintetico,sintetico
+"un poste quedo chueco despues del norte en lomas del sol, se ve que se va a caer, ya nadie sabe que hacer",caida_poste_cable,media,generador_sintetico,sintetico
+"Hay un encharcamiento enorme frente a la gasolinera, el agua entro a los locales",inundacion,media,generador_sintetico,sintetico
+"El agua esta subiendo en El Coyol, todavia no entra a las casas pero va rapido",inundacion,media,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de Cocolapan, vengan rápido, les agradezco cualquier apoyo",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Hay un herido atras de la secundaria, se le cayo una barda encima",persona_en_riesgo,alta,generador_sintetico,sintetico
+Hay un incendio en un negocio de El Tejar y hay gente en el eddificio de arriba,incendio,alta,generador_sintetico,sintetico
+"Un carro se prendio en fuego en la calle Insurgentes cerca de la iglesia, hay tanque de gas al lado",incendio,alta,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por San Rafael, no veo llamas",incendio,baja,generador_sintetico,sintetico
+"Mi abuelita está atrapada en Buenavista, necesita su oxígeno y se fue la luz, ya nadie sabe qué hacer",persona_en_riesgo,alta,generador_sintetico,sintetico
+"estamos en la azotea de una vivienda en colinas de santa fe, somos cuatro y no podemos bajar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Solo aviso que huele a quemado por La Pochota, no vo llamas",incendio,baja,generador_sintetico,sintetico
+"Cayo material del cerro en Rio Medio, bloqueo media calle",deslave,media,generador_sintetico,sintetico
+Una barda se está cayendo atrás de la secundaria justo donde pasan los niños de la escuela,dano_estructural,alta,generador_sintetico,sintetico
+¿Van a abrir algún albergue por la zona de Juárez?,otro,media,generador_sintetico,sintetico
+"Hay un encharcamiento enorme a un lado del OXXO, el agua entró a los locales, ya nadie sabe qué hacer",inundacion,media,generador_sintetico,sintetico
+"¿A dónde puedo llevar a mi familia? Se nos metió el agua en La Pochota, urge apoyo",otro,media,generador_sintetico,sintetico
+¿Dónde reporto un bache que salió en la calle Allende?,otro,baja,generador_sintetico,sintetico
+"El muro de una vivienda en Buenavista se boto y hay personas adentro, manden a alguien porfa",dano_estructural,alta,generador_sintetico,sintetico
+Se esta deslavando el cerro arriba de las casas en El Coyol y la gente sigue adentro,deslave,alta,generador_sintetico,sintetico
+Se está incendiando una casa en El Coyol y dicen que hay alguien adentro,persona_en_riesgo,alta,generador_sintetico,sintetico
+"Solo aviso que hay un cable suelto por el puente, no parece de luz",caida_poste_cable,baja,generador_sintetico,sintetico
+"¿Van a abrir algún albergue por la zona de Reforma?, ojalá puedan venir pronto",otro,media,generador_sintetico,sintetico
+se colapsó el techo de una casa en colinas de santa fe y creemos que hay alguien debajo,dano_estructural,alta,generador_sintetico,sintetico
+"Mi abuelita está atrapada en San Rafael, necesita su oxígeno y se fue la luz, es en serio",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Salió una grieta chica en la barda del patio en El Coyol, quería reportarla",dano_estructural,baja,generador_sintetico,sintetico
+"Hay gente atrapada dentro de un carro en la calle Xalapa, el agua los tapó",persona_en_riesgo,alta,generador_sintetico,sintetico
+¿Van aa abrir agún albergue por la zona de Madero?,otro,media,generador_sintetico,sintetico
+Ya bajo el agua en Cocolapan pero quedo mucho lodo en la calle Juarez,inundacion,baja,generador_sintetico,sintetico
+El techo de la bodega junto a la primaria se daño con la lluvia y gotea feo,dano_estructural,media,generador_sintetico,sintetico
+"Mi vecino de La Pochota no puede salir, esta solo y es de la tercera edad",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Se ahoga alguien en el arroyo de El Tejar, vengan rápido, por favor manden ayuda",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Mi abuelita está atrapada en La Palma, necesita su oxígeno y se fue la luz, no sé a quién más avisar",persona_en_riesgo,alta,generador_sintetico,sintetico
+"Está bajando lodo y piedras hacia las viviendas de Playa Linda, hay familias ahí, por favor manden ayuda",deslave,alta,generador_sintetico,sintetico
+"Hay una grieta grande en el muro de una casa en Río Meddio, se está abriendo más",dano_estructural,media,generador_sintetico,sintetico
+"Una familia quedo incomunicada en Villa Rica por el agua, estan bien pero no pueden salir, manden a alguien porfa",persona_en_riesgo,media,generador_sintetico,sintetico

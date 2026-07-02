@@ -1,0 +1,163 @@
+# SIREC — Avance del plan y tareas que te tocan a ti
+
+> Documento de corte. Explica **hasta dónde llegó Claude (la IA)**, **por qué se detuvo justo ahí**,
+> y **qué necesitas hacer tú (el equipo humano)** para poder continuar — con ejemplos y nombres de archivo concretos.
+>
+> Fecha de corte: **2026-07-02**.
+
+---
+
+## 1. Hasta aquí llegó la IA (todo esto ya está hecho y verificado)
+
+| Fase del plan | Qué se construyó | Estado | Dónde está |
+|---|---|---|---|
+| **A1** | Microservicio de clasificación (Python/FastAPI), modo simulado por palabras clave | ✅ pytest 6/6 | `microservicio-ml/` |
+| **B1–B5** | Backend .NET 8: base de datos, endpoint público con respaldo si falla el clasificador, panel, login JWT, CORS | ✅ checkpoints OK | `backend-api/` |
+| **C1–C2** | Frontend React: formulario público + panel del operador (priorizado por urgencia) | ✅ flujo e2e OK | `frontend/` |
+| **D1** | Guía de etiquetado (7 categorías, criterio de urgencia, casos frontera) | ✅ redactada | `datos-modelo/guia_etiquetado.md` |
+| **D2** | Herramienta de etiquetado local (individual + doble) | ✅ probada | `datos-modelo/herramienta_etiquetado.py` |
+| **D3.1** | Corpus **sintético** (900 reportes generados, declarados como sintéticos) | ✅ generado | `datos-modelo/corpus_sintetico.csv` |
+
+**En pocas palabras:** el sistema de software completo funciona de punta a punta en local (formulario → clasificación → panel), y la parte "sintética" de los datos está lista.
+
+---
+
+## 2. Dónde y por qué me detuve (esto NO lo puede hacer la IA)
+
+Me detuve justo antes de las fases **D3.2, D3.3 y D3.4** (datos reales + kappa) y, por lo tanto, antes de **D4–D6** (baseline, BETO, evaluación).
+
+**El motivo no es técnico, es de honestidad académica.** Tu profesor (Efrén Juárez) puso tres exigencias que, si las hace una IA, **invalidan la titulación**:
+
+1. **La guía la debe aprobar un humano.** Si yo apruebo lo que yo mismo escribí, no hubo revisión independiente.
+2. **El conjunto de prueba debe ser 100% real.** Si yo "invento" reportes reales, eso es *fabricar datos* — las métricas saldrían falsas y es causal de reprobación por deshonestidad.
+3. **El kappa de Cohen debe medir el acuerdo entre DOS personas reales.** Si una IA etiqueta dos veces, el número es una mentira. El plan lo dice literal: *"una IA etiquetando no cuenta como acuerdo entre anotadores"*.
+
+Por eso el software (que sí es mi trabajo) está terminado, pero la **evidencia de validez** (datos reales + acuerdo humano) tiene que producirla el equipo. Es el único núcleo humano de todo el proyecto.
+
+---
+
+## 3. Lo que necesito que hagas tú — explicado paso a paso
+
+Son **tres tareas**. Ninguna requiere programar. Abajo te digo exactamente en qué archivo y con qué formato.
+
+---
+
+### TAREA 1 — Leer y aprobar la guía de etiquetado
+
+**Archivo a leer:** `datos-modelo/guia_etiquetado.md`
+
+**Qué hacer:** léela (son ~10 min) y decide si el criterio te convence. Fíjate sobre todo en:
+- Las **7 definiciones de categoría** (sección 2). ¿Están bien para reportes de tu municipio?
+- La **regla de desempate**: si hay una persona en peligro *además* de otra cosa (ej. "se incendia la casa y hay alguien adentro"), lo clasifico como `persona_en_riesgo`, no `incendio`. ¿De acuerdo?
+- El **criterio de urgencia** (sección 3) y su principio: ante duda entre `alta` y `media`, si hay personas expuestas → `alta`.
+- Los **7 casos de frontera** (sección 4). Aquí es donde más fácil pueden discrepar.
+
+**Cómo entregarlo:** al final de `guia_etiquetado.md` agrega unas líneas como estas (ejemplo):
+
+```markdown
+## 6. Aprobación del equipo
+- Revisada y aprobada por: Alexis Herrera, María López — 2026-07-05.
+- Ajustes pedidos: ninguno.  (o: "cambiamos el caso frontera 3 a urgencia alta")
+```
+
+> Si quieres cambios en vez de aprobar, dímelo y yo edito la guía; tú solo firmas la versión final.
+
+---
+
+### TAREA 2 — Conseguir ~300–400 reportes REALES y etiquetarlos
+
+Esta es la tarea grande, pero es de "copiar, limpiar y clasificar", no de programar.
+
+#### 2a. Recolectar el texto real
+
+**Archivo a llenar:** `datos-modelo/reportes_sin_etiquetar.csv`
+
+De dónde sacar reportes reales (fuentes que el plan permite):
+- Publicaciones públicas de redes sociales durante contingencias pasadas (inundaciones, nortes, deslaves en Veracruz).
+- Notas de prensa que citen reportes ciudadanos.
+- Transcripciones de reportes o llamadas (si tienen acceso).
+
+**Formato del archivo** (una fila por reporte; solo importa la columna `texto`):
+
+```csv
+texto,origen
+"Se metió el agua a mi casa en la colonia Las Brisas, ya nos llega a la rodilla",real
+"Hay un poste caído con cables sobre la avenida, cuidado",real
+"¿Dónde puedo llevar a mi familia? Perdimos todo con la inundación",real
+```
+
+#### 2b. Anonimizar (MUY importante)
+
+Antes de guardar, **quita datos personales** del texto real:
+- Nombres propios de personas → cámbialos o bórralos.
+- Teléfonos, direcciones exactas con número, placas, etc. → quítalos o generalízalos (deja solo la colonia).
+
+Ejemplo:
+- ❌ Original: *"Habla Juan Pérez del 229-123-4567, mi casa en Av. Hidalgo #45 se inundó"*
+- ✅ Anonimizado: *"Mi casa en la avenida Hidalgo se inundó"*
+
+#### 2c. Etiquetar con la herramienta
+
+En una terminal:
+
+```powershell
+cd datos-modelo
+py herramienta_etiquetado.py --entrada reportes_sin_etiquetar.csv --origen real
+```
+
+Abre **http://localhost:8080**, escribe tu nombre y clasifica cada reporte:
+- Teclas **1–7** = categoría · teclas **A / M / B** = urgencia · **Enter** = guardar y siguiente.
+
+El resultado se guarda solo en `datos-modelo/corpus_etiquetado.csv`. **Este será el conjunto de prueba del modelo.**
+
+---
+
+### TAREA 3 — Doble etiquetado (para el kappa de Cohen)
+
+**Objetivo:** demostrar que las etiquetas son objetivas, midiendo cuánto coinciden **dos personas distintas** etiquetando lo mismo por separado.
+
+**Qué hacer:**
+1. Tomen un subconjunto de ~150–200 de los reportes reales (puede ser un CSV aparte, ej. `reportes_muestra_kappa.csv`, o los mismos 150 primeros).
+2. **Dos personas del equipo** los etiquetan **por separado, sin verse**, cada una con un nombre distinto:
+
+```powershell
+# Persona 1
+py herramienta_etiquetado.py --entrada reportes_muestra_kappa.csv --origen real
+# (en el navegador escribe: ana)
+
+# Persona 2 (después, en otra sesión o computadora)
+py herramienta_etiquetado.py --entrada reportes_muestra_kappa.csv --origen real
+# (en el navegador escribe: luis)
+```
+
+La herramienta guarda las dos respuestas por separado (columna `etiquetador`), y con eso yo calculo el kappa automáticamente después.
+
+> ⚠️ Esto **tiene** que hacerlo dos personas reales. Es el único punto donde no hay atajo: es exactamente lo que el profesor quiere ver.
+
+---
+
+## 4. Qué haré yo mientras tanto (en paralelo, no te detiene)
+
+Mientras el equipo hace lo anterior, yo puedo ir dejando listo (avísame para arrancar):
+
+- **Red-team de la guía**: buscarle huecos y dejarte una lista de puntos a decidir, para que revisar sea más rápido.
+- **Ayuda para conseguir fuentes reales**: buscar enlaces/candidatos reales de contingencias en Veracruz para que solo copien y anonimicen.
+- **Escribir y probar los scripts** que faltan, listos para ejecutar en cuanto tengan los datos:
+  - `calcular_kappa.py` (kappa de Cohen + interpretación)
+  - `reporte_corpus.md` (trazabilidad: % real / % sintético + distribución por clase)
+  - `entrenar_baseline.py` (TF-IDF + regresión logística/SVM, métricas por clase)
+  - `entrenar_beto.py` + `entrenar_beto_colab.ipynb` (fine-tuning de BETO)
+  - `comparacion_modelos.md` (baseline vs BETO)
+
+---
+
+## 5. Resumen en una frase
+
+**El software está terminado; falta la evidencia humana.** Necesito de ti: (1) aprobar la guía, (2) juntar y etiquetar ~300–400 reportes reales, (3) que dos personas etiqueten ~150–200 para el kappa. En cuanto tenga `corpus_etiquetado.csv` con datos reales, ejecuto el entrenamiento y la evaluación, y cerramos el modelo.
+
+**Checklist rápido para ti:**
+- [ ] Leí y aprobé (o pedí cambios en) `datos-modelo/guia_etiquetado.md`
+- [ ] Llené `datos-modelo/reportes_sin_etiquetar.csv` con ~300–400 reportes reales anonimizados
+- [ ] Etiqueté esos reportes con la herramienta (`corpus_etiquetado.csv` generado)
+- [ ] Dos personas hicieron el doble etiquetado de ~150–200 reportes
+- [ ] Le aviso a Claude para continuar con D4–D6
