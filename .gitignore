@@ -21,8 +21,15 @@ dist/
 Thumbs.db
 .DS_Store
 
-# Videos (grabaciones/demos — no se versionan por tamaño)
-videos/
+# Videos y audio (no se versionan por tamaño; sí se versionan sus transcripciones .md y los scripts)
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.webm
+*.mp3
+*.wav
+*.m4a
 
 # Nota: appsettings.Development.json SÍ se versiona (repo privado, credenciales
 # solo de desarrollo). Las credenciales de PRODUCCIÓN nunca van al repositorio.
