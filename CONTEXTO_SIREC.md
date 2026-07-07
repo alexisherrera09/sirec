@@ -61,6 +61,11 @@ Existen antecedentes latinoamericanos, y el proyecto se posiciona frente a ellos
 
 ## 6. Retroalimentación oficial del profesor (Efrén Juárez) — REQUISITOS DE CALIFICACIÓN
 
+> **Fuente (texto original):** carpeta `entregas/`. Cada entrega del equipo se guarda como
+> `<Nombre de la entrega>.pdf` y los comentarios del profesor sobre esa misma entrega van en un
+> archivo con el mismo nombre + " comentarios.txt" (ej.: `entregas/Entrega 1.pdf` → los comentarios
+> del profesor están en `entregas/Entrega 1 comentarios.txt`). Los puntos de abajo resumen esos comentarios.
+
 La propuesta fue evaluada positivamente ("muy sólida", "viable y bien encaminada", "puede ser un trabajo de titulación aplicado con bastante fuerza"). El profesor exigió cuidar estos puntos, que son **obligatorios para la calificación final**:
 
 1. **Precisar el conjunto de categorías** → resuelto: 7 categorías fijas, documentarlas tal cual en la memoria.
@@ -102,5 +107,5 @@ La propuesta fue evaluada positivamente ("muy sólida", "viable y bien encaminad
 | `PLAN_SIREC_ClaudeCode_total.md` | Plan de implementación completo para Claude Code (Sonnet) en VS Code: contrato de datos, componentes A-D, fases y checkpoints, requisitos del evaluador integrados |
 | `PLAN_SIREC_AWS_Despliegue.md` | Despliegue en producción: frontend en S3 (+CloudFront), backend/microservicio/BD en EC2, seguridad y verificación final. Solo tras validar local |
 | `PLAN_SIREC_tareas_humanas.md` | Tareas no delegables del equipo y su momento exacto (6 momentos cronológicos) |
-| `formulario_SIREC.docx` | Propuesta oficial entregada y aprobada (referencia) |
+| `entregas/` | Propuesta oficial entregada y aprobada + comentarios del profesor. Convención: `<Nombre>.pdf` = entrega hecha en grupo; `<Nombre> comentarios.txt` = comentarios del profesor sobre esa entrega (ej.: `Entrega 1.pdf` + `Entrega 1 comentarios.txt`) |
 | Este documento | Contexto maestro: qué, por qué, decisiones, requisitos y límites |

@@ -1,0 +1,6 @@
+Estimados alumnos, he revisado su propuesta SIREC y me parece muy sólida. El problema del triaje manual de reportes ciudadanos durante emergencias está bien explicado, y la propuesta de clasificar, priorizar y enrutar reportes con NLP tiene un valor aplicado evidente. También es positivo que hayan revisado antecedentes latinoamericanos y que no presenten la idea como si no existiera nada parecido, sino como una integración con características propias.
+
+La propuesta es viable y está bien encaminada, aunque deben cuidar algunos detalles. Sería importante precisar el conjunto de categorías, el origen de los reportes, el procedimiento de etiquetado y el criterio de urgencia. También conviene definir un baseline claro, por ejemplo clasificación manual o un modelo clásico TF-IDF con regresión logística, para comparar la mejora. En evaluación, deben incluir métricas por clase, especialmente porque en emergencias los falsos negativos pueden ser más graves que otros errores.
+
+Van muy bien. Si sostienen este nivel de precisión en el desarrollo y la validación, puede ser un trabajo de titulación aplicado con bastante fuerza. Saludos cordiales,
+Efrén Juárez

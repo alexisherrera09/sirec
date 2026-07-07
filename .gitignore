@@ -21,5 +21,8 @@ dist/
 Thumbs.db
 .DS_Store
 
+# Videos (grabaciones/demos — no se versionan por tamaño)
+videos/
+
 # Nota: appsettings.Development.json SÍ se versiona (repo privado, credenciales
 # solo de desarrollo). Las credenciales de PRODUCCIÓN nunca van al repositorio.
