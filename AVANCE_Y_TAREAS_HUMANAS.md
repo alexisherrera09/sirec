@@ -3,7 +3,7 @@
 > Documento de corte. Explica **hasta dónde llegó Claude (la IA)**, **por qué se detuvo justo ahí**,
 > y **qué necesitas hacer tú (el equipo humano)** para poder continuar — con ejemplos y nombres de archivo concretos.
 >
-> Fecha de corte: **2026-07-02**.
+> Fecha de corte: **2026-07-02**. · Repartición de tareas por persona añadida: **2026-07-07**.
 
 ---
 
@@ -39,6 +39,21 @@ Por eso el software (que sí es mi trabajo) está terminado, pero la **evidencia
 ## 3. Lo que necesito que hagas tú — explicado paso a paso
 
 Son **tres tareas**. Ninguna requiere programar. Abajo te digo exactamente en qué archivo y con qué formato.
+
+### Repartición del trabajo (2026-07-07)
+
+El trabajo manual lo hace el equipo (**Ricardo** y **Nahum**), con instructivos individuales ya preparados:
+
+| Persona | Qué hace | Archivo que llena | Nombre en la herramienta | Instructivo |
+|---|---|---|---|---|
+| **Ricardo** | Junta y clasifica ~200 reportes reales | `datos-modelo/reportes_ricardo.csv` | `ricardo` | `datos-modelo/INSTRUCCIONES_RICARDO.md` |
+| **Nahum** | Junta y clasifica ~200 reportes reales (fuentes/eventos distintos a los de Ricardo) | `datos-modelo/reportes_nahum.csv` | `nahum` | `datos-modelo/INSTRUCCIONES_NAHUM.md` |
+| **Ambos** | Doble etiquetado de `reportes_kappa.csv` (~180) para el kappa | `datos-modelo/reportes_kappa.csv` | cada uno el suyo | (Alexis lo prepara y avisa) |
+
+- Los dos archivos juntos (~400 reportes) forman el **conjunto de prueba** real.
+- Molde de estilo para copiar/anonimizar y practicar la clasificación: `datos-modelo/EJEMPLOS_reportes.csv` (21 ejemplos ya anonimizados con su categoría/urgencia correcta).
+- La **aprobación académica de la guía (Tarea 1) la firma Alexis**; Ricardo y Nahum solo la leen para clasificar bien.
+- El **archivo del kappa** (`reportes_kappa.csv`, ~180 tomados de los dos archivos) lo arma Alexis cuando ambos terminen, y entonces los dos lo etiquetan por separado.
 
 ---
 
@@ -155,9 +170,21 @@ Mientras el equipo hace lo anterior, yo puedo ir dejando listo (avísame para ar
 
 **El software está terminado; falta la evidencia humana.** Necesito de ti: (1) aprobar la guía, (2) juntar y etiquetar ~300–400 reportes reales, (3) que dos personas etiqueten ~150–200 para el kappa. En cuanto tenga `corpus_etiquetado.csv` con datos reales, ejecuto el entrenamiento y la evaluación, y cerramos el modelo.
 
-**Checklist rápido para ti:**
+**Checklist rápido (por persona):**
+
+_Alexis:_
 - [ ] Leí y aprobé (o pedí cambios en) `datos-modelo/guia_etiquetado.md`
-- [ ] Llené `datos-modelo/reportes_sin_etiquetar.csv` con ~300–400 reportes reales anonimizados
-- [ ] Etiqueté esos reportes con la herramienta (`corpus_etiquetado.csv` generado)
-- [ ] Dos personas hicieron el doble etiquetado de ~150–200 reportes
+- [ ] Armé `reportes_kappa.csv` (~180) cuando Ricardo y Nahum terminaron
 - [ ] Le aviso a Claude para continuar con D4–D6
+
+_Ricardo:_
+- [ ] Leí la guía `datos-modelo/guia_etiquetado.md`
+- [ ] Llené `datos-modelo/reportes_ricardo.csv` con ~200 reportes reales anonimizados
+- [ ] Los clasifiqué con la herramienta (nombre `ricardo`)
+- [ ] Clasifiqué `reportes_kappa.csv` (cuando Alexis avisó)
+
+_Nahum:_
+- [ ] Leí la guía `datos-modelo/guia_etiquetado.md`
+- [ ] Llené `datos-modelo/reportes_nahum.csv` con ~200 reportes reales anonimizados
+- [ ] Los clasifiqué con la herramienta (nombre `nahum`)
+- [ ] Clasifiqué `reportes_kappa.csv` (cuando Alexis avisó)
