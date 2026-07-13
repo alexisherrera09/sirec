@@ -92,8 +92,8 @@ y hallazgos concretos, no como definiciones de libro.
 | 3.2 Definir | ✅ Redactada |
 | 3.3 Antecedentes (teórico + previos) | ✅ Redactada |
 | 3.4 Idear | ✅ Redactada |
-| 3.5 Prototipar | ✅ Redactada (falta insertar capturas si se desea) |
-| 3.6 Selección de prototipo | ✅ Redactada (⚠ ajustar criterio MELDS) |
+| 3.5 Prototipar | ✅ Redactada (capturas opcionales, ver pendientes) |
+| 3.6 Selección de prototipo | ✅ Redactada (criterio MELDS ya corregido) |
 | Referencias (APA) | ✅ Incluidas |
 
 Formato verificado: 102 párrafos, 7 tablas, encabezados jerárquicos (Heading 1/2/3).
@@ -102,26 +102,23 @@ Formato verificado: 102 párrafos, 7 tablas, encabezados jerárquicos (Heading 1
 
 ## 6. Pendientes antes de entregar (lo que le toca al equipo)
 
-1. **Plantilla oficial de UNIR (obligatorio).** El profesor exige entregar en **su plantilla**, limpia y
-   sin instrucciones de relleno. Este `.docx` es autónomo: hay que **pasar el contenido a la plantilla**.
-   → *Si consiguen la plantilla, se puede volcar el contenido automáticamente.*
+> **La lista viva de pendientes está en `Entrega 2 - PENDIENTES.md`** (mismo directorio).
+> Ese documento es la fuente de verdad; aquí solo queda el resumen para no desincronizar.
 
-2. **Empatizar — "llegar al usuario final".** El profesor fue muy insistente en esto. Lo redactado es
-   honesto (análisis de proceso + reportes reales). Para **blindarlo**, conviene una **breve entrevista o
-   encuesta a un operador real de protección civil** y añadir el instrumento en **Anexos**. Si se hace,
-   completar en 3.1 la muestra (nº de personas, rol) y los hallazgos.
+Estado tras la revisión tema por tema:
 
-3. **MELDS.** El profesor pidió "investíguenlo". Se usó como criterio en Idear/Selección, pero hay que
-   **confirmar su definición oficial** en el material de la asignatura y ajustar esa redacción.
+- ⏳ **Empatizar (3.1) — usuario real.** Decidir si se consigue entrevista/encuesta a un operador real y,
+  si se hace, completar muestra y hallazgos en 3.1 + instrumento en Anexos.
+- ⏳ **Plantilla oficial de UNIR (obligatorio).** Conseguirla y volcar el contenido del `.docx` a ella.
+- ⏳ **Capturas del prototipo (3.5) — opcional.** No es requisito (el profesor confirmó en el transcript que
+  el prototipo funcional se muestra en la defensa, no en esta entrega); solo blindan la entrega.
 
-4. **Capturas del prototipo (opcional pero recomendable).** En 3.5 se pueden insertar capturas reales del
-   formulario y del panel (ya construidos) como evidencia, o wireframes en Anexos.
+Ya resueltos en esta revisión:
 
-5. **Fundamento teórico — respaldo de lectura.** Las referencias añadidas son reales; conviene que el
-   equipo las revise y cite solo lo que efectivamente sustente y pueda defender.
-
-6. **Revisión de estilo y extensión.** Leer de corrido, ajustar tono y verificar que no queden marcas
-   [NOTA PARA EL EQUIPO] en la versión final que se entrega.
+- ✅ **MELDS** investigado y corregido (marco de Daugherty & Wilson, 2018; se ajustó 3.4 y 3.6 y se añadió la referencia).
+- ✅ **Referencia Imran et al. (2015)** verificada (DOI 10.1145/2771588; abierto en arXiv 1407.7071) y leída por el equipo.
+- ✅ **Notas `[NOTA PARA EL EQUIPO]`** eliminadas del `.docx` (versión limpia).
+- ✅ **Declaración de uso de IA:** no se pide en esta entrega (queda para la memoria final).
 
 ---
 
@@ -142,6 +139,7 @@ Formato verificado: 102 párrafos, 7 tablas, encabezados jerárquicos (Heading 1
 ## 8. Archivos relacionados
 
 - `Entrega 2 - SIREC (Desarrollo conceptual Design Thinking).docx` — el documento a entregar.
+- `Entrega 2 - PENDIENTES.md` — lista viva de pendientes del equipo (fuente de verdad).
 - `Entrega 1.pdf` + `Entrega 1 comentarios.txt` — propuesta previa y retroalimentación del profesor.
 - `../Imagenes/Design Thinking/` — presentación fuente (23 slides).
 - `../videos/1 Design thinking.md` — transcript de la sesión.
