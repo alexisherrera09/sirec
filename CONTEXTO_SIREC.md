@@ -45,7 +45,7 @@ SIREC convierte esa bandeja caótica en una **lista de prioridades en segundos**
 | Frontend | **React** separado (Vite), consume la API .NET. Dos vistas: formulario público (sin registro) y panel del operador (con login) |
 | Base de datos | **PostgreSQL** (en local vía Docker; en producción instalada en la instancia) |
 | Despliegue local | Todo por `localhost` y puertos directos (8000 Python, 5000 .NET, 5173 React, 5432 BD). Sin Nginx ni HTTPS en local |
-| Despliegue producción | **Frontend en S3** (sitio estático, CloudFront recomendado para HTTPS). **Backend + microservicio + PostgreSQL en UNA instancia EC2** (t3.small/medium), servicios bajo **systemd**, **Nginx** como proxy inverso solo para la API, HTTPS con Certbot. **Sin Docker en producción** |
+| Despliegue producción | **Solo EC2 + Route 53** (decidido 2026-07-13; ya se tiene dominio en Route 53). **Todo en UNA instancia EC2** (t3.small/medium): frontend React estático **servido por Nginx**, backend .NET + microservicio Python + PostgreSQL bajo **systemd** (solo localhost). Nginx sirve el frontend en `/` y hace proxy de `/api` al backend; HTTPS con Certbot. Route 53 solo aporta el DNS (registro A → IP Elástica). **Sin S3, sin CloudFront, sin Docker en producción.** Ventaja: mismo origen → sin CORS ni contenido mixto |
 | Entrenamiento | Entornos gratuitos (Google Colab si no hay GPU local) |
 | Canales de entrada | Solo el formulario web en este proyecto; la arquitectura desacoplada deja WhatsApp/Telegram/redes como trabajo futuro |
 | Orden de trabajo | Local primero (checkpoints por fase) → modelo real integrado → solo entonces AWS |

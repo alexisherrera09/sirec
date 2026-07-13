@@ -3,22 +3,35 @@
 > Documento de especificación para Claude Code.
 > Se ejecuta SOLO DESPUÉS de que el sistema completo funcione en local
 > (ver PLAN_SIREC_ClaudeCode_total.md, CHECKPOINT C2 y CHECKPOINT A2 superados).
+>
+> **Topología acordada (2026-07-13): SOLO EC2 + Route 53.** Todo (frontend, backend,
+> microservicio, base de datos, HTTPS) vive en UNA instancia EC2; Route 53 solo aporta el DNS.
+> **No se usa S3 ni CloudFront.** El equipo ya tiene un dominio en Route 53.
+>
+> ⚠️ **[PENDIENTE / recordatorio para Claude Code]** El dominio real aún no está definido en este
+> documento; en todo el plan aparece como marcador `sirec.midominio.com`. **Al iniciar el despliegue,
+> lo PRIMERO es preguntarle a Alexis cuál es el dominio/subdominio exacto** y sustituirlo en el registro
+> A de Route 53, en la configuración de Nginx, en el comando de Certbot y en `VITE_API_URL` del frontend.
 
 ---
 
 ## 0. Arquitectura de despliegue
 
-A diferencia de local (donde todo corre junto en la misma máquina), en AWS el sistema se reparte en dos lugares:
+Todo el sistema corre en **una sola instancia EC2** (igual que en local, pero con Nginx y HTTPS
+al frente). El frontend se sirve como archivos estáticos desde el mismo Nginx que hace de proxy de la API.
 
-| Componente | Dónde vive en AWS | Por qué |
+| Componente | Dónde vive en AWS | Notas |
 |---|---|---|
-| **Frontend React** | **S3** (sitio web estático) | Es solo HTML/JS/CSS compilado; no necesita servidor, es más barato y simple en S3 |
-| **Backend .NET 8** | **EC2** (bajo systemd) | Necesita ejecutar un proceso continuo |
-| **Microservicio Python (BETO)** | **EC2** (misma instancia, bajo systemd) | Necesita ejecutar el modelo en memoria |
-| **PostgreSQL** | **EC2** (misma instancia) | Base de datos, vive junto al backend |
-| **Nginx** | **EC2** (misma instancia) | Proxy inverso solo para el backend y el microservicio; el frontend NO pasa por aquí |
+| **Frontend React** (build estático) | **EC2** — servido por **Nginx** en `/` | Archivos de `dist/`; no necesita servidor propio |
+| **Backend .NET 8** | **EC2** (systemd, `localhost:5000`) | Proceso continuo |
+| **Microservicio Python (BETO)** | **EC2** (systemd, `localhost:8000`) | Modelo en memoria |
+| **PostgreSQL** | **EC2** (`localhost:5432`) | Base de datos |
+| **Nginx** | **EC2** | Sirve el frontend **y** hace proxy de `/api` al backend; único proceso expuesto (80/443) |
+| **DNS** | **Route 53** | Registro A del dominio → **IP Elástica** de la instancia |
 
-**Regla clave:** el frontend en S3 le habla a la API directamente por internet (HTTPS), no a través de Nginx ni de la instancia EC2. Nginx en EC2 solo enruta tráfico hacia el backend .NET y, si hace falta exponerlo, hacia el microservicio Python.
+**Ventaja de esta topología:** frontend y API quedan en el **mismo dominio y mismo origen**, así que
+**no hay problema de CORS ni de contenido mixto** (ambos por HTTPS, mismo host). El microservicio Python,
+el backend .NET y PostgreSQL solo escuchan en `localhost` y jamás se exponen a internet.
 
 ---
 
@@ -27,137 +40,136 @@ A diferencia de local (donde todo corre junto en la misma máquina), en AWS el s
 ```
 Ciudadano / Operador (navegador)
         │
-        ├──► S3 (sitio estático: HTML/JS/CSS del frontend React)
-        │         │
-        │         └──► el JS del navegador llama directo a:
-        │
-        └──► https://api.dominio.com  (Nginx en EC2, HTTPS)
+        └──► https://sirec.midominio.com   (Route 53 → IP Elástica → Nginx en EC2, HTTPS)
                   │
-                  ├──► Backend .NET 8 (Kestrel, puerto local 5000, vía systemd)
-                  │         │
-                  │         └──► PostgreSQL (en la misma EC2, solo localhost:5432)
-                  │         │
-                  │         └──► Microservicio Python (localhost:8000, vía systemd)
-                  │                    │
-                  │                    └──► Modelo BETO cargado en memoria
+                  ├──► /            → Nginx sirve el frontend React estático (/var/www/sirec-frontend)
+                  │
+                  └──► /api/*       → proxy a Backend .NET 8 (Kestrel, localhost:5000, systemd)
+                                          │
+                                          ├──► PostgreSQL (localhost:5432)
+                                          │
+                                          └──► Microservicio Python (localhost:8000, systemd)
+                                                     │
+                                                     └──► Modelo BETO cargado en memoria
 ```
 
 ---
 
-## 2. Parte 1 — Instancia EC2 (backend + microservicio + base de datos)
+## 2. Recursos de AWS (los crea el equipo en la consola / Route 53)
 
-### 2.1 Elección de instancia
-- Mínimo recomendado: **t3.small** (2 GB RAM) o **t3.medium** (4 GB RAM) si hay créditos educativos (AWS Academy/Educate).
-- Motivo: BETO cargado en memoria consume ~1.5-2 GB; sumado a PostgreSQL y el backend .NET, una t3.micro (1 GB) se queda corta.
-- Sistema operativo: Ubuntu Server 24.04 LTS.
-- Configurar **AWS Budgets con alerta a $5 USD** antes de continuar, como medida de seguridad de gasto.
+Esta es la parte que Claude Code **no** puede hacer desde la instancia; el equipo la prepara antes:
 
-### 2.2 Security Group (firewall de la instancia)
+### 2.1 Instancia EC2
+- Tipo: **t3.small** (2 GB) o **t3.medium** (4 GB) si hay créditos educativos. BETO en memoria consume
+  ~1.5–2 GB; con PostgreSQL y .NET, una t3.micro (1 GB) se queda corta.
+- SO: **Ubuntu Server 24.04 LTS**.
+- **IP Elástica** asociada a la instancia (para que la IP no cambie al apagar/encender).
+- **AWS Budgets con alerta a $5 USD** configurado **antes** de crear recursos.
+
+### 2.2 Security Group (firewall de la instancia) — CRÍTICO
 | Puerto | Origen permitido | Uso |
 |---|---|---|
-| 22 (SSH) | Solo IPs del equipo | Administración |
-| 80 (HTTP) | 0.0.0.0/0 | Redirección a HTTPS |
-| 443 (HTTPS) | 0.0.0.0/0 | Tráfico de la API hacia el frontend en S3 |
-| 5432 (PostgreSQL) | **Ningún origen externo** | Solo localhost, nunca exponer |
-| 8000 (Python) | **Ningún origen externo** | Solo localhost, nunca exponer |
-| 5000 (.NET) | **Ningún origen externo** | Solo localhost; Nginx es el único que lo toca |
+| 22 (SSH) | **Solo la IP del equipo** | Administración |
+| 80 (HTTP) | 0.0.0.0/0 | Redirección a HTTPS + reto de Certbot |
+| 443 (HTTPS) | 0.0.0.0/0 | Todo el tráfico público (frontend + API) |
+| 5432 (PostgreSQL) | **Ninguno** | Solo localhost, nunca exponer |
+| 8000 (Python) | **Ninguno** | Solo localhost, nunca exponer |
+| 5000 (.NET) | **Ninguno** | Solo localhost; Nginx es el único que lo toca |
 
-### 2.3 Instalación base en la instancia
-Pasos en orden, cada uno con su verificación:
+### 2.3 Route 53 (DNS)
+- Crear un **registro A** para el dominio/subdominio elegido (ej. `sirec.midominio.com`) → **IP Elástica** de la instancia.
+- Este registro debe existir y propagarse **antes** de que Claude Code corra Certbot (el certificado
+  se valida contra el dominio y necesita el puerto 80 abierto).
 
-1. **Actualizar el sistema:** `sudo apt update && sudo apt upgrade -y`
-2. **Instalar .NET 8 runtime:** seguir el repositorio oficial de Microsoft para Ubuntu 24.04.
-   - Verificar: `dotnet --version` debe mostrar 8.x
-3. **Instalar Python 3.11+ y pip:** `sudo apt install python3 python3-pip python3-venv -y`
-   - Verificar: `python3 --version`
-4. **Instalar PostgreSQL 16:** `sudo apt install postgresql postgresql-contrib -y`
-   - Verificar: `sudo systemctl status postgresql` (debe estar `active`)
-5. **Instalar Nginx:** `sudo apt install nginx -y`
-   - Verificar: `sudo systemctl status nginx` (debe estar `active`)
-6. **Instalar Certbot (para HTTPS):** `sudo apt install certbot python3-certbot-nginx -y`
-
-### 2.4 Base de datos PostgreSQL
-- Crear base de datos y usuario dedicado para SIREC (no usar el superusuario `postgres` desde la app).
-- Configurar PostgreSQL para escuchar **solo en localhost** (`listen_addresses = 'localhost'` en `postgresql.conf`).
-- Migrar el esquema con Entity Framework Core (`dotnet ef database update`) usando la cadena de conexión de producción.
-
-**CHECKPOINT 2.4:** `psql -U sirec_user -d sirec -h localhost` conecta correctamente y la tabla `reportes` existe.
-
-### 2.5 Backend .NET como servicio systemd
-- Publicar el backend en modo release: `dotnet publish -c Release -o /var/www/sirec-api`
-- Crear archivo de servicio systemd (`/etc/systemd/system/sirec-api.service`) que ejecute `dotnet /var/www/sirec-api/SIREC.Api.dll`, escuchando en `http://localhost:5000`.
-- Variables de entorno de producción (cadena de conexión a PostgreSQL, URL del microservicio Python, secreto JWT) en el archivo de servicio o en un `.env` protegido, **nunca en el código fuente**.
-- Habilitar e iniciar: `sudo systemctl enable sirec-api && sudo systemctl start sirec-api`
-
-**CHECKPOINT 2.5:** `curl http://localhost:5000/api/reportes` (con token válido) responde correctamente desde dentro de la instancia.
-
-### 2.6 Microservicio Python como servicio systemd
-- Entorno virtual de Python con las dependencias instaladas (`requirements.txt`).
-- El modelo BETO entrenado (Componente D, Fase D5) copiado a la instancia.
-- Ejecutar con Gunicorn + Uvicorn workers (más robusto que `uvicorn --reload` de desarrollo).
-- Crear archivo de servicio systemd (`/etc/systemd/system/sirec-ml.service`) escuchando en `http://localhost:8000`.
-- Habilitar e iniciar: `sudo systemctl enable sirec-ml && sudo systemctl start sirec-ml`
-
-**CHECKPOINT 2.6:** `curl http://localhost:8000/salud` desde dentro de la instancia responde `{"estado":"ok","modo":"modelo"}`.
-
-### 2.7 Nginx como proxy inverso + HTTPS
-- Configurar un dominio o subdominio apuntando a la IP pública/elástica de la instancia (ej. `api.sirec.ejemplo.com`), o usar un servicio gratuito como DuckDNS si no hay dominio propio.
-- Nginx enruta `https://api.sirec.ejemplo.com/*` hacia `http://localhost:5000` (el backend .NET). El microservicio Python (puerto 8000) NO se expone a internet; solo el backend .NET le habla por localhost.
-- Generar certificado HTTPS con Certbot: `sudo certbot --nginx -d api.sirec.ejemplo.com`
-- Configurar CORS en el backend .NET para aceptar el origen del frontend en S3 (la URL pública del bucket o del dominio asociado).
-
-**CHECKPOINT 2.7:** desde fuera de la instancia (tu laptop), `curl https://api.sirec.ejemplo.com/api/reportes` responde con HTTPS válido (sin advertencia de certificado) y sin poder acceder directamente a los puertos 5432, 8000 ni 5000.
+**CHECKPOINT 2:** `dig +short sirec.midominio.com` (o `nslookup`) devuelve la IP Elástica de la instancia.
 
 ---
 
-## 3. Parte 2 — Frontend en S3 (sitio estático)
+## 3. Configuración de la instancia (la hace Claude Code por SSH)
 
-### 3.1 Antes de subir: apuntar el frontend a producción
-- En el proyecto React, la URL base de la API debe ser configurable (variable de entorno de build, ej. `VITE_API_URL`), no estar fija en `localhost:5000`.
-- Generar el build de producción apuntando a la URL real de la API: `VITE_API_URL=https://api.sirec.ejemplo.com npm run build`
-- Esto genera una carpeta `dist/` con HTML/CSS/JS estáticos.
+### 3.1 Instalación base
+Pasos en orden, cada uno con su verificación:
 
-### 3.2 Crear y configurar el bucket S3
-- Crear un bucket S3 (nombre único, ej. `sirec-frontend`).
-- Habilitar **"Static website hosting"** en las propiedades del bucket.
-- Documento de índice: `index.html`. Documento de error: `index.html` también (necesario porque React maneja sus propias rutas internas; sin esto, refrescar una página interna del panel daría error 404).
-- Política de bucket que permita lectura pública de los objetos (`s3:GetObject`) — el frontend es público por naturaleza, no contiene secretos.
+1. **Actualizar el sistema:** `sudo apt update && sudo apt upgrade -y`
+2. **Instalar .NET 8 runtime** (repositorio oficial de Microsoft para Ubuntu 24.04).
+   - Verificar: `dotnet --version` → 8.x
+3. **Instalar Python 3.11+ y venv:** `sudo apt install python3 python3-pip python3-venv -y`
+4. **Instalar PostgreSQL 16:** `sudo apt install postgresql postgresql-contrib -y`
+   - Verificar: `sudo systemctl status postgresql` (`active`)
+5. **Instalar Nginx:** `sudo apt install nginx -y`
+6. **Instalar Certbot:** `sudo apt install certbot python3-certbot-nginx -y`
+7. **(Opcional) Firewall del SO** `ufw`: permitir 22/80/443, denegar el resto (defensa en profundidad
+   además del Security Group).
 
-### 3.3 Subir el build
-- Subir el contenido de `dist/` a la raíz del bucket (vía consola, AWS CLI `aws s3 sync dist/ s3://sirec-frontend --delete`, o como prefiera Claude Code automatizarlo).
+### 3.2 Base de datos PostgreSQL
+- Crear base de datos y **usuario dedicado** para SIREC (no usar el superusuario `postgres` desde la app).
+- PostgreSQL escuchando **solo en localhost** (`listen_addresses = 'localhost'`).
+- Migrar el esquema con EF Core (`dotnet ef database update`) usando la cadena de conexión de producción.
 
-**CHECKPOINT 3.3:** la URL del sitio web de S3 (formato `http://sirec-frontend.s3-website-<region>.amazonaws.com`) carga el formulario público de SIREC.
+**CHECKPOINT 3.2:** `psql -U sirec_user -d sirec -h localhost` conecta y la tabla `reportes` existe.
 
-### 3.4 (Opcional, recomendado) CloudFront delante de S3
-- Para tener HTTPS en el frontend (S3 website hosting solo da HTTP) y mejor rendimiento, colocar **CloudFront** delante del bucket S3.
-- CloudFront da automáticamente HTTPS con un dominio `*.cloudfront.net`, o un dominio propio con certificado de ACM.
-- Si se omite este paso, el frontend quedaría en HTTP mientras la API está en HTTPS, lo cual los navegadores modernos pueden bloquear (contenido mixto). **Por eso se recomienda no omitir este paso** si el tiempo lo permite; si se omite, hay que verificar que no haya bloqueo de contenido mixto antes de la demo.
+### 3.3 Backend .NET como servicio systemd
+- Publicar en release: `dotnet publish -c Release -o /var/www/sirec-api`
+- Servicio systemd (`/etc/systemd/system/sirec-api.service`) que ejecute la DLL escuchando en `http://localhost:5000`.
+- Variables de entorno de producción (cadena de conexión, URL del microservicio, secreto JWT) en el
+  archivo de servicio o un `.env` protegido, **nunca en el código fuente**.
+- `sudo systemctl enable sirec-api && sudo systemctl start sirec-api`
 
-**CHECKPOINT 3.4:** la URL de CloudFront (o el dominio propio) carga el sitio por HTTPS y el formulario logra comunicarse con la API sin errores de CORS ni de contenido mixto.
+**CHECKPOINT 3.3:** `curl http://localhost:5000/api/reportes` (con token válido) responde desde la instancia.
+
+### 3.4 Microservicio Python como servicio systemd
+- Entorno virtual con `requirements.txt`; el **modelo BETO** (Fase D5) copiado a la instancia.
+- Ejecutar con **Gunicorn + Uvicorn workers** (no `--reload` de desarrollo).
+- Servicio systemd (`/etc/systemd/system/sirec-ml.service`) escuchando en `http://localhost:8000`.
+- `sudo systemctl enable sirec-ml && sudo systemctl start sirec-ml`
+
+**CHECKPOINT 3.4:** `curl http://localhost:8000/salud` responde `{"estado":"ok","modo":"modelo"}`.
+
+### 3.5 Frontend: build y publicación en la instancia
+- La URL base de la API en el frontend debe ser configurable (`VITE_API_URL`). Como frontend y API
+  comparten dominio, se usa una **ruta relativa**: `VITE_API_URL=/api`.
+- Generar el build de producción: `VITE_API_URL=/api npm run build` → genera `dist/`.
+- Copiar el contenido de `dist/` a `/var/www/sirec-frontend`.
+
+### 3.6 Nginx: sirve el frontend + proxy de la API + HTTPS
+- Un solo `server` block para el dominio (`sirec.midominio.com`):
+  - `location / { root /var/www/sirec-frontend; try_files $uri /index.html; }`
+    (el `try_files … /index.html` es el **fallback SPA**: refrescar una ruta interna del panel no da 404).
+  - `location /api/ { proxy_pass http://localhost:5000; }` (+ headers `Host`, `X-Forwarded-*`).
+- El microservicio Python (8000) **no** se expone; solo el backend .NET le habla por localhost.
+- Emitir el certificado HTTPS: `sudo certbot --nginx -d sirec.midominio.com`
+- Como es mismo origen, el **CORS del backend se simplifica** (o basta con permitir el propio dominio).
+
+**CHECKPOINT 3.6:** desde fuera de la instancia, `https://sirec.midominio.com` carga el frontend con
+HTTPS válido (sin advertencia de certificado), `https://sirec.midominio.com/api/reportes` responde, y
+**no** se puede acceder directamente a 5432, 8000 ni 5000.
 
 ---
 
 ## 4. Verificación final de extremo a extremo en producción
 
 ```
-1. Abrir la URL pública del frontend (CloudFront o S3).
+1. Abrir https://sirec.midominio.com en el navegador.
 2. Enviar un reporte de prueba desde el formulario público.
-3. Iniciar sesión en el panel del operador (misma URL del frontend).
+3. Iniciar sesión en el panel del operador (misma URL).
 4. Verificar que el reporte aparece clasificado y priorizado.
 5. Cambiar su estado y confirmar que se actualiza.
-6. Verificar en la instancia EC2 (logs de systemd: `journalctl -u sirec-api -f` 
-   y `journalctl -u sirec-ml -f`) que no hay errores durante el flujo.
+6. En la instancia, revisar logs (`journalctl -u sirec-api -f` y `journalctl -u sirec-ml -f`)
+   y confirmar que no hay errores durante el flujo.
 ```
 
-Cuando este checkpoint pasa, SIREC está funcionando de extremo a extremo en producción.
+Cuando este checkpoint pasa, SIREC funciona de extremo a extremo en producción.
 
 ---
 
 ## 5. Consideraciones de costo y apagado
 
-- La instancia EC2 cobra por hora encendida. Si no se necesita disponibilidad 24/7 (por ejemplo, fuera de las sesiones de trabajo o de la defensa), puede **detenerse** (no terminarse) para no generar costo, y encenderse de nuevo cuando se necesite (la IP pública puede cambiar salvo que se use una IP elástica, lo que afectaría temporalmente al dominio si no se actualiza el DNS).
-- S3 y CloudFront tienen costos mínimos y no es necesario apagarlos.
-- Revisar AWS Billing Dashboard periódicamente durante el desarrollo.
+- La instancia EC2 cobra por hora encendida. Fuera de las sesiones de trabajo o de la defensa puede
+  **detenerse** (no terminarse) para no generar costo, y encenderse de nuevo cuando se necesite.
+- Con **IP Elástica** la IP no cambia al apagar/encender, así que el registro de Route 53 sigue válido.
+  (Ojo: una IP Elástica **asignada pero no asociada** a una instancia en marcha puede generar un cargo mínimo.)
+- Route 53 cobra ~$0.50 USD/mes por hosted zone + consultas (mínimo). No requiere apagado.
+- Revisar el AWS Billing Dashboard periódicamente.
 
 ---
 
@@ -166,7 +178,8 @@ Cuando este checkpoint pasa, SIREC está funcionando de extremo a extremo en pro
 - [ ] PostgreSQL no accesible desde internet (solo localhost).
 - [ ] Microservicio Python (puerto 8000) no accesible desde internet.
 - [ ] Backend .NET (puerto 5000) no accesible directamente desde internet (solo vía Nginx).
-- [ ] HTTPS funcionando en la API (certificado válido, no autofirmado).
-- [ ] CORS configurado solo para el dominio real del frontend, no con `*` abierto.
-- [ ] Variables sensibles (cadena de conexión, secreto JWT) fuera del código fuente y fuera del repositorio Git.
-- [ ] Contraseña de PostgreSQL y credenciales del operador no son las de prueba/desarrollo.
+- [ ] Security Group: solo 22 (IP del equipo), 80 y 443 abiertos; nada más.
+- [ ] HTTPS funcionando (certificado válido de Let's Encrypt, no autofirmado).
+- [ ] CORS restringido al propio dominio (o innecesario por ser mismo origen), nunca `*` abierto.
+- [ ] Variables sensibles (cadena de conexión, secreto JWT) fuera del código fuente y del repositorio Git.
+- [ ] Contraseña de PostgreSQL y credenciales del operador distintas a las de prueba/desarrollo.
