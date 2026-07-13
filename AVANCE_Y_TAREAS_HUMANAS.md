@@ -7,6 +7,62 @@
 
 ---
 
+## 🔔 Actualización 2026-07-13 — llegaron los datos reales
+
+Ricardo y Nahum **entregaron sus corpus etiquetados** (200 reportes reales cada uno). Con eso:
+
+- ✅ **D3.2/D3.3 completadas:** 400 reportes reales consolidados en `datos-modelo/corpus_etiquetado.csv`
+  (validados: 7 categorías y 3 urgencias correctas, 0 duplicados entre ambos, 100% `origen=real`).
+  Se corrigió 1 fila de Nahum que traía una nota personal en la columna `origen` → normalizada a `real`.
+- ✅ **Trazabilidad (requisito del evaluador):** `datos-modelo/reporte_corpus.md` (% real 30.8 / % sintético 69.2 +
+  distribución por clase y por anotador). Regenerable con `generar_reporte_corpus.py`.
+- ✅ **Muestra de kappa lista:** `datos-modelo/reportes_kappa.csv` (180 reportes SIN etiqueta, estratificados)
+  para que Ricardo y Nahum la etiqueten por separado (D3.4).
+- ✅ **Scripts listos para ejecutar:** `calcular_kappa.py` (solo stdlib, ya probado), `entrenar_baseline.py`
+  (TF-IDF + LogReg/SVM, métricas por clase + falsos negativos), `entrenar_beto.py` (fine-tuning para Colab),
+  `requirements-modelo.txt`.
+
+**Ojo — desbalance de clases real:** `dano_estructural` solo 11 de 400 (2.8%); `inundacion` 32; `deslave` 34.
+Es la frecuencia natural de los reportes, no un sesgo de etiquetado. Se maneja con class weights y se reporta el recall por clase.
+
+**Gating humano que aún bloquea D5–D6:**
+1. ✅ **Guía aprobada** por Alexis (2026-07-13) — sección 6 de `guia_etiquetado.md`. **Tarea 1 cerrada.**
+2. ⏳ **PENDIENTE — doble etiquetado del kappa (D3.4).** Instrucciones ya preparadas y despachadas:
+   `datos-modelo/INSTRUCCIONES_KAPPA.md` (reenviable a ambos). Cada uno clasifica `reportes_kappa.csv`
+   por separado, sin verse:
+   - **Ricardo** corre `--salida kappa_ricardo.csv` (nombre `ricardo`) → debe regresar `kappa_ricardo.csv`.
+   - **Nahum** corre `--salida kappa_nahum.csv` (nombre `nahum`) → debe regresar `kappa_nahum.csv`.
+   - Cuando lleguen ambos: `py calcular_kappa.py --entrada kappa_ricardo.csv kappa_nahum.csv`.
+   - **Esperando:** los dos archivos `kappa_*.csv` de vuelta. Es el único núcleo humano restante.
+
+**D4 (baseline) NO depende del kappa** y ya se ejecutó en paralelo (guía aprobada):
+- ✅ `entrenar_baseline.py` corrido y **optimizado** sobre los 400 reales (5-fold CV + holdout con sintéticos).
+  Resultados en `datos-modelo/resultados_baseline.md`. Se hizo un barrido sistemático de mejoras (features,
+  clasificadores, hiperparámetros) seleccionando por CV. **Única mejora estructural real: n-gramas de carácter**
+  (leetspeak, stopwords, ensembles, ComplementNB, ajuste de C → descartados por ruido o empeorar).
+- ✅ **Números finales del baseline (piso para BETO):**
+  - Categoría: macro-F1 **0.71** (era 0.65); recall `persona_en_riesgo` **0.63** (FN 40→33).
+  - Urgencia: macro-F1 **0.51** (era 0.46); recall `alta` **0.53** (FN 59→50), y con umbral 0.30 → **0.71** (FN 31).
+  - Palanca del umbral documentada en `optimizar_umbral_alta.py` (compromiso recall↔precisión, criterio del profesor).
+- Dependencias instaladas en el Python global de la máquina: scikit-learn, pandas, numpy.
+
+BETO (D5–D6) se cierra tras el kappa.
+
+### ⏸️ Punto de espera acordado (2026-07-13)
+
+Se decidió **pausar aquí** hasta que Ricardo y Nahum entreguen su doble etiquetado. La IA ya hizo todo
+lo delegable (corpus consolidado, trazabilidad, guía aprobada, muestra de kappa, baseline optimizado).
+**No se avanza a BETO (D5) ni al cuaderno de Colab hasta tener el kappa** — así se evita trabajo sobre
+etiquetas aún sin validar.
+
+**En espera de:** `kappa_ricardo.csv` y `kappa_nahum.csv` (ver `INSTRUCCIONES_KAPPA.md`).
+**Al recibirlos, retomar así:**
+1. `py calcular_kappa.py --entrada kappa_ricardo.csv kappa_nahum.csv` → reportar kappa (categoría y urgencia).
+2. Si el kappa es aceptable (≥0.60 considerable), continuar con BETO (D5) en Colab y evaluación (D6).
+3. Re-reportar las métricas del baseline y BETO sobre el conjunto de prueba ya validado.
+
+---
+
 ## 1. Hasta aquí llegó la IA (todo esto ya está hecho y verificado)
 
 | Fase del plan | Qué se construyó | Estado | Dónde está |

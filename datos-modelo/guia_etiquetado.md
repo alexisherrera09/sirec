@@ -183,3 +183,12 @@ La herramienta de etiquetado (Fase D2) guarda cada reporte con estas columnas:
 - `sintetico`: generado con IA (declarado explícitamente; nunca se usa para el conjunto de prueba).
 
 El **conjunto de prueba se forma exclusivamente con reportes `origen=real`** (regla innegociable).
+
+---
+
+## 6. Aprobación del equipo
+
+- Revisada y **aprobada por: Alexis Herrera — 2026-07-13**.
+- Ajustes pedidos: ninguno.
+- Con esta aprobación queda cerrada la **Tarea 1 (D1)**. Ricardo y Nahum usan esta versión
+  como criterio para el etiquetado y el doble etiquetado del kappa (D3.4).
