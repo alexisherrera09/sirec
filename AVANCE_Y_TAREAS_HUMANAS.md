@@ -7,6 +7,54 @@
 
 ---
 
+## 🔔 Actualización 2026-07-14 (tarde) — BETO entrenado: gana al baseline (D5/D6)
+
+BETO fine-tuned corrió en Colab sobre el split gold. **Resultado contundente: supera al baseline en todo.**
+
+| Tarea | Métrica | Baseline | **BETO** |
+|---|---|---:|---:|
+| Categoría | Macro-F1 | 0.65 | **0.74** |
+| Categoría | Recall `persona_en_riesgo` | 0.58 (FN 19) | **0.87 (FN 6)** |
+| Urgencia | Macro-F1 | 0.45 | **0.55** |
+| Urgencia | Recall `alta` | 0.58 (FN 20) | **0.77 (FN 11)** |
+
+- La mejora clave está en el **recall de las clases críticas** (el criterio del profesor): FN de
+  `persona_en_riesgo` 19→6 y de `alta` 20→11. Confirma la hipótesis: el transformer capta la gravedad
+  semántica que el modelo léxico no ve. Comparación completa en `comparacion_modelos.md`.
+- Modelos exportados en `beto_modelos.zip` (`beto_categoria/`, `beto_urgencia/`).
+- Límites honestos: `dano_estructural` (6) y `urgencia=baja` (14) siguen frágiles por escasez de datos.
+
+**Pendiente:** (1) integrar BETO real al microservicio Python (reemplaza el modo simulado, sin cambiar
+el contrato); (2) escribir la memoria; (3) despliegue AWS. Ya no hay tareas humanas de datos bloqueantes.
+
+---
+
+## 🔔 Actualización 2026-07-14 — kappa cerrado y baseline re-reportado sobre test validado
+
+Ricardo y Nahum entregaron su doble etiquetado (`kappa_ricardo.csv`, `kappa_nahum.csv`, 180 c/u).
+Con eso se cerró el núcleo humano que faltaba (**D3.4**):
+
+- ✅ **Kappa de Cohen calculado** (`calcular_kappa.py`):
+  - **Categoría: κ = 0.70** (considerable) — por encima del umbral.
+  - **Urgencia: κ = 0.31** (aceptable) — por debajo del umbral. Hallazgo honesto: la urgencia es más subjetiva.
+- ✅ **Conciliación por adjudicación** (decisión de Alexis, tercer anotador). Alexis resolvió los
+  **114 desacuerdos** (44 categoría + 70 urgencia) en `adjudicacion_kappa.csv`. Scripts nuevos:
+  `generar_adjudicacion.py` (arma el archivo con celdas en blanco solo en desacuerdos) y
+  `consolidar_adjudicacion.py` (produce el gold, valida que no queden vacías).
+- ✅ **Conjunto GOLD:** `gold_kappa.csv` — 180 reportes con etiqueta de **consenso** (100% real,
+  doblemente validados). Son subconjunto exacto de los 400. Reporte completo en `reporte_kappa.md`.
+- ✅ **Baseline re-reportado sobre el test validado** (decisión: 180 gold = test, 220 reales + sintéticos = train):
+  - Categoría: macro-F1 **0.65** (SVM), recall `persona_en_riesgo` **0.58** (FN 19/45).
+  - Urgencia: macro-F1 **0.45** (LogReg), recall `alta` **0.58** (0.69 con umbral 0.30). `baja` colapsa (recall 0).
+  - Estos son los **números definitivos** (más estrictos que el CV previo). Ver `resultados_baseline.md` §0.
+  - Modo nuevo en los scripts: `--gold-test` (baseline y umbral).
+
+**Gating humano:** ✅ **cerrado por completo.** Guía aprobada, corpus real, kappa reportado + adjudicado.
+Ya no hay tareas humanas bloqueantes. **Siguiente paso: BETO (D5) en Colab** con el split gold, y
+evaluación comparada (D6) contra el piso del baseline.
+
+---
+
 ## 🔔 Actualización 2026-07-13 — llegaron los datos reales
 
 Ricardo y Nahum **entregaron sus corpus etiquetados** (200 reportes reales cada uno). Con eso:
@@ -48,7 +96,7 @@ Es la frecuencia natural de los reportes, no un sesgo de etiquetado. Se maneja c
 
 BETO (D5–D6) se cierra tras el kappa.
 
-### ⏸️ Punto de espera acordado (2026-07-13)
+### ⏸️ Punto de espera acordado (2026-07-13) — ✅ RESUELTO el 2026-07-14 (ver corte superior)
 
 Se decidió **pausar aquí** hasta que Ricardo y Nahum entreguen su doble etiquetado. La IA ya hizo todo
 lo delegable (corpus consolidado, trazabilidad, guía aprobada, muestra de kappa, baseline optimizado).

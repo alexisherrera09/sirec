@@ -15,8 +15,12 @@ Requisitos del evaluador integrados:
 
 Uso (Colab):
     !pip install "transformers>=4.40" "datasets>=2.19" "accelerate>=0.30" scikit-learn pandas
-    !python entrenar_beto.py --tarea categoria --con-sintetico --salida ./beto_categoria
-    !python entrenar_beto.py --tarea urgencia  --con-sintetico --salida ./beto_urgencia
+    !python entrenar_beto.py --tarea categoria --gold-test --con-sintetico --salida ./beto_categoria
+    !python entrenar_beto.py --tarea urgencia  --gold-test --con-sintetico --salida ./beto_urgencia
+
+Recomendado: --gold-test → test = 180 reportes gold adjudicados por consenso (gold_kappa.csv),
+train = 220 reales restantes (+ sintéticos). Es el MISMO split que el baseline (D4), para que la
+comparación baseline vs BETO sea directa. Sin --gold-test usa un holdout 75/25 aleatorio (legado).
 
 Ver también el cuaderno equivalente: entrenar_beto_colab.ipynb (mismo flujo, celda por celda).
 """
@@ -32,6 +36,7 @@ from sklearn.utils.class_weight import compute_class_weight
 from datasets import Dataset
 from transformers import (
     AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer,
+    DataCollatorWithPadding,
 )
 
 MODELO_BASE = "dccuchile/bert-base-spanish-wwm-cased"
@@ -39,11 +44,23 @@ CRITICO = {"categoria": "persona_en_riesgo", "urgencia": "alta"}
 SEED = 42
 
 
-def cargar(base, tarea, con_sintetico):
+def norm(t):
+    return " ".join(str(t or "").lower().split())
+
+
+def cargar(base, tarea, con_sintetico, gold_test=False):
     real = pd.read_csv(os.path.join(base, "corpus_etiquetado.csv"), encoding="utf-8-sig")
     real = real[real["origen"] == "real"].copy()
-    # Test 100% real: separamos ANTES de mezclar sintéticos.
-    tr, te = train_test_split(real, test_size=0.25, stratify=real[tarea], random_state=SEED)
+    if gold_test:
+        # Test = 180 gold adjudicados (consenso). Train = reales restantes, sin fuga.
+        gold = pd.read_csv(os.path.join(base, "gold_kappa.csv"), encoding="utf-8-sig")
+        textos_gold = {norm(t) for t in gold["texto"]}
+        tr = real[~real["texto"].map(norm).isin(textos_gold)].copy()
+        te = gold.copy()
+        print("Split gold: train=%d reales restantes | test=%d gold adjudicados." % (len(tr), len(te)))
+    else:
+        # Legado: test 100% real por holdout aleatorio (separado ANTES de mezclar sintéticos).
+        tr, te = train_test_split(real, test_size=0.25, stratify=real[tarea], random_state=SEED)
     if con_sintetico:
         sint = pd.read_csv(os.path.join(base, "corpus_sintetico.csv"), encoding="utf-8-sig")
         tr = pd.concat([tr, sint], ignore_index=True)
@@ -69,13 +86,15 @@ def main():
     ap = argparse.ArgumentParser(description="Fine-tuning de BETO (SIREC D5).")
     ap.add_argument("--tarea", choices=["categoria", "urgencia"], required=True)
     ap.add_argument("--con-sintetico", action="store_true")
+    ap.add_argument("--gold-test", action="store_true",
+                    help="Test = 180 gold adjudicados (gold_kappa.csv); train = reales restantes. Recomendado.")
     ap.add_argument("--salida", default="./beto_modelo")
     ap.add_argument("--epocas", type=int, default=4)
     ap.add_argument("--batch", type=int, default=16)
     args = ap.parse_args()
 
     base = os.path.dirname(os.path.abspath(__file__))
-    tr, te = cargar(base, args.tarea, args.con_sintetico)
+    tr, te = cargar(base, args.tarea, args.con_sintetico, args.gold_test)
 
     clases = sorted(pd.unique(pd.read_csv(
         os.path.join(base, "corpus_etiquetado.csv"), encoding="utf-8-sig")[args.tarea]))
@@ -119,7 +138,7 @@ def main():
 
     trainer = TrainerPonderado(
         pesos_t, model=modelo, args=ta, train_dataset=ds_tr, eval_dataset=ds_te,
-        tokenizer=tok, compute_metrics=metricas)
+        data_collator=DataCollatorWithPadding(tokenizer=tok), compute_metrics=metricas)
     trainer.train()
 
     # Reporte final por clase sobre el test 100% real.
@@ -127,8 +146,19 @@ def main():
     yhat = np.argmax(pred.predictions, axis=1)
     ynames = [id2lab[i] for i in pred.label_ids]
     phat = [id2lab[i] for i in yhat]
-    print("\n=== BETO — %s — test 100%% real ===" % args.tarea)
+    conjunto = "180 gold adjudicado" if args.gold_test else "holdout 100%% real"
+    print("\n=== BETO — %s — test = %s ===" % (args.tarea, conjunto))
     print(classification_report(ynames, phat, digits=3, zero_division=0))
+    print("Macro-F1: %.3f" % f1_score(ynames, phat, average="macro", zero_division=0))
+    # Clase crítica (mismo formato que el baseline para comparación directa).
+    crit = CRITICO[args.tarea]
+    yt = np.array(ynames); yp = np.array(phat)
+    pos = yt == crit
+    if pos.sum():
+        fn = int(np.sum(pos & (yp != crit)))
+        rec = recall_score(yt, yp, labels=[crit], average="macro", zero_division=0)
+        print(">>> Clase crítica '%s': recall = %.3f | falsos negativos = %d de %d reales"
+              % (crit, rec, fn, int(pos.sum())))
 
     trainer.save_model(args.salida)
     tok.save_pretrained(args.salida)

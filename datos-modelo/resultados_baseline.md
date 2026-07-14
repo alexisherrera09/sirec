@@ -2,7 +2,56 @@
 
 > Modelo de referencia OBLIGATORIO (TF-IDF + clasificador lineal) exigido por el evaluador,
 > para comparar contra BETO (D5). **No se despliega.** Reproducible con `entrenar_baseline.py`.
-> Corpus: 400 reportes reales (`origen=real`). Preliminar: el kappa (D3.4) sigue pendiente.
+> Corpus: 400 reportes reales (`origen=real`). Kappa (D3.4) **cerrado** — ver `reporte_kappa.md`.
+
+## 0. Evaluación DEFINITIVA sobre el conjunto gold (test validado) — protocolo principal
+
+Tras cerrar el kappa, la evaluación de referencia usa el **conjunto de prueba gold** de máxima validez:
+
+- **Test = 180 reportes gold** (`gold_kappa.csv`): doblemente etiquetados por Ricardo y Nahum y
+  **adjudicados por consenso** (tercer anotador). Es lo más cercano a "verdad" que tenemos.
+- **Train = 220 reales restantes + 900 sintéticos** (declarados; los sintéticos solo entrenan).
+- **Sin fuga:** los 180 gold se excluyen del entrenamiento. Reproducible: `entrenar_baseline.py --gold-test --con-sintetico`.
+
+### Categoría (7 clases) — test gold
+
+| Modelo | Accuracy | Macro-F1 | Recall `persona_en_riesgo` (crítica) | Falsos negativos crítica |
+|---|---:|---:|---:|---:|
+| Regresión Logística | 0.656 | 0.635 | 0.511 | 22 / 45 |
+| **SVM lineal** | **0.672** | **0.648** | **0.578** | **19 / 45** |
+
+F1 por clase (SVM): `incendio` 0.87, `deslave` 0.82, `inundacion` 0.79, `caida_poste_cable` 0.74,
+`persona_en_riesgo` 0.59, `otro` 0.48, **`dano_estructural` 0.25** (solo 6 en el gold → clase frágil).
+
+### Urgencia (3 clases) — test gold
+
+| Modelo | Accuracy | Macro-F1 | Recall `alta` (crítica) | Falsos negativos `alta` |
+|---|---:|---:|---:|---:|
+| **Regresión Logística** | 0.661 | **0.445** | 0.583 | 20 / 48 |
+| SVM lineal | 0.622 | 0.417 | 0.583 | 20 / 48 |
+
+`media` es sólida (F1 0.76) pero **`baja` colapsa (recall 0.00, 14 casos)**: el modelo la absorbe en `media`.
+Es honesto reportarlo — con tan pocos ejemplos de `baja` y su cercanía semántica con `media`, el modelo
+léxico no la separa. Es justo el tipo de matiz donde BETO debería mejorar.
+
+### Palanca de recall de `alta` sobre el gold (`optimizar_umbral_alta.py --gold-test`)
+
+| Umbral P(alta) | Recall `alta` | Precisión `alta` | Falsos negativos | Macro-F1 |
+|---|---:|---:|---:|---:|
+| argmax (~0.50) | 0.583 | 0.571 | 20 / 48 | 0.445 |
+| ≥ 0.35 | 0.604 | 0.468 | 19 / 48 | 0.414 |
+| **≥ 0.30 (recomendado)** | **0.688** | 0.465 | **15 / 48** | 0.419 |
+| ≥ 0.20 | 0.875 | 0.408 | 6 / 48 | 0.403 |
+
+**Piso a superar por BETO (sobre el conjunto validado):** categoría macro-F1 ≈ **0.65** (recall
+`persona_en_riesgo` **0.58**); urgencia macro-F1 ≈ **0.45**, recall `alta` **0.58** (0.69 con umbral 0.30).
+
+> Nota de comparabilidad: estos números son **más bajos y más estrictos** que los del §1–§4 (5-fold CV
+> sobre los 400 con etiqueta de un solo anotador), porque aquí (a) el test son etiquetas de consenso
+> más exigentes y (b) los 180 mejores reportes salieron del entrenamiento. No es un retroceso del
+> modelo: es una medición más honesta. **Estos son los números de referencia para la memoria.**
+
+---
 
 ## Configuración final (tras optimización, ver §5)
 
@@ -85,14 +134,17 @@ Se hizo un barrido sistemático seleccionando por macro-F1 en 5-fold CV (nunca s
 
 ## 6. Conclusiones e implicaciones para BETO (D5)
 
-- **Piso a superar por BETO:** categoría macro-F1 ≈ **0.71**, urgencia macro-F1 ≈ **0.51**
-  (recall `alta` ≈ 0.53 en modo normal, 0.71 con umbral).
+- **Piso a superar por BETO (referencia definitiva, test gold, §0):** categoría macro-F1 ≈ **0.65**
+  (recall `persona_en_riesgo` ≈ 0.58); urgencia macro-F1 ≈ **0.45** (recall `alta` ≈ 0.58 en modo
+  normal, 0.69 con umbral 0.30). Los números de §1–§4 (CV, macro-F1 0.71 / 0.51) quedan como
+  contexto metodológico, no como piso.
 - **Objetivo prioritario:** subir el recall de `urgencia=alta` y `persona_en_riesgo` **sin** sacrificar
-  la precisión que hoy exige el umbral. La gravedad es semántica ("no responde", "sigue subiendo"),
-  justo donde un transformer debería ganarle al modelo léxico.
-- **`dano_estructural`** seguirá frágil por escasez de datos reales (11); se reporta con honestidad y se
-  apoya en aumento sintético + class weights.
+  la precisión que hoy exige el umbral, y **recuperar `urgencia=baja`** (hoy recall 0). La gravedad es
+  semántica ("no responde", "sigue subiendo"), justo donde un transformer debería ganarle al modelo léxico.
+- **`dano_estructural`** seguirá frágil por escasez de datos reales (6 en el gold); se reporta con
+  honestidad y se apoya en aumento sintético + class weights.
 - El baseline optimizado deja una comparación cuantitativa clara y un objetivo concreto para la memoria.
 
-> Nota metodológica: números preliminares. Se re-reportan tras cerrar el kappa (D3.4), que valida la
-> calidad de las etiquetas del conjunto de prueba.
+> Nota metodológica: los números de §0 son los **definitivos**, medidos sobre el conjunto de prueba
+> gold validado por doble etiquetado + adjudicación (kappa cerrado, ver `reporte_kappa.md`). Las
+> secciones §1–§4 documentan la exploración previa (5-fold CV sobre etiqueta de un solo anotador).

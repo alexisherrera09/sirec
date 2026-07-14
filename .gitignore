@@ -17,6 +17,16 @@ node_modules/
 dist/
 *.local
 
+# Modelos BETO entrenados: ~440 MB por archivo → GitHub rechaza >100 MB, NO pueden ir al repo.
+# Se generan con datos-modelo/entrenar_beto_colab.ipynb y se despliegan aparte
+# (ver microservicio-ml/DESPLIEGUE_MODELO.md: scp del zip a la EC2 o re-entrenar).
+microservicio-ml/modelos/
+datos-modelo/beto_categoria/
+datos-modelo/beto_urgencia/
+*.zip
+*.safetensors
+pytorch_model.bin
+
 # Sistema
 Thumbs.db
 .DS_Store

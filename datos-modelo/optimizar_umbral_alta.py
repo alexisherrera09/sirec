@@ -8,10 +8,12 @@ recall↔precisión de `alta` al bajar el UMBRAL de decisión, con TF-IDF palabr
 en 5-fold CV sobre el corpus real. Sirve para elegir y justificar el punto de operación.
 
 Uso:
-    py optimizar_umbral_alta.py
+    py optimizar_umbral_alta.py                 # 5-fold CV sobre el corpus real
+    py optimizar_umbral_alta.py --gold-test     # entrena 220 reales + sintéticos; evalúa sobre 180 gold
 
 Solo compara; no guarda modelo. Reproducible (semilla 42).
 """
+import argparse
 import os
 import numpy as np
 import pandas as pd
@@ -24,6 +26,10 @@ from sklearn.metrics import f1_score, recall_score, precision_score
 BASE = os.path.dirname(os.path.abspath(__file__))
 CLASSES = np.array(["alta", "baja", "media"])  # orden fijo
 ALTA = 0
+
+
+def norm(t):
+    return " ".join(str(t or "").lower().split())
 
 
 def vectorizador():
@@ -64,14 +70,50 @@ def fila(y, y_pred, etiqueta):
           % (etiqueta, rec, pre, f1a, fn, int(np.sum(y == "alta")), mf1))
 
 
+def proba_gold(con_sintetico):
+    """Entrena con los 220 reales restantes (+ sintéticos opcionales) y devuelve
+    (y_test_gold, proba_gold) sobre los 180 reportes gold adjudicados."""
+    real = pd.read_csv(os.path.join(BASE, "corpus_etiquetado.csv"), encoding="utf-8-sig")
+    real = real[real["origen"] == "real"]
+    gold = pd.read_csv(os.path.join(BASE, "gold_kappa.csv"), encoding="utf-8-sig")
+    textos_gold = {norm(t) for t in gold["texto"]}
+    train = real[~real["texto"].map(norm).isin(textos_gold)]
+    Xtr = train["texto"].astype(str).values
+    ytr = train["urgencia"].astype(str).values
+    if con_sintetico:
+        sint = pd.read_csv(os.path.join(BASE, "corpus_sintetico.csv"), encoding="utf-8-sig")
+        Xtr = np.concatenate([Xtr, sint["texto"].astype(str).values])
+        ytr = np.concatenate([ytr, sint["urgencia"].astype(str).values])
+    Xte = gold["texto"].astype(str).values
+    yte = gold["urgencia"].astype(str).values
+    pipe = Pipeline([("v", vectorizador()),
+                     ("c", LogisticRegression(max_iter=3000, C=3.0, class_weight="balanced"))])
+    pipe.fit(Xtr, ytr)
+    cols = list(pipe.named_steps["c"].classes_)
+    idx = [cols.index(c) for c in CLASSES]
+    return yte, pipe.predict_proba(Xte)[:, idx], len(Xtr)
+
+
 def main():
-    df = pd.read_csv(os.path.join(BASE, "corpus_etiquetado.csv"), encoding="utf-8-sig")
-    df = df[df["origen"] == "real"]
-    X = df["texto"].astype(str).values
-    y = df["urgencia"].astype(str).values
-    print("Corpus real: %d reportes | 'alta' reales: %d" % (len(y), int(np.sum(y == "alta"))))
-    print("Modelo: TF-IDF palabra+carácter + LogReg(balanced), 5-fold CV\n")
-    proba = oof_proba(X, y)
+    ap = argparse.ArgumentParser(description="Umbral de recall de urgencia=alta (SIREC D4).")
+    ap.add_argument("--gold-test", action="store_true",
+                    help="Entrena 220 reales + sintéticos y evalúa el umbral sobre los 180 gold.")
+    args = ap.parse_args()
+
+    if args.gold_test:
+        y, proba, n_tr = proba_gold(con_sintetico=True)
+        print("Test = 180 gold adjudicado | entrenamiento = %d (220 reales + sintéticos)" % n_tr)
+        print("'alta' en gold: %d | Modelo: TF-IDF palabra+carácter + LogReg(balanced)\n"
+              % int(np.sum(y == "alta")))
+    else:
+        df = pd.read_csv(os.path.join(BASE, "corpus_etiquetado.csv"), encoding="utf-8-sig")
+        df = df[df["origen"] == "real"]
+        X = df["texto"].astype(str).values
+        y = df["urgencia"].astype(str).values
+        print("Corpus real: %d reportes | 'alta' reales: %d" % (len(y), int(np.sum(y == "alta"))))
+        print("Modelo: TF-IDF palabra+carácter + LogReg(balanced), 5-fold CV\n")
+        proba = oof_proba(X, y)
+
     fila(y, CLASSES[np.argmax(proba, axis=1)], "argmax (referencia)")
     for tau in [0.45, 0.40, 0.35, 0.30, 0.25, 0.20]:
         fila(y, pred_umbral(proba, tau), "umbral alta >= %.2f" % tau)

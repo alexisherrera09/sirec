@@ -16,6 +16,8 @@ Uso:
     py entrenar_baseline.py                      # entrena solo con real (test = held-out real)
     py entrenar_baseline.py --con-sintetico      # aumenta el entrenamiento con corpus_sintetico
     py entrenar_baseline.py --cv                 # validación cruzada estratificada 5-fold (real)
+    py entrenar_baseline.py --gold-test          # test = 180 gold adjudicados; train = 220 reales restantes
+    py entrenar_baseline.py --gold-test --con-sintetico   # + sintéticos en entrenamiento
 
 Dependencias: scikit-learn, pandas, numpy  (ver requirements-modelo.txt)
 """
@@ -34,15 +36,31 @@ from sklearn.metrics import classification_report, confusion_matrix, f1_score, r
 BASE = os.path.dirname(os.path.abspath(__file__))
 REAL = os.path.join(BASE, "corpus_etiquetado.csv")
 SINT = os.path.join(BASE, "corpus_sintetico.csv")
+GOLD = os.path.join(BASE, "gold_kappa.csv")
 
 CRITICO = {"categoria": "persona_en_riesgo", "urgencia": "alta"}
 SEED = 42
+
+
+def norm(t):
+    return " ".join(str(t or "").lower().split())
 
 
 def cargar():
     real = pd.read_csv(REAL, encoding="utf-8-sig")
     real = real[real["origen"] == "real"].copy()
     return real
+
+
+def cargar_split_gold():
+    """Test = 180 reportes gold (etiqueta adjudicada por consenso).
+    Train = los reportes reales restantes (corpus real menos los 180 gold), sin fuga."""
+    real = cargar()
+    gold = pd.read_csv(GOLD, encoding="utf-8-sig")
+    textos_gold = {norm(t) for t in gold["texto"]}
+    real_key = real["texto"].map(norm)
+    train_real = real[~real_key.isin(textos_gold)].copy()
+    return train_real, gold
 
 
 def construir_pipeline(clf):
@@ -117,13 +135,53 @@ def correr(df, tarea, con_sintetico, usar_cv):
             print("Macro-F1 test: %.3f" % f1_score(yte, pipe.predict(Xte), average="macro", zero_division=0))
 
 
+def correr_gold(train_real, gold, tarea, con_sintetico):
+    """Entrena con reales restantes (+ sintéticos opcionales) y evalúa contra los 180 gold."""
+    Xte = gold["texto"].astype(str).values
+    yte = gold[tarea].astype(str).values
+    Xtr = train_real["texto"].astype(str).values
+    ytr = train_real[tarea].astype(str).values
+    etiquetas = sorted(pd.unique(np.concatenate([ytr, yte])))
+
+    for nombre, clf in modelos().items():
+        print("\n" + "=" * 66)
+        print("MODELO: %s  |  TAREA: %s  |  test = 180 GOLD adjudicado" % (nombre, tarea))
+        print("=" * 66)
+        Xtr_i, ytr_i = Xtr, ytr
+        if con_sintetico and os.path.exists(SINT):
+            sint = pd.read_csv(SINT, encoding="utf-8-sig")
+            Xtr_i = np.concatenate([Xtr, sint["texto"].astype(str).values])
+            ytr_i = np.concatenate([ytr, sint[tarea].astype(str).values])
+            print("Entrenamiento: %d reales restantes + %d sintéticos (declarado). Test = 180 gold."
+                  % (len(Xtr), len(sint)))
+        else:
+            print("Entrenamiento: %d reales restantes. Test = 180 gold." % len(Xtr))
+        pipe = construir_pipeline(clf)
+        pipe.fit(Xtr_i, ytr_i)
+        y_pred = pipe.predict(Xte)
+        evaluar(tarea, yte, y_pred, etiquetas)
+        print("Macro-F1 test (gold): %.3f" % f1_score(yte, y_pred, average="macro", zero_division=0))
+
+
 def main():
     ap = argparse.ArgumentParser(description="Baseline TF-IDF + lineal (SIREC D4).")
     ap.add_argument("--con-sintetico", action="store_true",
                     help="Aumentar SOLO el entrenamiento con corpus_sintetico.csv (test sigue 100%% real).")
     ap.add_argument("--cv", action="store_true",
                     help="Validación cruzada estratificada 5-fold sobre el corpus real (más estable con pocas muestras).")
+    ap.add_argument("--gold-test", action="store_true",
+                    help="Test = 180 gold adjudicados (gold_kappa.csv); train = reales restantes, sin fuga.")
     args = ap.parse_args()
+
+    if args.gold_test:
+        train_real, gold = cargar_split_gold()
+        print("Split gold: train=%d reales restantes | test=%d gold adjudicados."
+              % (len(train_real), len(gold)))
+        for tarea in ("categoria", "urgencia"):
+            correr_gold(train_real, gold, tarea, args.con_sintetico)
+        print("\nRecordatorio: test = consenso humano adjudicado (máxima validez). "
+              "Prioriza recall en clases críticas por el criterio del evaluador.")
+        return
 
     df = cargar()
     print("Corpus real cargado: %d reportes (origen=real)." % len(df))

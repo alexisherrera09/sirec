@@ -1,8 +1,13 @@
-# Microservicio de clasificación SIREC — dependencias (Fase A1, modo simulado)
-# Las dependencias del modelo real (torch, transformers) se agregan en la Fase A2/D5.
+# Microservicio de clasificación SIREC — dependencias
 fastapi==0.115.6
 uvicorn[standard]==0.34.0
 pydantic==2.10.4
 # Pruebas
 pytest==8.3.4
 httpx==0.28.1
+
+# --- Modo modelo (A2/D5): inferencia con BETO ---
+# Necesario solo si SIREC_MODO=modelo. En modo simulado no se requieren.
+# torch trae wheels para Python 3.11–3.13; para CPU basta la versión estándar.
+torch>=2.2
+transformers>=4.40
