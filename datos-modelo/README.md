@@ -15,7 +15,7 @@ con métricas por clase.
 | D3.3 | Doble etiquetado de ~150–200 reales (dos personas) para el kappa | ⏳ **[HUMANO]** |
 | D3.4 | `calcular_kappa.py` + `reporte_corpus.md` (trazabilidad + kappa) | ⏳ Pendiente (tras D3.2/D3.3) |
 | D4 | `entrenar_baseline.py` (TF-IDF + LogReg/SVM) + `resultados_baseline.md` | ⏳ Pendiente |
-| D5 | `entrenar_beto.py` (+ notebook Colab) + `comparacion_modelos.md` | ⏳ Pendiente |
+| D5 | `entrenar_beto_colab.ipynb` (Colab) + `comparacion_modelos.md` | ⏳ Pendiente |
 | D6 | Exportar modelo e integrar en el microservicio (Fase A2) | ⏳ Pendiente |
 
 ## Qué le toca al equipo humano (no delegable)

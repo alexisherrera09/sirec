@@ -67,7 +67,7 @@ Ricardo y Nahum **entregaron sus corpus etiquetados** (200 reportes reales cada 
 - ✅ **Muestra de kappa lista:** `datos-modelo/reportes_kappa.csv` (180 reportes SIN etiqueta, estratificados)
   para que Ricardo y Nahum la etiqueten por separado (D3.4).
 - ✅ **Scripts listos para ejecutar:** `calcular_kappa.py` (solo stdlib, ya probado), `entrenar_baseline.py`
-  (TF-IDF + LogReg/SVM, métricas por clase + falsos negativos), `entrenar_beto.py` (fine-tuning para Colab),
+  (TF-IDF + LogReg/SVM, métricas por clase + falsos negativos), `entrenar_beto_colab.ipynb` (fine-tuning para Colab),
   `requirements-modelo.txt`.
 
 **Ojo — desbalance de clases real:** `dano_estructural` solo 11 de 400 (2.8%); `inundacion` 32; `deslave` 34.

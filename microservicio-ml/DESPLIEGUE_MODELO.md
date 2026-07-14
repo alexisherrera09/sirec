@@ -17,8 +17,7 @@ llevan aparte. Este documento explica cómo, tanto en local como en la EC2 de AW
 **Opción A — reutilizar los ya entrenados (rápido):** toma el `beto_modelos.zip` que se
 descargó de Colab.
 
-**Opción B — reentrenar (reproducible):** corre `entrenar_beto_colab.ipynb` en Colab con
-GPU (o `py entrenar_beto.py --tarea categoria --gold-test --con-sintetico` con GPU local).
+**Opción B — reentrenar (reproducible):** corre `entrenar_beto_colab.ipynb` en Colab con GPU.
 
 ## Instalar en LOCAL
 
