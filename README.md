@@ -23,9 +23,10 @@ un mensaje de vida o muerte puede quedar esperando detrás de uno menor.
 
 **SIREC es como un asistente que lee todos los mensajes en segundos y los ordena por urgencia**,
 poniendo arriba lo más peligroso. Para "leer y entender" cada mensaje usa un programa de
-inteligencia artificial entrenado con ejemplos reales de emergencias en México. El asistente **no
-decide ni despacha** la ayuda —eso lo sigue haciendo una persona—; solo le quita la carga de leer y
-ordenar, para que atienda primero lo que más urge.
+**inteligencia artificial** (programas que aprenden a hacer una tarea a partir de ejemplos, en vez
+de seguir reglas escritas a mano una por una) entrenado con reportes reales de emergencias en
+México. El asistente **no decide ni despacha** la ayuda —eso lo sigue haciendo una persona—; solo
+le quita la carga de leer y ordenar, para que atienda primero lo que más urge.
 
 Este documento explica **qué es cada pieza**, **cómo se conectan** y **cómo se enseñó al sistema a
 clasificar**, empezando por un glosario en español sencillo. No necesitas saber de IA para seguirlo.
@@ -46,81 +47,132 @@ clasificar**, empezando por un glosario en español sencillo. No necesitas saber
 
 ## 1. Glosario: qué significa cada término
 
-Explicaciones en lenguaje sencillo de todo lo que usamos.
+Cada término técnico se explica **antes** de usarlo en el resto del documento. Las definiciones
+están ordenadas de lo más básico a lo más específico: cada una solo usa palabras ya explicadas
+arriba. Si en las secciones siguientes aparece una palabra técnica, aquí está su significado.
+
+### Conceptos base (leer primero)
+
+- **Inteligencia Artificial (IA):** programas de computadora que **aprenden a hacer una tarea a
+  partir de ejemplos**, en lugar de seguir reglas escritas a mano una por una.
+- **Algoritmo:** una receta de pasos que la computadora sigue para resolver algo.
+- **Modelo:** el "cerebro" ya entrenado que resulta de aplicar un algoritmo a muchos ejemplos.
+  Recibe una entrada (aquí, un texto) y produce una respuesta (aquí, una etiqueta).
+- **Entrenar (entrenamiento):** el proceso de mostrarle al modelo miles de ejemplos ya resueltos
+  para que "aprenda" a resolver casos nuevos por su cuenta.
+- **Vector:** una lista de números con la que la computadora representa algo (por ejemplo, un
+  texto convertido a números). Las computadoras no operan con palabras, sino con números.
+- **Red neuronal:** un tipo de modelo inspirado (muy a grandes rasgos) en cómo conectan las
+  neuronas del cerebro; es capaz de aprender patrones complejos. Es la base de la IA moderna.
 
 ### Conceptos de datos
 
-- **Corpus:** el conjunto de textos que usamos para enseñar y evaluar al modelo. El nuestro son
-  reportes de emergencia escritos en lenguaje natural (ej.: *"se metió el agua a mi casa"*).
+- **Lenguaje natural:** el idioma tal como lo escribe una persona (ej.: *"se metió el agua a mi
+  casa"*), a diferencia de un formato rígido de computadora.
+- **Corpus:** el conjunto de textos que usamos para entrenar y evaluar al modelo. El nuestro son
+  reportes de emergencia en lenguaje natural.
 - **Reporte real vs. sintético:**
-  - *Real:* recolectado de fuentes públicas reales (redes, prensa) y anonimizado. Son los que
-    valen para medir de verdad.
-  - *Sintético:* generado por nosotros para tener más ejemplos de práctica. **Solo se usan para
-    entrenar, nunca para evaluar** (evaluar con datos inventados daría métricas falsas).
+  - *Real:* recolectado de fuentes públicas reales (redes sociales, prensa) y anonimizado. Son los
+    que valen para medir de verdad.
+  - *Sintético:* redactado/generado por nosotros para tener más ejemplos de práctica. **Solo se
+    usan para entrenar, nunca para evaluar** (evaluar con datos inventados daría resultados falsos).
 - **Etiquetar:** leer cada reporte y asignarle a mano su categoría y su urgencia correctas. Es lo
   que hace un humano para crear los ejemplos de los que aprende el modelo.
+- **Anotador:** la persona que etiqueta los reportes.
 - **Anonimizar:** quitar datos personales (nombres, teléfonos, direcciones exactas) del texto real
   antes de guardarlo.
-- **Kappa de Cohen (κ):** un número de 0 a 1 que mide **cuánto coinciden dos personas** etiquetando
-  lo mismo por separado. Sirve para demostrar que las etiquetas son objetivas y no capricho de una
-  persona. 0.70 = acuerdo "considerable"; 0.30 = acuerdo "aceptable/bajo".
+- **Kappa de Cohen (κ):** un número de 0 a 1 que mide **cuánto coinciden dos anotadores** al
+  etiquetar lo mismo por separado. Sirve para demostrar que las etiquetas son objetivas y no
+  capricho de una persona. 0.70 = acuerdo "considerable"; 0.30 = acuerdo "aceptable/bajo".
 - **Adjudicación:** cuando dos anotadores discrepan, una **tercera persona** decide la etiqueta
   final ("de consenso"). Así se resuelven los desacuerdos y se obtiene un conjunto confiable.
-- **Conjunto gold ("de oro"):** los reportes con etiqueta de máxima confianza (doblemente
-  etiquetados + adjudicados). Es nuestro **conjunto de prueba**: la vara con la que medimos al modelo.
+- **Conjunto de prueba:** los ejemplos que se apartan y **nunca** se usan para entrenar, solo para
+  medir qué tan bien funciona el modelo con casos que no ha visto.
+- **Conjunto gold ("de oro"):** nuestro conjunto de prueba, formado por los reportes con etiqueta de
+  máxima confianza (doblemente etiquetados + adjudicados). Es la vara con la que medimos al modelo.
 - **Desbalance de clases:** cuando unas categorías tienen muchos más ejemplos que otras (ej.:
-  `dano_estructural` casi no aparece). Dificulta el aprendizaje de las clases raras.
+  `dano_estructural` casi no aparece). Dificulta que el modelo aprenda las categorías raras.
 
 ### Conceptos de modelos
 
 - **PLN (Procesamiento del Lenguaje Natural):** la rama de la IA que hace que una computadora
-  "entienda" texto humano.
+  "entienda" y procese texto escrito por humanos.
 - **Clasificador:** un modelo que recibe un texto y devuelve una etiqueta (aquí: la categoría y la
-  urgencia).
+  urgencia del reporte).
 - **Baseline (línea base):** un modelo sencillo que sirve de **punto de comparación**. Si el modelo
-  avanzado no le gana al baseline, no vale la pena. El nuestro es TF-IDF + un clasificador lineal.
-- **TF-IDF:** una forma clásica de convertir texto en números contando qué palabras aparecen y qué
-  tan distintivas son. No "entiende" el significado, solo cuenta palabras/letras. Rápido y ligero.
-- **SVM — Máquina de Vectores de Soporte (Support Vector Machine):** un algoritmo clásico de
-  clasificación. Imagina que dibuja la "línea" (frontera) que mejor separa unos ejemplos de otros,
-  dejando el mayor margen posible entre grupos. Con TF-IDF forma nuestro baseline.
-- **Regresión logística:** otro clasificador lineal clásico; en vez de una frontera dura, estima la
-  **probabilidad** de que un texto sea de cada clase. También parte del baseline.
-- **BERT:** un tipo de red neuronal moderna ("transformer") que **sí capta el significado y el
-  contexto** de las palabras, no solo su presencia. Entiende que "no responde" o "sigue subiendo"
-  implican gravedad.
-- **Transformer:** la arquitectura de red neuronal detrás de los modelos de lenguaje modernos
-  (la misma familia que ChatGPT). Su clave es el mecanismo de "atención", que pesa qué palabras
-  del texto importan más para entender el resto.
+  avanzado no le gana al baseline, no valió la pena la complejidad. El nuestro combina TF-IDF con un
+  clasificador lineal (ver abajo).
+- **TF-IDF:** una forma clásica de **convertir texto en vectores** contando qué palabras aparecen y
+  qué tan distintivas son. No "entiende" el significado, solo cuenta palabras y letras; por eso es
+  rápido y ligero.
+- **Clasificador lineal:** un algoritmo que separa las clases trazando líneas rectas (fronteras)
+  entre los ejemplos representados como vectores. Los dos que usamos son:
+  - **SVM — Máquina de Vectores de Soporte (Support Vector Machine):** traza la frontera que mejor
+    separa un grupo de otro, **dejando el mayor margen posible** entre ellos.
+  - **Regresión logística:** en vez de una frontera dura, estima la **probabilidad** de que un texto
+    pertenezca a cada clase.
+- **Transformer:** un tipo de red neuronal moderna, base de los modelos de lenguaje actuales (la
+  misma familia que ChatGPT). Su clave es el mecanismo de **"atención"**, que decide qué palabras
+  del texto son más importantes para entender el resto; así **capta el contexto y el significado**.
+- **BERT:** un transformer diseñado para comprender texto. A diferencia de TF-IDF, entiende que
+  frases como *"no responde"* o *"sigue subiendo"* implican gravedad, aunque no contengan palabras
+  obviamente "peligrosas".
 - **BETO:** un BERT **entrenado específicamente en español** (`dccuchile/bert-base-spanish-wwm-cased`).
-  Es nuestro modelo principal, el que de verdad se despliega. Al estar en español, entiende bien los
-  reportes mexicanos.
-- **Fine-tuning (ajuste fino):** tomar un modelo ya entrenado en general (BETO) y **especializarlo**
-  en nuestra tarea concreta con nuestros ejemplos. Es mucho más barato que entrenar desde cero.
-- **Class weights (pesos por clase):** un truco para que el modelo preste más atención a las clases
-  raras durante el entrenamiento, compensando el desbalance.
+  Es nuestro **modelo principal**, el que de verdad se despliega. Al estar en español, entiende bien
+  los reportes mexicanos.
+- **Fine-tuning (ajuste fino):** tomar un modelo ya entrenado en general (BETO) y
+  **especializarlo** en nuestra tarea concreta con nuestros ejemplos. Es mucho más barato y rápido
+  que entrenar una red neuronal desde cero.
+- **Class weights (pesos por clase):** un ajuste para que, durante el entrenamiento, el modelo
+  preste más atención a las categorías raras, compensando el desbalance de clases.
+- **GPU:** un tipo de procesador muy rápido para entrenar redes neuronales. Como no teníamos una,
+  usamos **Google Colab** (un servicio gratuito que presta GPUs por internet) para entrenar BETO.
 
 ### Cómo se mide el modelo
 
-- **Precisión:** de lo que el modelo dijo "es X", ¿qué porcentaje realmente era X? (mide falsas alarmas).
+- **Precisión:** de todo lo que el modelo dijo "esto es X", ¿qué porcentaje realmente era X?
+  (mide las falsas alarmas).
 - **Recall (sensibilidad):** de todo lo que de verdad era X, ¿qué porcentaje detectó el modelo?
   (mide lo que se le escapa).
 - **Falso negativo:** un caso real que el modelo **NO detectó**. En emergencias es el error más
-  grave (una "persona en riesgo" clasificada como "otro"). Por eso priorizamos el recall.
-- **F1:** una combinación balanceada de precisión y recall en un solo número.
-- **Macro-F1:** el promedio del F1 de todas las clases, tratándolas por igual (así las clases raras
-  también cuentan). Es nuestra métrica global principal.
+  grave (clasificar como "otro" un reporte que era "persona en riesgo"). Por eso priorizamos el recall.
+- **F1:** un solo número que combina de forma balanceada la precisión y el recall.
+- **Macro-F1:** el promedio del F1 de todas las clases tratándolas por igual (así las categorías
+  raras también cuentan). Es nuestra métrica global principal.
 
-### Conceptos de software
+### Software e infraestructura
 
+- **HTTP:** el lenguaje con el que los programas se comunican por internet (peticiones y respuestas).
+- **API REST:** la "ventanilla" de un componente: un conjunto de direcciones a las que otros
+  programas mandan peticiones HTTP para pedirle algo o entregarle datos.
 - **Microservicio:** un componente pequeño e independiente que hace una sola cosa (aquí: clasificar
-  texto) y se comunica con el resto por la red. El nuestro está en Python con **FastAPI**.
-- **FastAPI:** un framework de Python para crear APIs web rápidas.
-- **API REST:** la forma en que los componentes se hablan entre sí por HTTP (peticiones y respuestas).
-- **JWT (JSON Web Token):** un "pase" firmado que el operador obtiene al hacer login y que
-  demuestra, en cada petición, que tiene permiso para ver el panel.
+  texto) y se comunica con el resto a través de su API. El nuestro está en Python.
+- **FastAPI:** una herramienta de Python para crear APIs web rápidas. Es lo que usa el microservicio.
+- **Frontend:** la parte visual con la que interactúa el usuario (las pantallas en el navegador).
+- **Backend:** la parte que no se ve: recibe los datos, aplica la lógica y habla con la base de datos.
+- **Base de datos / PostgreSQL:** el programa donde se guardan los reportes de forma ordenada y
+  permanente. Usamos **PostgreSQL**, una base de datos gratuita y muy usada.
+- **JWT (JSON Web Token):** un "pase" digital firmado que el operador obtiene al iniciar sesión y
+  que demuestra, en cada petición, que tiene permiso para ver el panel.
 - **Contrato de datos:** el acuerdo fijo sobre las 7 categorías, las 3 urgencias y el formato de la
-  API. Debe ser idéntico en todos los componentes (Python, .NET, React) para que nada se rompa.
+  API. Debe ser idéntico en todos los componentes para que nada se rompa.
+- **Docker:** una herramienta que empaqueta un programa (aquí, PostgreSQL en local) para que corra
+  igual en cualquier computadora, sin instalaciones complicadas.
+- **Nginx:** un programa que recibe las visitas de internet y las reparte al componente correcto;
+  es la única puerta de entrada pública del sistema en producción.
+- **HTTPS / Certbot:** HTTPS es la versión **cifrada y segura** de HTTP (el candado del navegador);
+  **Certbot** es la herramienta que instala gratis el certificado que lo habilita.
+- **systemd:** el "administrador de servicios" de Linux; mantiene cada componente encendido y lo
+  reinicia solo si se cae.
+- **CORS:** una regla de seguridad de los navegadores sobre qué sitios pueden llamar a una API.
+  Con nuestro diseño (todo bajo el mismo Nginx) se evita el problema por completo.
+- **SCP:** una forma segura de copiar archivos de una computadora a otra por la red (la usaremos
+  para subir los modelos BETO a la nube, ya que son muy pesados para el repositorio).
+- **EC2 / Route 53:** servicios de Amazon Web Services (AWS). **EC2** es una computadora virtual en
+  la nube donde correrá todo; **Route 53** traduce el nombre del dominio (ej. `sirec.com`) a la
+  dirección de esa computadora.
+- **Migración (de base de datos):** un archivo que registra un cambio en la estructura de la base de
+  datos (crear una tabla, agregar una columna), para poder reconstruirla en cualquier máquina.
 
 ---
 
@@ -246,9 +298,10 @@ flowchart TB
     class STATIC,NET,PY,PG,M svc;
 ```
 
-**Ventajas de este diseño:** como todo va por Nginx en el **mismo origen**, no hay problemas de
-CORS ni de contenido mixto. **Seguridad:** PostgreSQL (5432), el microservicio (8000) y el backend
-directo (5000) **nunca** se exponen a internet; solo Nginx con HTTPS al frente. Los modelos BETO
+**Ventajas de este diseño:** como todo va por Nginx en el **mismo origen** (la misma dirección web),
+no hay problemas de CORS ni de contenido mixto (mezclar tráfico seguro e inseguro en la misma
+página). **Seguridad:** PostgreSQL (5432), el microservicio (8000) y el backend directo (5000)
+**nunca** se exponen a internet; solo Nginx con HTTPS al frente. Los modelos BETO
 (~440 MB c/u) no caben en Git, así que se copian a la EC2 por SCP — ver
 [`microservicio-ml/DESPLIEGUE_MODELO.md`](microservicio-ml/DESPLIEGUE_MODELO.md) y el plan completo
 en [`PLAN_SIREC_AWS_Despliegue.md`](PLAN_SIREC_AWS_Despliegue.md).
@@ -287,16 +340,17 @@ Recibe un texto y devuelve categoría + urgencia. Es el que sirve a **BETO**.
 
 ### `backend-api/` — El cerebro central (.NET 8 / C#) · puerto 5000
 
-Recibe los reportes, llama al microservicio, los guarda en PostgreSQL y sirve el panel con login.
+El backend, construido con **.NET** (una plataforma de programación de Microsoft) en el lenguaje
+**C#**. Recibe los reportes, llama al microservicio, los guarda en PostgreSQL y sirve el panel con login.
 
 | Archivo | Qué es |
 |---|---|
 | `Program.cs` | Arranque de la app, configuración de servicios, CORS y JWT. |
-| `Controllers/ReportesController.cs` | Endpoints de reportes (crear público, listar priorizado). |
-| `Controllers/AuthController.cs` | Login del operador y emisión del JWT. |
+| `Controllers/ReportesController.cs` | Rutas de la API para reportes (crear público, listar priorizado). |
+| `Controllers/AuthController.cs` | Login del operador y emisión del "pase" JWT. |
 | `Services/ClasificadorClient.cs` | Cliente HTTP que llama al microservicio Python (con respaldo si falla). |
-| `Auth/JwtService.cs` | Generación y validación de los tokens JWT. |
-| `Data/SirecDbContext.cs` | Acceso a la base de datos (Entity Framework Core). |
+| `Auth/JwtService.cs` | Generación y validación de los pases JWT. |
+| `Data/SirecDbContext.cs` | Acceso a la base de datos (mediante Entity Framework Core, una librería que traduce entre el código y las tablas). |
 | `Models/Reporte.cs`, `Models/Contrato.cs` | El modelo de datos y las categorías/urgencias. |
 | `Dtos/` | Objetos de entrada/salida de la API (reportes y autenticación). |
 | `Migrations/` | Historial de cambios del esquema de la base de datos. |
@@ -306,7 +360,9 @@ Recibe los reportes, llama al microservicio, los guarda en PostgreSQL y sirve el
 
 ### `frontend/` — La interfaz (React / Vite) · puerto 5173
 
-Dos vistas: el formulario público y el panel del operador.
+La parte visual que se ve en el navegador. Construida con **React** (una herramienta para crear
+interfaces web) y **Vite** (la herramienta que la empaqueta y la sirve durante el desarrollo).
+Tiene dos vistas: el formulario público y el panel del operador.
 
 | Archivo | Qué es |
 |---|---|
@@ -318,7 +374,7 @@ Dos vistas: el formulario público y el panel del operador.
 | `src/util.js`, `src/index.css` | Utilidades y estilos. |
 | `index.html`, `vite.config.js`, `package.json` | Configuración del proyecto y dependencias. |
 | `.env.example` | Plantilla de variables de entorno (ej. URL del backend). |
-| `dist/` | Build de producción (archivos estáticos que servirá Nginx). |
+| `dist/` | Versión final compilada de la interfaz: archivos estáticos (HTML, CSS, imágenes que no cambian) que servirá Nginx en producción. |
 | `README.md` | Detalle del frontend. |
 
 ### `datos-modelo/` — Corpus, etiquetado y entrenamiento
@@ -352,7 +408,7 @@ Todo lo relacionado con los datos y el modelo. **El corazón académico del proy
 | `consolidar_adjudicacion.py` | Convierte la adjudicación en el conjunto gold. |
 | `generar_reporte_corpus.py` | Genera la tabla de trazabilidad del corpus. |
 | `entrenar_baseline.py` | Entrena el **baseline** (TF-IDF + SVM / regresión logística). |
-| `optimizar_umbral_alta.py` | Ajusta el umbral para no perder urgencias `alta` (recall). |
+| `optimizar_umbral_alta.py` | Ajusta el umbral (el punto de corte a partir del cual se decide "es urgencia alta") para no perder casos `alta`. |
 | `entrenar_beto_colab.ipynb` | Cuaderno de **fine-tuning de BETO** para Google Colab (GPU). |
 | `requirements-modelo.txt` | Dependencias para entrenar (scikit-learn, torch, transformers). |
 
