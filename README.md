@@ -10,6 +10,10 @@ lo más peligroso aparece primero, sin importar el orden de llegada.
 > [`CONTEXTO_SIREC.md`](CONTEXTO_SIREC.md); plan técnico en
 > [`PLAN_SIREC_ClaudeCode_total.md`](PLAN_SIREC_ClaudeCode_total.md);
 > avance en [`AVANCE_Y_TAREAS_HUMANAS.md`](AVANCE_Y_TAREAS_HUMANAS.md).
+>
+> 🎓 **¿Eres estudiante y quieres replicar el proyecto desde cero, entendiendo cada concepto de IA?**
+> Empieza por la [**Guía para estudiantes**](GUIA_ESTUDIANTE.md): un tutorial paso a paso, pensado
+> para primer semestre, que explica el porqué de cada decisión y numera todos los conceptos usados.
 
 ---
 
