@@ -181,23 +181,19 @@ arriba. Si en las secciones siguientes aparece una palabra técnica, aquí está
 Qué pasa cuando un ciudadano manda un reporte y cuando el operador revisa el panel:
 
 ```mermaid
-flowchart LR
-    Ciudadano([👤 Ciudadano]) -->|"escribe un reporte"| FEpub["🖥️ Frontend React<br/>Formulario público"]
-    Operador([👮 Operador PC]) -->|"inicia sesión"| FEpanel["🖥️ Frontend React<br/>Panel priorizado"]
-
-    FEpub -->|"POST /api/reportes"| BE["⚙️ Backend .NET 8<br/>API REST + PostgreSQL"]
-    FEpanel -->|"GET /api/reportes (con JWT)"| BE
-
-    BE -->|"POST /clasificar"| MS["🧠 Microservicio Python<br/>FastAPI"]
-    MS -->|"categoría + urgencia<br/>+ confianzas"| BE
-    BE -->|"guarda / lee"| DB[("🗄️ PostgreSQL")]
-
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':70}}}%%
+flowchart TD
+    Personas(["👤 Ciudadano · 👮 Operador"]) -->|"usan el navegador"| FE["🖥️ Frontend React<br/>formulario + panel"]
+    FE -->|"peticiones HTTP"| BE["⚙️ Backend .NET 8"]
+    BE -->|"POST /clasificar"| MS["🧠 Microservicio Python"]
     MS --> BETO["🤖 Modelos BETO<br/>categoría + urgencia"]
+    MS -->|"devuelve etiquetas<br/>+ confianzas"| BE
+    BE -->|"guarda / lee"| DB[("🗄️ PostgreSQL")]
 
     classDef front fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a;
     classDef back fill:#dcfce7,stroke:#22c55e,color:#14532d;
     classDef ml fill:#fef3c7,stroke:#f59e0b,color:#7c2d12;
-    class FEpub,FEpanel front;
+    class FE front;
     class BE,DB back;
     class MS,BETO ml;
 ```
@@ -225,42 +221,28 @@ flowchart LR
 Cómo se construyó y evaluó el clasificador, desde los reportes hasta el modelo servido:
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':75}}}%%
 flowchart TD
-    subgraph Datos["1) Recolección y etiquetado"]
-        RE["👥 Reportes reales<br/>Ricardo + Nahum (200 c/u)"] --> CORP["corpus_etiquetado.csv<br/>400 reales"]
-        GEN["generar_corpus_sintetico.py"] --> SINT["corpus_sintetico.csv<br/>900 sintéticos"]
-    end
-
-    subgraph Kappa["2) Validez de las etiquetas (kappa)"]
-        CORP --> MUE["reportes_kappa.csv<br/>180 muestra"]
-        MUE --> KR["kappa_ricardo.csv"]
-        MUE --> KN["kappa_nahum.csv"]
-        KR --> CALC["calcular_kappa.py<br/>κ cat 0.70 · urg 0.31"]
-        KN --> CALC
-        CALC --> ADJ["adjudicación (3er anotador)<br/>generar/consolidar_adjudicacion.py"]
-        ADJ --> GOLD["⭐ gold_kappa.csv<br/>180 = conjunto de prueba"]
-    end
-
-    subgraph Entrena["3) Entrenamiento y comparación"]
-        CORP --> TR["220 reales restantes<br/>(train)"]
-        SINT --> TR
-        TR --> BASE["entrenar_baseline.py<br/>TF-IDF + SVM / LogReg"]
-        TR --> BETOT["entrenar_beto_colab.ipynb<br/>fine-tuning de BETO (Colab GPU)"]
-        GOLD -->|"se evalúa contra"| BASE
-        GOLD -->|"se evalúa contra"| BETOT
-        BASE --> CMP["comparacion_modelos.md<br/>baseline vs BETO"]
-        BETOT --> CMP
-        BETOT --> MOD["🤖 modelos/beto_categoria<br/>modelos/beto_urgencia"]
-    end
-
-    MOD -.->|"se sirve en"| USO["microservicio-ml<br/>(modo modelo)"]
+    RE["👥 400 reportes reales<br/>Ricardo + Nahum"] --> CORP["corpus_etiquetado.csv"]
+    GEN["🤖 900 sintéticos"] --> TR
+    CORP --> MUE["180 muestra"]
+    MUE --> KAPPA["Kappa de Cohen<br/>κ cat 0.70 · urg 0.31"]
+    KAPPA --> ADJ["Adjudicación<br/>3er anotador"]
+    ADJ --> GOLD["⭐ gold_kappa.csv<br/>180 = PRUEBA"]
+    CORP --> TR["220 reales + sintéticos<br/>ENTRENAMIENTO"]
+    TR --> BASE["Baseline<br/>TF-IDF + SVM"]
+    TR --> BETOT["BETO<br/>fine-tuning"]
+    GOLD -->|"se mide contra"| BASE
+    GOLD -->|"se mide contra"| BETOT
+    BASE --> CMP["📊 Comparación<br/>baseline vs BETO"]
+    BETOT --> CMP
 
     classDef data fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a;
     classDef gold fill:#fef9c3,stroke:#eab308,color:#713f12;
     classDef model fill:#fef3c7,stroke:#f59e0b,color:#7c2d12;
-    class RE,CORP,GEN,SINT,MUE,KR,KN,TR data;
-    class GOLD gold;
-    class MOD,USO,BETOT,BASE model;
+    class RE,CORP,GEN,MUE,TR data;
+    class GOLD,KAPPA,ADJ gold;
+    class BASE,BETOT,CMP model;
 ```
 
 **Idea clave:** el conjunto **gold** (180 reportes validados por consenso humano) se aparta como
@@ -276,19 +258,15 @@ Docker en producción). Nginx es la única puerta al internet; los demás servic
 `localhost`.
 
 ```mermaid
-flowchart TB
-    User([🌐 Usuario en internet]) -->|"HTTPS (443)"| R53["Route 53<br/>DNS: dominio → IP elástica"]
-    R53 --> NGINX
-
-    subgraph EC2["🖥️ Instancia EC2 única (t3.small/medium)"]
-        direction TB
-        NGINX["🔒 Nginx (443)<br/>HTTPS con Certbot"]
-        NGINX -->|"ruta /"| STATIC["📄 Frontend React<br/>archivos estáticos"]
-        NGINX -->|"ruta /api"| NET["⚙️ Backend .NET<br/>systemd · localhost:5000"]
-        NET -->|"HTTP local"| PY["🧠 Microservicio Python<br/>systemd · localhost:8000"]
-        PY --> M["🤖 Modelos BETO<br/>(copiados por SCP)"]
-        NET -->|"HTTP local"| PG[("🗄️ PostgreSQL<br/>systemd · localhost:5432")]
-    end
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':70}}}%%
+flowchart TD
+    User([🌐 Usuario en internet]) -->|"HTTPS"| R53["Route 53 · DNS"]
+    R53 --> NGINX["🔒 Nginx :443<br/>HTTPS (única puerta pública)"]
+    NGINX -->|"ruta /"| STATIC["📄 Frontend estático"]
+    NGINX -->|"ruta /api"| NET["⚙️ Backend .NET<br/>localhost:5000"]
+    NET --> PY["🧠 Microservicio<br/>localhost:8000"]
+    PY --> M["🤖 Modelos BETO"]
+    NET --> PG[("🗄️ PostgreSQL<br/>localhost:5432")]
 
     classDef ext fill:#ede9fe,stroke:#8b5cf6,color:#4c1d95;
     classDef edge fill:#fee2e2,stroke:#ef4444,color:#7f1d1d;
@@ -297,6 +275,9 @@ flowchart TB
     class NGINX edge;
     class STATIC,NET,PY,PG,M svc;
 ```
+
+> Todo lo que está bajo `localhost` (backend, microservicio, PostgreSQL) corre en la misma EC2 bajo
+> **systemd** y **no** es accesible desde internet: solo Nginx con HTTPS al frente.
 
 **Ventajas de este diseño:** como todo va por Nginx en el **mismo origen** (la misma dirección web),
 no hay problemas de CORS ni de contenido mixto (mezclar tráfico seguro e inseguro en la misma
