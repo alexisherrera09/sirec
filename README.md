@@ -537,89 +537,141 @@ py -m pip install scikit-learn pandas numpy
 
 > Nota: `calcular_kappa.py` **no necesita instalar nada** (usa solo la librería estándar de Python).
 
+> **Nota:** a partir de aquí resaltamos en **negrita** cada concepto del glosario (§1) la primera vez
+> que se aplica, para que se vea que **todos** se usaron en el proceso real. Si alguno no te queda
+> claro, su definición está en el [glosario](#1-glosario-qué-significa-cada-término).
+
 ### 8.3 Qué hicimos con los datos (paso a paso)
+
+> 🧪 **Nada de este paso va a producción.** Los datos (reales y sintéticos), la herramienta de
+> etiquetado y los scripts de kappa/adjudicación son **solo para preparar y validar** el material con
+> el que se entrena y se evalúa. El **conjunto gold** se usa **solo para calificar** los modelos, no
+> forma parte del sistema desplegado.
+
+Todo parte de los datos. Un **modelo** de **clasificación** aprende de ejemplos escritos en
+**lenguaje natural** (el idioma tal como lo escribe la gente); ese es el terreno del **procesamiento
+de lenguaje natural (PLN)**. En lugar de escribir reglas a mano, dejamos que la **inteligencia
+artificial** aprenda de los ejemplos.
 
 1. **Guía de etiquetado** (`guia_etiquetado.md`): definimos las 7 categorías, los 3 niveles de
    urgencia, los casos de frontera y la regla de desempate (si hay una persona en peligro, gana
-   `persona_en_riesgo`). Un humano la aprobó (no la IA).
-2. **Recolección real:** dos personas del equipo (Ricardo y Nahum) juntaron **200 reportes reales
-   cada una** de fuentes públicas de contingencias en Veracruz, y los **anonimizaron** (quitar
-   nombres, teléfonos, direcciones). Total: **400 reportes reales** → `corpus_etiquetado.csv`.
-3. **Etiquetado:** cada quien clasificó sus reportes con la herramienta local
-   `herramienta_etiquetado.py` (una app web con teclas 1-7 para categoría y A/M/B para urgencia).
-4. **Corpus sintético:** generamos **900 reportes sintéticos** con `generar_corpus_sintetico.py`
-   (`corpus_sintetico.csv`), declarados como tales. **Solo se usan para entrenar.**
-5. **Doble etiquetado (kappa):** apartamos una muestra de **180 reportes** (`reportes_kappa.csv`) y
-   Ricardo y Nahum la etiquetaron **por separado, sin verse** → `kappa_ricardo.csv`, `kappa_nahum.csv`.
-6. **Kappa de Cohen** (`calcular_kappa.py`): medimos el acuerdo → **categoría κ = 0.70**
-   (considerable) y **urgencia κ = 0.31** (baja, la urgencia es más subjetiva).
-7. **Adjudicación:** como la urgencia salió baja, una **tercera persona** resolvió los 114
-   desacuerdos (`generar_adjudicacion.py` → `adjudicacion_kappa.csv` → `consolidar_adjudicacion.py`),
-   produciendo el conjunto **gold** de 180 reportes de consenso (`gold_kappa.csv`).
-8. **División de datos (sin trampa):** los **180 gold** se apartan como **conjunto de prueba**; los
-   **220 reales restantes + los 900 sintéticos** se usan para **entrenar**. Los 180 de prueba nunca
-   se usan para entrenar (evita evaluar con lo que el modelo ya vio).
+   `persona_en_riesgo`). Un humano la aprobó (no la inteligencia artificial).
+2. **Recolección del corpus:** dos personas (Ricardo y Nahum) juntaron **200 reportes reales** cada
+   una de fuentes públicas de Veracruz y los **anonimizaron** (quitar nombres, teléfonos,
+   direcciones). Total: **400 reportes reales** → `corpus_etiquetado.csv`. Al conjunto de todos los
+   textos de ejemplo se le llama **corpus**.
+3. **Etiquetar:** cada **anotador** clasificó sus reportes con `herramienta_etiquetado.py` (teclas
+   1-7 para categoría y A/M/B para urgencia), asignando la respuesta correcta a cada uno.
+4. **Reportes sintéticos:** como los **reportes reales** son difíciles de conseguir, generamos
+   **900 reportes sintéticos** con `generar_corpus_sintetico.py` (`corpus_sintetico.csv`), declarados
+   como tales. **Solo se usan para entrenar, nunca para evaluar.**
+5. **Doble etiquetado (kappa):** apartamos **180 reportes** (`reportes_kappa.csv`) y dos anotadores
+   los etiquetaron **por separado, sin verse** → `kappa_ricardo.csv`, `kappa_nahum.csv`.
+6. **Kappa de Cohen** (`calcular_kappa.py`): mide el acuerdo entre anotadores → categoría **κ = 0.70**
+   (considerable) y urgencia **κ = 0.31** (baja, la urgencia es más subjetiva).
+7. **Adjudicación:** como la urgencia salió baja, una tercera persona resolvió los 114 desacuerdos
+   (`generar_adjudicacion.py` → `consolidar_adjudicacion.py`), produciendo el conjunto **gold** de
+   180 reportes de consenso (`gold_kappa.csv`).
+8. **Separación entrenamiento / prueba (sin trampa):** los **180 gold** son el **conjunto de prueba**
+   (nunca se usan para **entrenar**); los **220 reales restantes + 900 sintéticos** son el
+   entrenamiento. Detalle importante: algunas categorías casi no aparecen — ese **desbalance de
+   clases** lo compensaremos con pesos por clase (§8.4 y §8.5).
 
 ### 8.4 Cómo entrenamos el baseline (modelo clásico, en local)
 
-El baseline convierte el texto en números con **TF-IDF** (cuenta palabras y grupos de letras) y lo
-clasifica con **SVM** o **regresión logística**. Corre en CPU en segundos.
+> ⚠️ **Este modelo NO va a producción.** El baseline (**TF-IDF** + **SVM** / **regresión logística**)
+> se entrena **solo para comparar** contra BETO y demostrar que BETO vale la pena. Una vez obtenida la
+> comparación, se queda en el reporte; **no se despliega**.
+
+Empezamos por el modelo simple, el **baseline**, que servirá de punto de comparación. Como las
+computadoras no operan con palabras sino con números, primero convertimos cada texto en un **vector**
+usando el **algoritmo** **TF-IDF**, que cuenta qué palabras y grupos de letras aparecen y qué tan
+distintivos son (no entiende el significado).
+
+Con esos vectores entrenamos un **clasificador** de tipo **clasificador lineal** (separa las clases
+trazando líneas). Probamos dos: **SVM (máquina de vectores de soporte)** y **regresión logística**.
+Para el **desbalance de clases** activamos **class weights (pesos por clase)** con
+`class_weight="balanced"`, que hace que el modelo preste más atención a las categorías raras.
 
 ```powershell
 cd datos-modelo
-# Entrena y evalúa contra el conjunto gold (train = 220 reales + 900 sintéticos)
 py entrenar_baseline.py --gold-test --con-sintetico
-
-# Extra: ajustar el umbral para no perder urgencias "alta" (prioriza recall)
-py optimizar_umbral_alta.py --gold-test
+py optimizar_umbral_alta.py --gold-test   # ajusta el umbral para no perder urgencias "alta"
 ```
 
-Detalles técnicos: TF-IDF de palabra (1-2) + de carácter (3-5); `class_weight="balanced"` por el
-desbalance; semilla fija 42. **Resultado:** categoría macro-F1 0.65, urgencia macro-F1 0.45.
+Detalles: TF-IDF de palabra (1-2) + de carácter (3-5); semilla fija 42. **Resultado:** categoría
+**macro-F1** 0.65, urgencia macro-F1 0.45 (las métricas se explican en §8.6).
 
-### 8.5 Cómo entrenamos BETO (en Google Colab con GPU)
+### 8.5 Cómo entrenamos BETO (modelo avanzado, en Google Colab con GPU)
 
-BETO es una red neuronal grande; entrenarla necesita una **GPU**. Como no teníamos, usamos
-**Google Colab** (gratis). Todo está en el cuaderno `datos-modelo/entrenar_beto_colab.ipynb`.
+> ✅ **Aquí está lo que SÍ va a producción.** El **resultado** de este entrenamiento —los archivos de
+> los modelos `beto_categoria` y `beto_urgencia`— es **lo único de todo el modelado que se despliega**.
+> El entorno donde se entrena (**Google Colab**, la **GPU**) es solo temporal: no forma parte del
+> sistema en producción.
 
-Pasos exactos:
-1. Entrar a [colab.research.google.com](https://colab.research.google.com) → *Subir cuaderno* →
-   subir `entrenar_beto_colab.ipynb`.
-2. Menú *Entorno de ejecución → Cambiar tipo de entorno → GPU (T4)*.
-3. Ejecutar las celdas en orden. En la celda de datos, subir 3 archivos:
-   `corpus_etiquetado.csv`, `corpus_sintetico.csv`, `gold_kappa.csv`.
-4. Las celdas de entrenamiento ajustan BETO para **categoría** y para **urgencia** (un modelo cada una).
-5. La última celda guarda los modelos en tu Google Drive (`beto_modelos.zip`).
+El baseline solo cuenta palabras; no entiende que *"sigue subiendo"* implica gravedad. Para captar el
+significado usamos una **red neuronal**: en concreto un **transformer** (la misma familia que
+ChatGPT). Un transformer diseñado para comprender texto es un **BERT**, y el BERT entrenado en
+español es **BETO** (`dccuchile/bert-base-spanish-wwm-cased`), nuestro modelo principal.
 
-Parámetros de entrenamiento (fine-tuning): 4 épocas, tamaño de lote 16, tasa de aprendizaje `2e-5`,
-longitud máxima 128 tokens, **pesos por clase** por el desbalance, y se elige el mejor modelo por
-**recall de la clase crítica**. **Resultado:** categoría macro-F1 0.74, urgencia macro-F1 0.55.
+BETO ya sabe español en general; lo especializamos con nuestros ejemplos mediante **fine-tuning**
+(ajuste fino), mucho más barato que entrenar una red neuronal desde cero. Entrenarla necesita una
+**GPU**; como no teníamos, usamos **Google Colab** (gratis). Cuaderno: `entrenar_beto_colab.ipynb`.
 
-Equivalente por línea de comandos (si se tiene GPU local): el mismo pipeline vive en el cuaderno;
-la lógica es idéntica a la del baseline pero con BETO.
+1. Súbelo a [colab.research.google.com](https://colab.research.google.com) → *Subir cuaderno*.
+2. Activa la GPU: *Entorno de ejecución → Cambiar tipo de entorno → GPU (T4)*.
+3. Ejecuta las celdas y, cuando lo pida, sube `corpus_etiquetado.csv`, `corpus_sintetico.csv` y
+   `gold_kappa.csv`.
+4. Entrena **un modelo para categoría y otro para urgencia**.
+5. La última celda guarda `beto_modelos.zip` en tu Google Drive.
 
-### 8.6 Cómo integramos el modelo entrenado al sistema
+Parámetros del fine-tuning: 4 épocas, lote 16, tasa de aprendizaje `2e-5`, 128 tokens,
+**class weights (pesos por clase)** por el desbalance, y se elige el mejor modelo por **recall** de la
+clase crítica. **Resultado:** categoría macro-F1 0.74, urgencia macro-F1 0.55.
 
-1. Descargar `beto_modelos.zip` desde Google Drive.
-2. Extraer **solo los archivos finales** (sin los checkpoints de entrenamiento) en
-   `microservicio-ml/modelos/`, quedando `modelos/beto_categoria/` y `modelos/beto_urgencia/`.
-3. Arrancar el microservicio en **modo modelo**:
-   ```powershell
-   cd microservicio-ml
-   $env:SIREC_MODO = "modelo"
-   py -m uvicorn main:app --port 8000
-   ```
-4. Probar:
-   ```powershell
-   curl.exe -X POST http://localhost:8000/clasificar -H "Content-Type: application/json" -d "{\"texto\":\"Hay una persona atrapada, el agua sigue subiendo\"}"
-   # -> {"categoria":"persona_en_riesgo","urgencia":"alta", ...}
-   ```
+### 8.6 Cómo comparamos los dos modelos (las métricas)
 
-El microservicio carga los modelos con `clasificador_modelo.py` y responde con el mismo formato que
-el modo simulado, así que el backend .NET no nota el cambio. Para desplegarlo en AWS, los modelos se
-copian a la EC2 por SCP (ver [`microservicio-ml/DESPLIEGUE_MODELO.md`](microservicio-ml/DESPLIEGUE_MODELO.md)).
+Para saber cuál es mejor, medimos a ambos sobre el mismo **conjunto de prueba** gold con las mismas
+reglas. Las medidas son:
 
-### 8.7 Orden completo para replicar desde cero
+- **Precisión:** de todo lo que el modelo dijo "es X", cuánto era realmente X (falsas alarmas).
+- **Recall:** de todo lo que de verdad era X, cuánto detectó el modelo (lo que se le escapa).
+- **Falso negativo:** un caso real que el modelo **no detectó** — el peor error en emergencias.
+- **F1** y **macro-F1:** el F1 resume precisión y recall; el macro-F1 lo promedia entre todas las
+  clases por igual.
+
+**BETO gana en todas** (sobre todo en recall de las clases críticas). Comparación completa en
+[`datos-modelo/comparacion_modelos.md`](datos-modelo/comparacion_modelos.md).
+
+### 8.7 Cómo corre el sistema completo y cómo se despliega
+
+El modelo entrenado vive dentro de un **microservicio** en Python (con **FastAPI**) que expone una
+**API REST**: los demás componentes le hablan por **HTTP**. Para poner el modelo real:
+
+```powershell
+cd microservicio-ml
+$env:SIREC_MODO = "modelo"
+py -m uvicorn main:app --port 8000
+```
+
+Alrededor del microservicio:
+- El **frontend** (React) es la parte visual; el ciudadano manda su reporte por ahí.
+- El **backend** (.NET) recibe el reporte, llama al microservicio y lo guarda en la **base de datos**
+  **PostgreSQL** (que en local levantamos con **Docker**). Los cambios de estructura de la base de
+  datos se registran como **migraciones**.
+- El operador entra al panel con login: el backend le entrega un **JWT** (un pase firmado) para
+  autorizarlo en cada petición.
+- Todos los componentes respetan el mismo **contrato de datos** (las 7 categorías y 3 urgencias), para
+  que nada se rompa entre ellos.
+
+En **producción (AWS)** todo corre en una sola instancia **EC2**, con **Route 53** para el dominio.
+**Nginx** es la única puerta pública y sirve **HTTPS** con un certificado de **Certbot**; detrás,
+el backend, el microservicio y PostgreSQL corren bajo **systemd** solo en `localhost` (así, al estar
+todo en el mismo origen, se evita el problema de **CORS**). Como los modelos son muy pesados para el
+repositorio, se copian a la instancia por **SCP** (ver
+[`microservicio-ml/DESPLIEGUE_MODELO.md`](microservicio-ml/DESPLIEGUE_MODELO.md)).
+
+### 8.8 Orden completo para replicar desde cero
 
 ```text
 1. Clonar el repositorio.
@@ -629,9 +681,39 @@ copian a la EC2 por SCP (ver [`microservicio-ml/DESPLIEGUE_MODELO.md`](microserv
 5. (Validez) Doble etiquetado + kappa + adjudicación → gold_kappa.csv (§8.3, pasos 5-8).
 6. (Baseline) py entrenar_baseline.py --gold-test --con-sintetico (§8.4).
 7. (BETO) Entrenar en Colab con entrenar_beto_colab.ipynb → beto_modelos.zip (§8.5).
-8. (Integrar) Extraer modelos en microservicio-ml/modelos/ y arrancar en modo modelo (§8.6).
-9. (Comparar) Revisar comparacion_modelos.md: BETO gana al baseline.
+8. (Comparar) Revisar comparacion_modelos.md: BETO gana al baseline (§8.6).
+9. (Integrar) Extraer modelos en microservicio-ml/modelos/ y arrancar en modo modelo (§8.7).
 ```
 
-Con esto, cualquier persona con los mismos datos y herramientas obtiene el mismo sistema y
-resultados equivalentes (usamos semillas fijas donde aplica, semilla 42).
+Con esto, cualquier persona con los mismos datos y herramientas obtiene el mismo sistema y resultados
+equivalentes (usamos semilla fija 42 donde aplica).
+
+### 8.9 Qué va a producción y qué no (muy importante)
+
+No todo lo que usamos se despliega. La mayoría es **para preparar datos, entrenar o comparar**; a
+producción va **solo el resultado**. Esta tabla lo deja claro para cada cosa mencionada arriba:
+
+| Elemento | ¿Para qué se usó? | ¿Va a producción? |
+|---|---|:---:|
+| Reportes reales (400) y sintéticos (900) | Entrenar y (los reales) evaluar | ❌ No (son datos, no software) |
+| Herramienta de etiquetado (`herramienta_etiquetado.py`) | Preparar los datos | ❌ No |
+| Scripts de kappa y adjudicación | Validar que las etiquetas son confiables | ❌ No |
+| Conjunto **gold** (180) | **Solo calificar** los modelos | ❌ No |
+| **Baseline** (TF-IDF + SVM / regresión logística) | **Solo comparar** contra BETO | ❌ **No se despliega** |
+| `optimizar_umbral_alta.py` | Analizar el punto de corte | ❌ No |
+| **Google Colab / GPU** | Entrenar BETO (entorno temporal) | ❌ No |
+| **BETO entrenado** (`beto_categoria`, `beto_urgencia`) | El clasificador final | ✅ **Sí — es el producto** |
+| `torch`, `transformers` | Ejecutar BETO en el servidor | ✅ Sí |
+| Microservicio (FastAPI), backend (.NET), frontend (React) | Correr el sistema | ✅ Sí |
+| PostgreSQL, Nginx, systemd, Certbot (en la EC2) | Servir y proteger el sistema | ✅ Sí |
+
+**En una frase:** entrenamos y comparamos con muchas herramientas, pero **a producción solo va BETO
+ya entrenado**, servido por el microservicio dentro del sistema web. Todo lo demás fue el "taller"
+donde se construyó y se probó.
+
+> **Trazabilidad de conceptos:** las secciones 8.3–8.7 aplican, en orden, **todos** los conceptos del
+> glosario (§1): desde inteligencia artificial, PLN, corpus, anotador, kappa y adjudicación, pasando
+> por vector, TF-IDF, SVM, regresión logística, red neuronal, transformer, BERT, BETO, fine-tuning,
+> class weights y GPU, hasta las métricas (precisión, recall, falso negativo, F1, macro-F1) y toda la
+> infraestructura (microservicio, API REST, HTTP, FastAPI, frontend, backend, PostgreSQL, Docker, JWT,
+> contrato de datos, migración, Nginx, HTTPS/Certbot, systemd, CORS, SCP, EC2/Route 53).
