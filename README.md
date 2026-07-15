@@ -181,15 +181,17 @@ arriba. Si en las secciones siguientes aparece una palabra técnica, aquí está
 Qué pasa cuando un ciudadano manda un reporte y cuando el operador revisa el panel:
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':70}}}%%
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px', 'lineColor':'#1e293b'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':75}}}%%
 flowchart TD
-    Personas(["👤 Ciudadano · 👮 Operador"]) -->|"usan el navegador"| FE["🖥️ Frontend React<br/>formulario + panel"]
-    FE -->|"peticiones HTTP"| BE["⚙️ Backend .NET 8"]
-    BE -->|"POST /clasificar"| MS["🧠 Microservicio Python"]
-    MS --> BETO["🤖 Modelos BETO<br/>categoría + urgencia"]
-    MS -->|"devuelve etiquetas<br/>+ confianzas"| BE
-    BE -->|"guarda / lee"| DB[("🗄️ PostgreSQL")]
+    Personas(["👤 Ciudadano · 👮 Operador"]) -->|"1 · usan el navegador"| FE["🖥️ Frontend React<br/>formulario + panel"]
+    FE -->|"2 · peticiones HTTP"| BE["⚙️ Backend .NET 8"]
+    BE -->|"3 · POST /clasificar"| MS["🧠 Microservicio Python"]
+    MS -->|"4 · pasa el texto"| BETO["🤖 Modelos BETO<br/>categoría + urgencia"]
+    BETO -->|"5 · etiquetas + confianzas"| MS
+    MS -->|"6 · devuelve resultado"| BE
+    BE -->|"7 · guarda / lee"| DB[("🗄️ PostgreSQL")]
 
+    linkStyle default stroke:#1e293b,stroke-width:3px;
     classDef front fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a;
     classDef back fill:#dcfce7,stroke:#22c55e,color:#14532d;
     classDef ml fill:#fef3c7,stroke:#f59e0b,color:#7c2d12;
@@ -221,22 +223,23 @@ flowchart TD
 Cómo se construyó y evaluó el clasificador, desde los reportes hasta el modelo servido:
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':75}}}%%
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px', 'lineColor':'#1e293b'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':75}}}%%
 flowchart TD
     RE["👥 400 reportes reales<br/>Ricardo + Nahum"] --> CORP["corpus_etiquetado.csv"]
-    GEN["🤖 900 sintéticos"] --> TR
-    CORP --> MUE["180 muestra"]
+    GEN["🤖 900 sintéticos"] -->|"solo entrenamiento"| TR
+    CORP -->|"180 para validar"| MUE["180 muestra"]
     MUE --> KAPPA["Kappa de Cohen<br/>κ cat 0.70 · urg 0.31"]
     KAPPA --> ADJ["Adjudicación<br/>3er anotador"]
     ADJ --> GOLD["⭐ gold_kappa.csv<br/>180 = PRUEBA"]
-    CORP --> TR["220 reales + sintéticos<br/>ENTRENAMIENTO"]
-    TR --> BASE["Baseline<br/>TF-IDF + SVM"]
-    TR --> BETOT["BETO<br/>fine-tuning"]
+    CORP -->|"220 restantes"| TR["220 reales + sintéticos<br/>ENTRENAMIENTO"]
+    TR -->|"entrena"| BASE["Baseline<br/>TF-IDF + SVM"]
+    TR -->|"entrena"| BETOT["BETO<br/>fine-tuning"]
     GOLD -->|"se mide contra"| BASE
     GOLD -->|"se mide contra"| BETOT
     BASE --> CMP["📊 Comparación<br/>baseline vs BETO"]
     BETOT --> CMP
 
+    linkStyle default stroke:#1e293b,stroke-width:3px;
     classDef data fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a;
     classDef gold fill:#fef9c3,stroke:#eab308,color:#713f12;
     classDef model fill:#fef3c7,stroke:#f59e0b,color:#7c2d12;
@@ -258,16 +261,17 @@ Docker en producción). Nginx es la única puerta al internet; los demás servic
 `localhost`.
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':70}}}%%
+%%{init: {'theme':'base', 'themeVariables': {'fontSize':'26px', 'lineColor':'#1e293b'}, 'flowchart': {'nodeSpacing':60, 'rankSpacing':70}}}%%
 flowchart TD
     User([🌐 Usuario en internet]) -->|"HTTPS"| R53["Route 53 · DNS"]
-    R53 --> NGINX["🔒 Nginx :443<br/>HTTPS (única puerta pública)"]
-    NGINX -->|"ruta /"| STATIC["📄 Frontend estático"]
-    NGINX -->|"ruta /api"| NET["⚙️ Backend .NET<br/>localhost:5000"]
-    NET --> PY["🧠 Microservicio<br/>localhost:8000"]
-    PY --> M["🤖 Modelos BETO"]
-    NET --> PG[("🗄️ PostgreSQL<br/>localhost:5432")]
+    R53 -->|"apunta a la IP"| NGINX["🔒 Nginx :443<br/>HTTPS (única puerta pública)"]
+    NGINX -->|"ruta / → interfaz"| STATIC["📄 Frontend estático"]
+    NGINX -->|"ruta /api → backend"| NET["⚙️ Backend .NET<br/>localhost:5000"]
+    NET -->|"clasifica"| PY["🧠 Microservicio<br/>localhost:8000"]
+    PY -->|"usa"| M["🤖 Modelos BETO"]
+    NET -->|"guarda / lee"| PG[("🗄️ PostgreSQL<br/>localhost:5432")]
 
+    linkStyle default stroke:#1e293b,stroke-width:3px;
     classDef ext fill:#ede9fe,stroke:#8b5cf6,color:#4c1d95;
     classDef edge fill:#fee2e2,stroke:#ef4444,color:#7f1d1d;
     classDef svc fill:#dcfce7,stroke:#22c55e,color:#14532d;
