@@ -42,6 +42,7 @@ clasificar**, empezando por un glosario en español sencillo. No necesitas saber
 5. [Estructura de carpetas y archivos](#5-estructura-de-carpetas-y-archivos)
 6. [Puesta en marcha en local](#6-puesta-en-marcha-en-local)
 7. [Resultados del modelo](#7-resultados-del-modelo)
+8. [Guía de replicación completa (reproducir de cero)](#8-guía-de-replicación-completa-para-reproducir-el-proyecto-de-cero)
 
 ---
 
@@ -482,3 +483,151 @@ Evaluación sobre el conjunto **gold** (180 reportes reales, validados por conse
 Detalle completo en [`datos-modelo/comparacion_modelos.md`](datos-modelo/comparacion_modelos.md).
 El acuerdo humano (kappa) fue de **0.70 en categoría** y **0.31 en urgencia** (esta última se
 resolvió con adjudicación) — ver [`datos-modelo/reporte_kappa.md`](datos-modelo/reporte_kappa.md).
+
+---
+
+## 8. Guía de replicación completa (para reproducir el proyecto de cero)
+
+Esta sección describe **literalmente todo lo que ocupamos, qué hicimos, cómo entrenamos y qué
+instalamos**, con versiones y comandos exactos, para que cualquier persona pueda reproducirlo.
+
+### 8.1 Todo lo que ocupamos (stack y versiones reales)
+
+| Herramienta | Versión usada | Para qué |
+|---|---|---|
+| **Python** | 3.13.14 | El microservicio y todo el modelado (etiquetado, baseline, BETO). |
+| **scikit-learn** | 1.9.0 | El baseline clásico (TF-IDF + SVM / regresión logística) y las métricas. |
+| **pandas** | 3.0.3 | Leer y manipular los CSV del corpus. |
+| **numpy** | 2.5.1 | Cálculos numéricos de apoyo. |
+| **PyTorch (torch)** | 2.13.0+cpu | Motor de redes neuronales que ejecuta BETO. En local basta la versión CPU. |
+| **transformers** (Hugging Face) | 5.13.1 | Descargar y hacer fine-tuning de BETO. |
+| **datasets, accelerate** | 2.19+ / 0.30+ | Apoyo al entrenamiento de BETO (manejo de datos y aceleración). |
+| **FastAPI** | 0.139.0 | Crear la API del microservicio de clasificación. |
+| **uvicorn** | 0.51.0 | Servidor que corre la API de FastAPI. |
+| **.NET SDK** | 8 (probado con 8 y 10) | El backend (API REST, base de datos, login). |
+| **Node.js** | 20+ (usamos 22.23.1) | Construir y correr el frontend React. |
+| **Docker** | 29.5.2 | Levantar PostgreSQL en local sin instalarlo a mano. |
+| **PostgreSQL** | 16 | La base de datos donde se guardan los reportes. |
+| **Google Colab** | GPU T4 (gratuita) | Entrenar BETO, porque no teníamos GPU propia. |
+| **BETO** | `dccuchile/bert-base-spanish-wwm-cased` | El modelo de lenguaje en español que clasifica. |
+| **Git / GitHub** | — | Control de versiones del código (repositorio `sirec`). |
+
+Todo es **gratuito y de código abierto**. Costo por predicción del modelo: cero (no se usa ninguna
+API de pago).
+
+### 8.2 Qué instalamos (comandos exactos)
+
+```powershell
+# --- Para el microservicio y usar BETO ya entrenado (en local, CPU) ---
+cd microservicio-ml
+py -m pip install fastapi "uvicorn[standard]" torch transformers
+
+# --- Para entrenar el baseline clásico (D4) en local (CPU) ---
+cd ../datos-modelo
+py -m pip install scikit-learn pandas numpy
+
+# --- Para entrenar BETO (D5): se instala DENTRO de Google Colab, no en local ---
+# (primera celda del cuaderno entrenar_beto_colab.ipynb)
+#   !pip install "transformers>=4.40" "datasets>=2.19" "accelerate>=0.30" scikit-learn pandas
+```
+
+> Nota: `calcular_kappa.py` **no necesita instalar nada** (usa solo la librería estándar de Python).
+
+### 8.3 Qué hicimos con los datos (paso a paso)
+
+1. **Guía de etiquetado** (`guia_etiquetado.md`): definimos las 7 categorías, los 3 niveles de
+   urgencia, los casos de frontera y la regla de desempate (si hay una persona en peligro, gana
+   `persona_en_riesgo`). Un humano la aprobó (no la IA).
+2. **Recolección real:** dos personas del equipo (Ricardo y Nahum) juntaron **200 reportes reales
+   cada una** de fuentes públicas de contingencias en Veracruz, y los **anonimizaron** (quitar
+   nombres, teléfonos, direcciones). Total: **400 reportes reales** → `corpus_etiquetado.csv`.
+3. **Etiquetado:** cada quien clasificó sus reportes con la herramienta local
+   `herramienta_etiquetado.py` (una app web con teclas 1-7 para categoría y A/M/B para urgencia).
+4. **Corpus sintético:** generamos **900 reportes sintéticos** con `generar_corpus_sintetico.py`
+   (`corpus_sintetico.csv`), declarados como tales. **Solo se usan para entrenar.**
+5. **Doble etiquetado (kappa):** apartamos una muestra de **180 reportes** (`reportes_kappa.csv`) y
+   Ricardo y Nahum la etiquetaron **por separado, sin verse** → `kappa_ricardo.csv`, `kappa_nahum.csv`.
+6. **Kappa de Cohen** (`calcular_kappa.py`): medimos el acuerdo → **categoría κ = 0.70**
+   (considerable) y **urgencia κ = 0.31** (baja, la urgencia es más subjetiva).
+7. **Adjudicación:** como la urgencia salió baja, una **tercera persona** resolvió los 114
+   desacuerdos (`generar_adjudicacion.py` → `adjudicacion_kappa.csv` → `consolidar_adjudicacion.py`),
+   produciendo el conjunto **gold** de 180 reportes de consenso (`gold_kappa.csv`).
+8. **División de datos (sin trampa):** los **180 gold** se apartan como **conjunto de prueba**; los
+   **220 reales restantes + los 900 sintéticos** se usan para **entrenar**. Los 180 de prueba nunca
+   se usan para entrenar (evita evaluar con lo que el modelo ya vio).
+
+### 8.4 Cómo entrenamos el baseline (modelo clásico, en local)
+
+El baseline convierte el texto en números con **TF-IDF** (cuenta palabras y grupos de letras) y lo
+clasifica con **SVM** o **regresión logística**. Corre en CPU en segundos.
+
+```powershell
+cd datos-modelo
+# Entrena y evalúa contra el conjunto gold (train = 220 reales + 900 sintéticos)
+py entrenar_baseline.py --gold-test --con-sintetico
+
+# Extra: ajustar el umbral para no perder urgencias "alta" (prioriza recall)
+py optimizar_umbral_alta.py --gold-test
+```
+
+Detalles técnicos: TF-IDF de palabra (1-2) + de carácter (3-5); `class_weight="balanced"` por el
+desbalance; semilla fija 42. **Resultado:** categoría macro-F1 0.65, urgencia macro-F1 0.45.
+
+### 8.5 Cómo entrenamos BETO (en Google Colab con GPU)
+
+BETO es una red neuronal grande; entrenarla necesita una **GPU**. Como no teníamos, usamos
+**Google Colab** (gratis). Todo está en el cuaderno `datos-modelo/entrenar_beto_colab.ipynb`.
+
+Pasos exactos:
+1. Entrar a [colab.research.google.com](https://colab.research.google.com) → *Subir cuaderno* →
+   subir `entrenar_beto_colab.ipynb`.
+2. Menú *Entorno de ejecución → Cambiar tipo de entorno → GPU (T4)*.
+3. Ejecutar las celdas en orden. En la celda de datos, subir 3 archivos:
+   `corpus_etiquetado.csv`, `corpus_sintetico.csv`, `gold_kappa.csv`.
+4. Las celdas de entrenamiento ajustan BETO para **categoría** y para **urgencia** (un modelo cada una).
+5. La última celda guarda los modelos en tu Google Drive (`beto_modelos.zip`).
+
+Parámetros de entrenamiento (fine-tuning): 4 épocas, tamaño de lote 16, tasa de aprendizaje `2e-5`,
+longitud máxima 128 tokens, **pesos por clase** por el desbalance, y se elige el mejor modelo por
+**recall de la clase crítica**. **Resultado:** categoría macro-F1 0.74, urgencia macro-F1 0.55.
+
+Equivalente por línea de comandos (si se tiene GPU local): el mismo pipeline vive en el cuaderno;
+la lógica es idéntica a la del baseline pero con BETO.
+
+### 8.6 Cómo integramos el modelo entrenado al sistema
+
+1. Descargar `beto_modelos.zip` desde Google Drive.
+2. Extraer **solo los archivos finales** (sin los checkpoints de entrenamiento) en
+   `microservicio-ml/modelos/`, quedando `modelos/beto_categoria/` y `modelos/beto_urgencia/`.
+3. Arrancar el microservicio en **modo modelo**:
+   ```powershell
+   cd microservicio-ml
+   $env:SIREC_MODO = "modelo"
+   py -m uvicorn main:app --port 8000
+   ```
+4. Probar:
+   ```powershell
+   curl.exe -X POST http://localhost:8000/clasificar -H "Content-Type: application/json" -d "{\"texto\":\"Hay una persona atrapada, el agua sigue subiendo\"}"
+   # -> {"categoria":"persona_en_riesgo","urgencia":"alta", ...}
+   ```
+
+El microservicio carga los modelos con `clasificador_modelo.py` y responde con el mismo formato que
+el modo simulado, así que el backend .NET no nota el cambio. Para desplegarlo en AWS, los modelos se
+copian a la EC2 por SCP (ver [`microservicio-ml/DESPLIEGUE_MODELO.md`](microservicio-ml/DESPLIEGUE_MODELO.md)).
+
+### 8.7 Orden completo para replicar desde cero
+
+```text
+1. Clonar el repositorio.
+2. Instalar dependencias (§8.2).
+3. Levantar PostgreSQL con Docker, backend .NET y frontend React (§6).
+4. (Datos) Etiquetar reportes reales + generar sintéticos (§8.3, pasos 1-4).
+5. (Validez) Doble etiquetado + kappa + adjudicación → gold_kappa.csv (§8.3, pasos 5-8).
+6. (Baseline) py entrenar_baseline.py --gold-test --con-sintetico (§8.4).
+7. (BETO) Entrenar en Colab con entrenar_beto_colab.ipynb → beto_modelos.zip (§8.5).
+8. (Integrar) Extraer modelos en microservicio-ml/modelos/ y arrancar en modo modelo (§8.6).
+9. (Comparar) Revisar comparacion_modelos.md: BETO gana al baseline.
+```
+
+Con esto, cualquier persona con los mismos datos y herramientas obtiene el mismo sistema y
+resultados equivalentes (usamos semillas fijas donde aplica, semilla 42).
