@@ -537,16 +537,16 @@ py -m pip install scikit-learn pandas numpy
 
 > Nota: `calcular_kappa.py` **no necesita instalar nada** (usa solo la librería estándar de Python).
 
-> **Nota:** a partir de aquí resaltamos en **negrita** cada concepto del glosario (§1) la primera vez
-> que se aplica, para que se vea que **todos** se usaron en el proceso real. Si alguno no te queda
-> claro, su definición está en el [glosario](#1-glosario-qué-significa-cada-término).
+> **Nota:** a partir de aquí resaltamos en **negrita** cada concepto del glosario (§1) **cada vez** que
+> aparece (no solo la primera), para que se vea que **todos** se usaron en el proceso real. Si alguno
+> no te queda claro, su definición está en el [glosario](#1-glosario-qué-significa-cada-término).
 
 ### 8.3 Qué hicimos con los datos (paso a paso)
 
-> 🧪 **Nada de este paso va a producción.** Los datos (reales y sintéticos), la herramienta de
-> etiquetado y los scripts de kappa/adjudicación son **solo para preparar y validar** el material con
-> el que se entrena y se evalúa. El **conjunto gold** se usa **solo para calificar** los modelos, no
-> forma parte del sistema desplegado.
+> 🧪 **Nada de este paso va a producción.** Los **reportes reales** y **sintéticos**, la herramienta
+> de **etiquetado** y los scripts de **kappa**/**adjudicación** son **solo para preparar y validar** el
+> material con el que se **entrena** y se evalúa. El **conjunto gold** se usa **solo para calificar**
+> los **modelos**, no forma parte del sistema desplegado.
 
 Todo parte de los datos. Un **modelo** de **clasificación** aprende de ejemplos escritos en
 **lenguaje natural** (el idioma tal como lo escribe la gente); ese es el terreno del **procesamiento
@@ -555,43 +555,43 @@ artificial** aprenda de los ejemplos.
 
 1. **Guía de etiquetado** (`guia_etiquetado.md`): definimos las 7 categorías, los 3 niveles de
    urgencia, los casos de frontera y la regla de desempate (si hay una persona en peligro, gana
-   `persona_en_riesgo`). Un humano la aprobó (no la inteligencia artificial).
+   `persona_en_riesgo`). Un humano la aprobó (no la **inteligencia artificial**).
 2. **Recolección del corpus:** dos personas (Ricardo y Nahum) juntaron **200 reportes reales** cada
    una de fuentes públicas de Veracruz y los **anonimizaron** (quitar nombres, teléfonos,
    direcciones). Total: **400 reportes reales** → `corpus_etiquetado.csv`. Al conjunto de todos los
    textos de ejemplo se le llama **corpus**.
-3. **Etiquetar:** cada **anotador** clasificó sus reportes con `herramienta_etiquetado.py` (teclas
-   1-7 para categoría y A/M/B para urgencia), asignando la respuesta correcta a cada uno.
+3. **Etiquetar:** cada **anotador** aplicó la **clasificación** a sus reportes con
+   `herramienta_etiquetado.py` (teclas 1-7 para categoría y A/M/B para urgencia).
 4. **Reportes sintéticos:** como los **reportes reales** son difíciles de conseguir, generamos
    **900 reportes sintéticos** con `generar_corpus_sintetico.py` (`corpus_sintetico.csv`), declarados
    como tales. **Solo se usan para entrenar, nunca para evaluar.**
-5. **Doble etiquetado (kappa):** apartamos **180 reportes** (`reportes_kappa.csv`) y dos anotadores
-   los etiquetaron **por separado, sin verse** → `kappa_ricardo.csv`, `kappa_nahum.csv`.
-6. **Kappa de Cohen** (`calcular_kappa.py`): mide el acuerdo entre anotadores → categoría **κ = 0.70**
-   (considerable) y urgencia **κ = 0.31** (baja, la urgencia es más subjetiva).
+5. **Doble etiquetado (kappa):** apartamos **180 reportes** (`reportes_kappa.csv`) y dos **anotadores**
+   los **etiquetaron por separado, sin verse** → `kappa_ricardo.csv`, `kappa_nahum.csv`.
+6. **Kappa de Cohen** (`calcular_kappa.py`): mide el acuerdo entre **anotadores** → categoría
+   **κ = 0.70** (considerable) y urgencia **κ = 0.31** (baja, la urgencia es más subjetiva).
 7. **Adjudicación:** como la urgencia salió baja, una tercera persona resolvió los 114 desacuerdos
-   (`generar_adjudicacion.py` → `consolidar_adjudicacion.py`), produciendo el conjunto **gold** de
+   (`generar_adjudicacion.py` → `consolidar_adjudicacion.py`), produciendo el **conjunto gold** de
    180 reportes de consenso (`gold_kappa.csv`).
 8. **Separación entrenamiento / prueba (sin trampa):** los **180 gold** son el **conjunto de prueba**
    (nunca se usan para **entrenar**); los **220 reales restantes + 900 sintéticos** son el
-   entrenamiento. Detalle importante: algunas categorías casi no aparecen — ese **desbalance de
-   clases** lo compensaremos con pesos por clase (§8.4 y §8.5).
+   **entrenamiento**. Detalle importante: algunas categorías casi no aparecen — ese **desbalance de
+   clases** lo compensamos con **class weights (pesos por clase)** (§8.4 y §8.5).
 
 ### 8.4 Cómo entrenamos el baseline (modelo clásico, en local)
 
-> ⚠️ **Este modelo NO va a producción.** El baseline (**TF-IDF** + **SVM** / **regresión logística**)
-> se entrena **solo para comparar** contra BETO y demostrar que BETO vale la pena. Una vez obtenida la
-> comparación, se queda en el reporte; **no se despliega**.
+> ⚠️ **Este modelo NO va a producción.** El **baseline** (**TF-IDF** + **SVM** / **regresión
+> logística**) se **entrena** **solo para comparar** contra **BETO** y demostrar que **BETO** vale la
+> pena. Una vez obtenida la comparación, se queda en el reporte; **no se despliega**.
 
-Empezamos por el modelo simple, el **baseline**, que servirá de punto de comparación. Como las
+Empezamos por el **modelo** simple, el **baseline**, que servirá de punto de comparación. Como las
 computadoras no operan con palabras sino con números, primero convertimos cada texto en un **vector**
 usando el **algoritmo** **TF-IDF**, que cuenta qué palabras y grupos de letras aparecen y qué tan
 distintivos son (no entiende el significado).
 
-Con esos vectores entrenamos un **clasificador** de tipo **clasificador lineal** (separa las clases
-trazando líneas). Probamos dos: **SVM (máquina de vectores de soporte)** y **regresión logística**.
-Para el **desbalance de clases** activamos **class weights (pesos por clase)** con
-`class_weight="balanced"`, que hace que el modelo preste más atención a las categorías raras.
+Con esos **vectores** **entrenamos** un **clasificador** de tipo **clasificador lineal** (separa las
+clases trazando líneas). Probamos dos: **SVM (máquina de vectores de soporte)** y **regresión
+logística**. Para el **desbalance de clases** activamos **class weights (pesos por clase)** con
+`class_weight="balanced"`, que hace que el **modelo** preste más atención a las categorías raras.
 
 ```powershell
 cd datos-modelo
@@ -599,8 +599,8 @@ py entrenar_baseline.py --gold-test --con-sintetico
 py optimizar_umbral_alta.py --gold-test   # ajusta el umbral para no perder urgencias "alta"
 ```
 
-Detalles: TF-IDF de palabra (1-2) + de carácter (3-5); semilla fija 42. **Resultado:** categoría
-**macro-F1** 0.65, urgencia macro-F1 0.45 (las métricas se explican en §8.6).
+Detalles: **TF-IDF** de palabra (1-2) + de carácter (3-5); semilla fija 42. **Resultado:** categoría
+**macro-F1** 0.65, urgencia **macro-F1** 0.45 (las métricas se explican en §8.6).
 
 ### 8.5 Cómo entrenamos BETO (modelo avanzado, en Google Colab con GPU)
 
