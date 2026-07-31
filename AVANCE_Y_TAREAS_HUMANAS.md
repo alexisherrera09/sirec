@@ -7,6 +7,63 @@
 
 ---
 
+## ▶️ RETOMA AQUÍ (2026-07-31, tarde)
+
+**Producción está cerrada por completo: sistema desplegado, HTTPS activo y BETO real clasificando.**
+No queda ningún pendiente técnico bloqueante.
+
+**Acceso al sistema:** https://sirec.ameinnovate.com — usuario `operador`, contraseña
+`WOWozHbzvVGlxaT5`. El formulario público es la portada; el panel con los reportes de la ciudadanía
+está detrás del login. 🔴 **Rotar esta contraseña antes de hacer público el repo o compartirlo con el
+evaluador** (ver `DESPLIEGUE_EC2_REALIZADO.md` §4.1: el historial de git es permanente).
+
+1. **El pendiente grande del proyecto es ahora escribir la memoria.** Es lo único que falta para
+   titulación; todo el material de respaldo (métricas, kappa, comparación de modelos, bitácora de
+   despliegue) ya está generado en el repo.
+2. Menores, si algún día molestan: el `<title>` del frontend dice `"frontend"` (default de Vite);
+   `ufw` inactivo; sin `pg_dump` programado para respaldos de la base.
+3. Espacio en disco: 9.5 GB libres de 28 GB. `beto_modelos.zip` (176 MB) sigue en la raíz del repo,
+   ignorado por git; los pesos descomprimidos viven en `/home/ubuntu/modelos/` y su copia de
+   producción en `/usr/local/proyectos/ml_sirec/modelos/`.
+
+---
+
+## ✅ Actualización 2026-07-31 (tarde) — BETO real activo en producción
+
+`SIREC_MODO=modelo`: el microservicio ya clasifica con los dos BETO fine-tuned, no con reglas.
+Detalle completo en `DESPLIEGUE_EC2_REALIZADO.md` §6.1. Resumen:
+
+- Pesos copiados a `/usr/local/proyectos/ml_sirec/modelos/` (840 MB, sin los `checkpoint-*`).
+  `/salud` responde `{"estado":"ok","modo":"modelo"}`.
+- **Las dos advertencias del corte anterior eran falsas alarmas:** los pesos **no** estaban truncados
+  (439 MB cada `model.safetensors`) y el desfase de `transformers` (5.12.1 al entrenar vs 4.57.6 en la
+  instancia) **no impidió la carga** — se probó contra el venv de producción antes de cambiar el modo.
+- Verificado de punta a punta por Nginx con cuatro reportes: `inundacion`/`media`,
+  `caida_poste_cable`/`media`, `persona_en_riesgo`/`alta` y `otro`/`baja`, todos correctos. El caso de
+  la familia atrapada respeta la regla de desempate de la guía, y `baja` (la clase frágil) acertó.
+- **Las confianzas ya son reales** (0.9238–0.9989 en la prueba) en vez del 0.9 fijo del modo simulado:
+  los números ya sirven para la defensa académica.
+
+---
+
+## 🔔 Actualización 2026-07-31 — SIREC desplegado en la EC2 (Nginx + systemd)
+
+El sistema completo ya corre en la instancia EC2 de producción, servido por Nginx. Bitácora
+detallada, verificaciones y desviaciones respecto al plan: **`DESPLIEGUE_EC2_REALIZADO.md`**.
+
+- Frontend estático, backend .NET 8 y microservicio FastAPI desplegados en `/usr/local/proyectos/`
+  (`frontend_sirec`, `backend_sirec`, `ml_sirec`); backend y microservicio bajo systemd
+  (`sirec-api`, `sirec-ml`), solo en `localhost`. PostgreSQL 18 con base y usuario propios.
+- Verificado de punta a punta por Nginx: reporte público → clasificación → panel con login JWT →
+  cambio de estado; incluida la resiliencia B2 (con el clasificador apagado el reporte se guarda
+  con `requiereRevision: true`). Credenciales de producción distintas a las de desarrollo.
+- ✅ **DNS y HTTPS cerrados (2026-07-31).** `sirec.ameinnovate.com` resuelve a `13.221.48.89`,
+  Certbot emitió el certificado y la renovación automática quedó configurada; 80 redirige a 443.
+- ~~**Falta para cerrar producción:** activar BETO real.~~ ✅ **Cerrado el mismo día** (ver el corte
+  superior): `SIREC_MODO=modelo`, confianzas reales y clasificación verificada por Nginx.
+
+---
+
 ## 🔔 Actualización 2026-07-14 (tarde) — BETO entrenado: gana al baseline (D5/D6)
 
 BETO fine-tuned corrió en Colab sobre el split gold. **Resultado contundente: supera al baseline en todo.**
