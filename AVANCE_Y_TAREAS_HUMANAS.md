@@ -12,10 +12,11 @@
 **Producción está cerrada por completo: sistema desplegado, HTTPS activo y BETO real clasificando.**
 No queda ningún pendiente técnico bloqueante.
 
-**Acceso al sistema:** https://sirec.ameinnovate.com — usuario `operador`, contraseña
-`WOWozHbzvVGlxaT5`. El formulario público es la portada; el panel con los reportes de la ciudadanía
-está detrás del login. 🔴 **Rotar esta contraseña antes de hacer público el repo o compartirlo con el
-evaluador** (ver `DESPLIEGUE_EC2_REALIZADO.md` §4.1: el historial de git es permanente).
+**Acceso al sistema:** https://sirec.ameinnovate.com — usuario `sirec`, contraseña `123456a`.
+El formulario público es la portada; el panel con los reportes de la ciudadanía está detrás del login.
+🔴 Contraseña simple a propósito, solo para la demo: **cambiarla si entran reportes reales de
+ciudadanos, y antes de hacer público el repo o compartirlo con el evaluador**
+(ver `DESPLIEGUE_EC2_REALIZADO.md` §4.1).
 
 1. **El pendiente grande del proyecto es ahora escribir la memoria.** Es lo único que falta para
    titulación; todo el material de respaldo (métricas, kappa, comparación de modelos, bitácora de

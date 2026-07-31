@@ -53,19 +53,24 @@ resultado del build, una carpeta por componente desplegable.
 | | |
 |---|---|
 | **URL** | https://sirec.ameinnovate.com |
-| **Usuario** | `operador` |
-| **Contraseña** | `WOWozHbzvVGlxaT5` |
+| **Usuario** | `sirec` |
+| **Contraseña** | `123456a` |
 
 El formulario público de reportes es la portada; el panel del operador (reportes ordenados por
 urgencia, con cambio de estado) está detrás del login. La sesión dura 8 horas
 (`Jwt__MinutosVigencia=480`).
 
-> 🔴 **Antes de hacer este repositorio público o compartirlo con el evaluador, rota esta contraseña.**
-> Quedó escrita aquí por decisión explícita del equipo (2026-07-31) porque el repositorio es privado,
-> pero el historial de git es permanente: borrarla de este archivo más adelante **no** la quita de los
-> commits anteriores. Rotarla es cambiar `Operador__Contrasena` en `/etc/sirec/sirec-api.env` y
-> `sudo systemctl restart sirec-api`. Lo mismo aplica a `Jwt__Secreto` y a la contraseña de
-> `sirec_user`, que siguen viviendo solo en ese archivo y **no** están en el repo.
+> 🔴 **Credencial deliberadamente simple, elegida por el equipo el 2026-07-31 para la demo y la
+> defensa.** Sirve mientras el panel solo contenga reportes de prueba. **Si en algún momento entran
+> reportes reales de ciudadanos, hay que cambiarla**: el panel es alcanzable desde internet y los
+> reportes guardan `telefono` y `colonia`, así que una contraseña adivinable expone datos personales.
+>
+> Cambiarla son dos pasos: editar `Operador__Usuario` / `Operador__Contrasena` en
+> `/etc/sirec/sirec-api.env` y `sudo systemctl restart sirec-api`. Hazlo también **antes de hacer este
+> repositorio público o compartirlo con el evaluador** — el historial de git es permanente, así que
+> borrar la contraseña de este archivo más adelante **no** la quita de los commits anteriores.
+> `Jwt__Secreto` y la contraseña de `sirec_user` siguen viviendo solo en ese archivo y **no** están en
+> el repo.
 
 ### 4.2 Variables de producción (fuera del repositorio)
 
