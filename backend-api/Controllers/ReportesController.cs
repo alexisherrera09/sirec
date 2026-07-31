@@ -77,22 +77,87 @@ public class ReportesController : ControllerBase
 
     /// <summary>
     /// (PANEL, Fase B3) Lista los reportes ordenados por urgencia (alta→media→baja)
-    /// y fecha descendente. Filtros opcionales por categoría y estado.
+    /// y fecha descendente, con filtros opcionales por cualquier campo del modelo 1.4
+    /// (ver <see cref="FiltroReportesDto"/>). Los filtros se combinan con AND y se
+    /// traducen a SQL: no se trae la tabla a memoria.
     /// </summary>
     [HttpGet]
     [Authorize]
     public async Task<ActionResult<IEnumerable<ReporteDto>>> Listar(
-        [FromQuery] string? categoria,
-        [FromQuery] string? estado,
+        [FromQuery] FiltroReportesDto filtro,
         CancellationToken ct = default)
     {
+        // Los valores de enumeración se validan para no devolver silenciosamente la lista
+        // completa cuando el cliente manda una categoría o un estado que no existe.
+        if (!string.IsNullOrWhiteSpace(filtro.Categoria) && !Contrato.Categorias.Contains(filtro.Categoria))
+            return BadRequest(new { error = $"Categoría inválida. Válidas: {string.Join(", ", Contrato.Categorias)}." });
+
+        if (!string.IsNullOrWhiteSpace(filtro.Urgencia) && !Contrato.Urgencias.Contains(filtro.Urgencia))
+            return BadRequest(new { error = $"Urgencia inválida. Válidas: {string.Join(", ", Contrato.Urgencias)}." });
+
+        if (!string.IsNullOrWhiteSpace(filtro.Estado) && !Contrato.Estados.Contains(filtro.Estado))
+            return BadRequest(new { error = $"Estado inválido. Válidos: {string.Join(", ", Contrato.Estados)}." });
+
+        if (filtro.Desde is not null && filtro.Hasta is not null && filtro.Desde > filtro.Hasta)
+            return BadRequest(new { error = "El rango de fechas está invertido: 'desde' es posterior a 'hasta'." });
+
         var consulta = _db.Reportes.AsQueryable();
 
-        if (!string.IsNullOrWhiteSpace(categoria))
-            consulta = consulta.Where(r => r.Categoria == categoria);
+        // --- Búsquedas por subcadena, sin distinguir mayúsculas (ILIKE de PostgreSQL).
+        // Se escapan %, _ y \ para que el texto del operador se busque literal.
+        if (!string.IsNullOrWhiteSpace(filtro.Texto))
+        {
+            var patron = $"%{EscaparLike(filtro.Texto)}%";
+            consulta = consulta.Where(r => EF.Functions.ILike(r.Texto, patron, @"\"));
+        }
 
-        if (!string.IsNullOrWhiteSpace(estado))
-            consulta = consulta.Where(r => r.Estado == estado);
+        if (!string.IsNullOrWhiteSpace(filtro.Colonia))
+        {
+            var patron = $"%{EscaparLike(filtro.Colonia)}%";
+            consulta = consulta.Where(r => r.Colonia != null && EF.Functions.ILike(r.Colonia, patron, @"\"));
+        }
+
+        if (!string.IsNullOrWhiteSpace(filtro.Telefono))
+        {
+            var patron = $"%{EscaparLike(filtro.Telefono)}%";
+            consulta = consulta.Where(r => r.Telefono != null && EF.Functions.ILike(r.Telefono, patron, @"\"));
+        }
+
+        // --- Coincidencia exacta de los campos del contrato.
+        if (!string.IsNullOrWhiteSpace(filtro.Categoria))
+            consulta = consulta.Where(r => r.Categoria == filtro.Categoria);
+
+        if (!string.IsNullOrWhiteSpace(filtro.Urgencia))
+            consulta = consulta.Where(r => r.Urgencia == filtro.Urgencia);
+
+        if (!string.IsNullOrWhiteSpace(filtro.Estado))
+            consulta = consulta.Where(r => r.Estado == filtro.Estado);
+
+        if (filtro.RequiereRevision is bool revision)
+            consulta = consulta.Where(r => r.RequiereRevision == revision);
+
+        // --- Rangos de confianza del clasificador (para auditar clasificaciones dudosas).
+        if (filtro.ConfianzaCategoriaMin is double catMin)
+            consulta = consulta.Where(r => r.ConfianzaCategoria >= catMin);
+        if (filtro.ConfianzaCategoriaMax is double catMax)
+            consulta = consulta.Where(r => r.ConfianzaCategoria <= catMax);
+        if (filtro.ConfianzaUrgenciaMin is double urgMin)
+            consulta = consulta.Where(r => r.ConfianzaUrgencia >= urgMin);
+        if (filtro.ConfianzaUrgenciaMax is double urgMax)
+            consulta = consulta.Where(r => r.ConfianzaUrgencia <= urgMax);
+
+        // --- Rango de fechas por días completos en UTC. 'hasta' es inclusive, así que se
+        // compara contra el inicio del día siguiente (Npgsql exige offset 0 en timestamptz).
+        if (filtro.Desde is DateOnly desde)
+        {
+            var inicio = new DateTimeOffset(desde.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
+            consulta = consulta.Where(r => r.CreadoEn >= inicio);
+        }
+        if (filtro.Hasta is DateOnly hasta)
+        {
+            var fin = new DateTimeOffset(hasta.AddDays(1).ToDateTime(TimeOnly.MinValue), TimeSpan.Zero);
+            consulta = consulta.Where(r => r.CreadoEn < fin);
+        }
 
         // Orden por prioridad de urgencia (alta=1) y luego fecha descendente.
         // El CASE se traduce a SQL para no traer todo a memoria.
@@ -104,6 +169,16 @@ public class ReportesController : ControllerBase
 
         return reportes;
     }
+
+    /// <summary>
+    /// Escapa los comodines de LIKE para que la búsqueda del operador sea literal:
+    /// quien escriba "50%" busca ese texto, no "cualquier cosa después de 50".
+    /// </summary>
+    private static string EscaparLike(string valor) => valor
+        .Trim()
+        .Replace(@"\", @"\\")
+        .Replace("%", @"\%")
+        .Replace("_", @"\_");
 
     /// <summary>
     /// (PANEL, Fase B3) Cambia el estado de un reporte respetando las transiciones

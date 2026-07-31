@@ -21,11 +21,40 @@ ciudadanos, y antes de hacer público el repo o compartirlo con el evaluador**
 1. **El pendiente grande del proyecto es ahora escribir la memoria.** Es lo único que falta para
    titulación; todo el material de respaldo (métricas, kappa, comparación de modelos, bitácora de
    despliegue) ya está generado en el repo.
-2. Menores, si algún día molestan: el `<title>` del frontend dice `"frontend"` (default de Vite);
-   `ufw` inactivo; sin `pg_dump` programado para respaldos de la base.
+2. Menores, si algún día molestan: `ufw` inactivo; sin `pg_dump` programado para respaldos de la base.
+   (El `<title>` ya dice `SIREC`, antes traía el `"frontend"` por default de Vite.)
 3. Espacio en disco: 9.5 GB libres de 28 GB. `beto_modelos.zip` (176 MB) sigue en la raíz del repo,
    ignorado por git; los pesos descomprimidos viven en `/home/ubuntu/modelos/` y su copia de
    producción en `/usr/local/proyectos/ml_sirec/modelos/`.
+
+---
+
+## ✅ Actualización 2026-07-31 (tarde) — filtros completos en el panel del operador
+
+El panel filtraba **solo por categoría**, y el filtro por estado existía en la API pero no estaba
+conectado a la interfaz. Ahora hay un filtro por cada uno de los campos del reporte (modelo 1.4),
+combinables entre sí, resueltos en SQL:
+
+| Campo | Control en el panel |
+|---|---|
+| Texto del reporte | búsqueda por subcadena, sin distinguir mayúsculas |
+| Colonia · Teléfono | búsqueda por subcadena (el teléfono permite buscar por lada o terminación) |
+| Categoría · Urgencia · Estado | selector con los valores del contrato |
+| Requiere revisión | selector: todos / solo marcados / solo no marcados |
+| Confianza de categoría y de urgencia | bandas alta (≥90%), media (70–90%), baja (<70%) |
+| Fecha de creación | rango **desde** / **hasta**, en días completos |
+
+- Los campos de texto esperan 350 ms antes de consultar, para no pegarle a la API en cada tecla.
+- Botón **Limpiar filtros** y conteo de resultados (`N reportes con los filtros aplicados`).
+- La API valida los valores de enumeración y devuelve **400** ante una categoría, urgencia o estado
+  que no existe, en vez de ignorar el filtro y devolver la lista completa (que era el riesgo real).
+- Los comodines de `LIKE` van escapados: buscar `50%` busca ese texto literal.
+- Documentación de los parámetros con ejemplos en `backend-api/README.md`.
+- Los contadores de arriba (Alta/Media/Baja/Hoy) siguen siendo **totales globales**, a propósito: son
+  el panorama de la contingencia y no deben cambiar al filtrar. El conteo de la lista sí refleja el filtro.
+
+Verificado en producción filtro por filtro, incluidos los cuatro casos de 400 y el escape de comodines.
+El `<title>` de la pestaña ya dice `SIREC` (traía el `frontend` por default de Vite).
 
 ---
 

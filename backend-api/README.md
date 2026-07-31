@@ -54,11 +54,46 @@ Credenciales de desarrollo: usuario `operador`, contraseña `sirec-local`.
 | Método | Ruta | Auth | Descripción |
 |---|---|---|---|
 | POST | `/api/reportes` | Público | Crea un reporte (lo clasifica y guarda). Resiliente: si el microservicio cae, guarda con fallback y `requiereRevision=true` |
-| GET | `/api/reportes` | JWT | Lista ordenada por urgencia (alta→media→baja) y fecha desc. Filtros `?categoria=` y `?estado=` |
+| GET | `/api/reportes` | JWT | Lista ordenada por urgencia (alta→media→baja) y fecha desc. Filtros por cualquier campo (ver abajo) |
 | GET | `/api/reportes/{id}` | JWT | Un reporte por id |
 | PATCH | `/api/reportes/{id}/estado` | JWT | Cambia estado (pendiente→en_atencion→atendido; rechaza transiciones inválidas) |
 | GET | `/api/reportes/resumen` | JWT | Contadores {alta, media, baja, totalHoy} |
 | POST | `/api/auth/login` | Público | Devuelve token JWT |
+
+### Filtros de `GET /api/reportes`
+
+Todos son opcionales y se combinan con **AND**. Se traducen a SQL (no se trae la tabla a memoria)
+y cubren los once campos del modelo 1.4. Definidos en `Dtos/ReporteDtos.cs` (`FiltroReportesDto`).
+
+| Parámetro | Tipo | Comportamiento |
+|---|---|---|
+| `texto` | subcadena | Busca dentro del texto del reporte, sin distinguir mayúsculas (`ILIKE`) |
+| `colonia` | subcadena | Igual, sobre la colonia |
+| `telefono` | subcadena | Igual, sobre el teléfono (permite buscar por lada o terminación) |
+| `categoria` | exacto | Una de las 7 del contrato; otra cosa → **400** |
+| `urgencia` | exacto | `alta` / `media` / `baja`; otra cosa → **400** |
+| `estado` | exacto | `pendiente` / `en_atencion` / `atendido`; otra cosa → **400** |
+| `requiereRevision` | bool | `true` = solo los marcados para revisión humana; `false` = solo los no marcados |
+| `confianzaCategoriaMin` · `confianzaCategoriaMax` | 0–1 | Rango inclusive de la confianza de la categoría |
+| `confianzaUrgenciaMin` · `confianzaUrgenciaMax` | 0–1 | Rango inclusive de la confianza de la urgencia |
+| `desde` · `hasta` | `AAAA-MM-DD` | Días completos en UTC, ambos inclusive. Rango invertido → **400** |
+
+Los comodines de `LIKE` van escapados: buscar `50%` busca ese texto literal, no "cualquier cosa
+después de 50". Ejemplos:
+
+```bash
+# reportes de alta urgencia todavía sin atender que mencionan "atrapado"
+curl -H "Authorization: Bearer $TOKEN" \
+  "$BASE/api/reportes?urgencia=alta&estado=pendiente&texto=atrapado"
+
+# clasificaciones dudosas: el modelo no pasó del 70% de confianza en la categoría
+curl -H "Authorization: Bearer $TOKEN" \
+  "$BASE/api/reportes?confianzaCategoriaMax=0.6999"
+
+# lo recibido en una fecha concreta, en una colonia
+curl -H "Authorization: Bearer $TOKEN" \
+  "$BASE/api/reportes?desde=2026-07-31&hasta=2026-07-31&colonia=brisas"
+```
 
 ## Estructura
 

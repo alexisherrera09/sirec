@@ -28,13 +28,20 @@ export async function login({ usuario, contrasena }) {
   return resp.json();
 }
 
-// Lista de reportes del panel (requiere token). Filtro opcional por categoría.
-export async function listarReportes(token, { categoria } = {}) {
+// Lista de reportes del panel (requiere token). Acepta filtros por cualquier campo
+// (ver FiltroReportesDto en el backend); los vacíos se omiten de la consulta.
+export async function listarReportes(token, filtros = {}) {
   const params = new URLSearchParams();
-  if (categoria) params.set("categoria", categoria);
+  for (const [clave, valor] of Object.entries(filtros)) {
+    if (valor === undefined || valor === null || valor === "") continue;
+    params.set(clave, valor);
+  }
   const url = `${BASE}/api/reportes${params.toString() ? `?${params}` : ""}`;
   const resp = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-  if (!resp.ok) throw new Error(`No se pudo obtener la lista (HTTP ${resp.status}).`);
+  if (!resp.ok) {
+    const detalle = await resp.text().catch(() => "");
+    throw new Error(`No se pudo obtener la lista (HTTP ${resp.status}). ${detalle}`);
+  }
   return resp.json();
 }
 
