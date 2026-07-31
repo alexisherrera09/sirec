@@ -26,6 +26,85 @@ ciudadanos, y antes de hacer público el repo o compartirlo con el evaluador**
 3. Espacio en disco: 9.5 GB libres de 28 GB. `beto_modelos.zip` (176 MB) sigue en la raíz del repo,
    ignorado por git; los pesos descomprimidos viven en `/home/ubuntu/modelos/` y su copia de
    producción en `/usr/local/proyectos/ml_sirec/modelos/`.
+4. **Decisión de diseño abierta (no bloquea nada):** la interfaz corre con la dirección visual A
+   ("consola de despacho"). Hay dos alternativas propuestas y maquetadas, B ("bitácora de campo",
+   sobrevive impresa en blanco y negro) y C ("alta visibilidad", para tableta en la calle). Cambiar
+   de dirección es cambiar las fichas de color de `index.css`, sin tocar componentes.
+5. En el panel quedaron **reportes de prueba** creados para verificar BETO y los filtros. Borrarlos
+   de la base antes de la defensa si se quiere el panel limpio.
+
+### Cómo se retoma el trabajo técnico
+
+```bash
+# Frontend: reconstruir y redesplegar
+cd /home/ubuntu/proyectos/sirec/frontend && npm run build
+rsync -a --delete dist/ /usr/local/proyectos/frontend_sirec/
+
+# Backend: republicar y reiniciar
+cd /home/ubuntu/proyectos/sirec/backend-api
+dotnet publish -c Release -o /usr/local/proyectos/backend_sirec
+sudo systemctl restart sirec-api
+
+# Comprobaciones rápidas
+curl http://127.0.0.1:8000/salud        # -> {"estado":"ok","modo":"modelo"}
+systemctl is-active sirec-api sirec-ml nginx
+```
+
+---
+
+## ✅ Actualización 2026-07-31 (tarde) — rediseño responsive y paleta con significado
+
+La interfaz funcionaba pero no aguantaba pantallas distintas, y la paleta eran los valores por
+omisión de Tailwind copiados tal cual. El problema de fondo no era estético: **el color decía dos
+cosas a la vez.**
+
+**Los dos choques semánticos que se corrigieron:**
+
+| Antes | Por qué estaba mal | Ahora |
+|---|---|---|
+| `baja` era verde, igual que `atendido` | Un reporte de urgencia baja **sin atender** se veía igual que uno resuelto. Verde se lee como "aquí no hay nada que hacer", y sí lo había | `baja` es pizarra desaturada. El verde queda reservado a lo único que es buena noticia: `atendido` |
+| `pendiente` era rojo, igual que `alta` | Dos rojos con significados distintos en la misma tarjeta | La severidad es color; el estado es un punto con tono propio. Cada canal codifica **una sola** variable |
+
+**Dirección visual: "consola de despacho".** Acento verde petróleo (`#0E6E7F`), tomado del mundo del
+monitoreo hidrometeorológico, que es de donde viene la mayoría de lo que reporta la ciudadanía en
+Veracruz. La severidad pasó de semáforo a **rampa cálida de intensidad**: vermellón `#B32A1E` → ocre
+`#9C6206` → pizarra `#4C6675`. Neutros sesgados hacia el acento en lugar de grises puros. Se agregó
+**tema oscuro** con el mismo cuidado que el claro, porque es un caso de uso real: los operadores
+trabajan de noche durante las contingencias.
+
+**Comportamiento responsive** (móvil primero: se agrega al crecer, no se quita):
+
+| Ancho | Qué hace la pantalla |
+|---|---|
+| 320–559 | Una columna, contadores 2×2, filtros **plegados** para que la lista no quede fuera de pantalla |
+| 560–1023 | Los cuatro contadores en línea |
+| 1024–1359 | **Riel de filtros fijo** a la izquierda: se filtra sin perder de vista los reportes |
+| 1360+ | Dos tarjetas por fila, manteniendo el orden de prioridad |
+
+**Detalles que solo se notan cuando faltan:** campos con texto de 16 px (iOS ya no hace zoom al
+enfocarlos), objetivos táctiles de 44 px o más, `100dvh` en el acceso para que no lo tape la barra del
+navegador móvil, `env(safe-area-inset-*)` para el notch, `overflow-wrap` en el texto ciudadano para
+que una palabra larguísima no rompa la tarjeta, escala fluida con `clamp()`, `prefers-reduced-motion`
+respetado y foco de teclado siempre visible.
+
+**Cambio de contenido, no solo de forma:** el aviso del **911 ahora se ve antes de enviar**, no
+escondido en la pantalla de confirmación (antes solo aparecía *después* de mandar el reporte). Es la
+información que puede salvar una vida. También `lang="es"`, `theme-color` por tema y
+`viewport-fit=cover` en el `index.html`.
+
+**Sin fuentes remotas, a propósito.** El formulario tiene que pintar al instante en una red saturada
+durante una contingencia, así que la tipografía trabaja con escala, peso y espaciado sobre la pila del
+sistema en lugar de descargar una familia. Es una decisión defendible en la titulación, no una carencia.
+
+**Verificación:** auditoría automatizada con Chromium (Playwright) en **7 anchos × 2 temas** — 320,
+375, 414, 768, 1024, 1440 y 1920 px, en claro y oscuro, sobre el formulario público, el acceso y la
+consola. Comprueba por código, no a ojo: **cero desbordes horizontales y cero controles por debajo de
+44 px**. El guion de la auditoría no se versionó porque depende de Playwright, que no es dependencia
+del proyecto.
+
+**Propuesta visual con las tres direcciones comparadas** (maquetas lado a lado, diagnóstico del color
+y detalle del responsive), publicada como página privada:
+<https://claude.ai/code/artifact/94902d00-2815-46d4-a74d-16c55a2508df>
 
 ---
 
