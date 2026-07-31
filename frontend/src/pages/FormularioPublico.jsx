@@ -16,7 +16,7 @@ export default function FormularioPublico() {
     e.preventDefault();
     setError("");
     if (!texto.trim()) {
-      setError("Por favor describe la emergencia.");
+      setError("Describe la emergencia para poder enviar el reporte.");
       return;
     }
     setEnviando(true);
@@ -41,11 +41,13 @@ export default function FormularioPublico() {
     return (
       <main className="contenedor-publico">
         <div className="tarjeta-confirmacion">
-          <div className="icono-ok">✓</div>
+          <div className="icono-ok" aria-hidden="true">
+            ✓
+          </div>
           <h1>Reporte recibido</h1>
           <p>
-            Gracias. Tu reporte fue registrado y será atendido según su prioridad.
-            Si es una emergencia con vidas en riesgo y no has llamado, marca al 911.
+            Tu reporte quedó registrado y se atenderá según su prioridad. Si hay vidas en
+            riesgo y todavía no has llamado, marca al <strong>911</strong>.
           </p>
           <button className="boton-primario" onClick={() => setEnviado(false)}>
             Enviar otro reporte
@@ -58,40 +60,72 @@ export default function FormularioPublico() {
   return (
     <main className="contenedor-publico">
       <header className="encabezado-publico">
-        <h1>SIREC</h1>
-        <p>Reporta una emergencia a Protección Civil</p>
+        <div className="marca">
+          <h1>SIREC</h1>
+          <span className="rotulo">Protección Civil</span>
+        </div>
+        <p>Reporta una emergencia. No necesitas registrarte.</p>
       </header>
 
+      {/* El aviso del 911 va antes de enviar, no escondido en la confirmación. */}
+      <aside className="aviso-911">
+        <span aria-hidden="true">⚠</span>
+        <span>
+          Si hay <strong>vidas en riesgo ahora</strong>, llama al <strong>911</strong>. Este
+          formulario registra el reporte para su atención, no sustituye una llamada de
+          emergencia.
+        </span>
+      </aside>
+
       <form className="formulario" onSubmit={manejarEnvio}>
-        <label htmlFor="texto">Describe tu emergencia *</label>
-        <textarea
-          id="texto"
-          rows={5}
-          placeholder="Ej.: Se está metiendo el agua a mi casa en la calle Hidalgo, ya cubrió la banqueta."
-          value={texto}
-          onChange={(e) => setTexto(e.target.value)}
-          required
-        />
+        <div className="grupo-campo">
+          <label htmlFor="texto">¿Qué está pasando? *</label>
+          <textarea
+            id="texto"
+            className="campo-control"
+            rows={5}
+            placeholder="Ej.: Se está metiendo el agua a mi casa en la calle Hidalgo, ya cubrió la banqueta."
+            value={texto}
+            onChange={(e) => setTexto(e.target.value)}
+            required
+          />
+          <span className="ayuda-campo">
+            Cuenta dónde es y si hay personas en peligro. Con tus palabras está bien.
+          </span>
+        </div>
 
-        <label htmlFor="colonia">Colonia (opcional)</label>
-        <input
-          id="colonia"
-          type="text"
-          placeholder="Ej.: Las Brisas"
-          value={colonia}
-          onChange={(e) => setColonia(e.target.value)}
-        />
+        <div className="grupo-campo">
+          <label htmlFor="colonia">Colonia (opcional)</label>
+          <input
+            id="colonia"
+            className="campo-control"
+            type="text"
+            placeholder="Ej.: Las Brisas"
+            value={colonia}
+            onChange={(e) => setColonia(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="telefono">Teléfono de contacto (opcional)</label>
-        <input
-          id="telefono"
-          type="tel"
-          placeholder="Ej.: 229 123 4567"
-          value={telefono}
-          onChange={(e) => setTelefono(e.target.value)}
-        />
+        <div className="grupo-campo">
+          <label htmlFor="telefono">Teléfono de contacto (opcional)</label>
+          <input
+            id="telefono"
+            className="campo-control"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="Ej.: 229 123 4567"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
+          />
+          <span className="ayuda-campo">Sirve para llamarte si hace falta más información.</span>
+        </div>
 
-        {error && <p className="mensaje-error">{error}</p>}
+        {error && (
+          <p className="mensaje-error" role="alert">
+            {error}
+          </p>
+        )}
 
         <button className="boton-primario" type="submit" disabled={enviando}>
           {enviando ? "Enviando…" : "Enviar reporte"}

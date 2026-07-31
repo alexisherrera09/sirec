@@ -1,9 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- viewport-fit=cover para que las variables env(safe-area-inset-*) del CSS
+         tengan efecto en pantallas con notch. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="SIREC: reporta una emergencia a Protección Civil. Los reportes se clasifican y priorizan automáticamente."
+    />
+    <!-- Tiñe la barra del navegador móvil acorde al tema. -->
+    <meta name="theme-color" content="#edf3f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a1a20" media="(prefers-color-scheme: dark)" />
     <title>SIREC</title>
   </head>
   <body>

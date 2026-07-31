@@ -62,8 +62,6 @@ function aParametrosDeConsulta(f) {
   return params;
 }
 
-// Panel del operador (Fase C2): login, tarjetas priorizadas por urgencia,
-// contadores, filtro por categoría y cambio de estado. Refresco por polling.
 export default function Panel() {
   const [token, setToken] = useState(null);
   return token ? (
@@ -96,25 +94,37 @@ function PantallaLogin({ onLogin }) {
   return (
     <main className="contenedor-login">
       <form className="formulario tarjeta-login" onSubmit={manejarLogin}>
-        <h1>Panel del operador</h1>
-        <label htmlFor="usuario">Usuario</label>
-        <input
-          id="usuario"
-          value={usuario}
-          onChange={(e) => setUsuario(e.target.value)}
-          autoComplete="username"
-          required
-        />
-        <label htmlFor="contrasena">Contraseña</label>
-        <input
-          id="contrasena"
-          type="password"
-          value={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
-          autoComplete="current-password"
-          required
-        />
-        {error && <p className="mensaje-error">{error}</p>}
+        <div className="marca">
+          <h1>Panel del operador</h1>
+        </div>
+        <div className="grupo-campo">
+          <label htmlFor="usuario">Usuario</label>
+          <input
+            id="usuario"
+            className="campo-control"
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
+            autoComplete="username"
+            required
+          />
+        </div>
+        <div className="grupo-campo">
+          <label htmlFor="contrasena">Contraseña</label>
+          <input
+            id="contrasena"
+            className="campo-control"
+            type="password"
+            value={contrasena}
+            onChange={(e) => setContrasena(e.target.value)}
+            autoComplete="current-password"
+            required
+          />
+        </div>
+        {error && (
+          <p className="mensaje-error" role="alert">
+            {error}
+          </p>
+        )}
         <button className="boton-primario" type="submit" disabled={cargando}>
           {cargando ? "Entrando…" : "Entrar"}
         </button>
@@ -133,6 +143,11 @@ function TableroOperador({ token, onSalir }) {
   // Los campos de texto no consultan en cada tecla: se aplica el filtro tras una pausa.
   const [filtrosAplicados, setFiltrosAplicados] = useState(FILTROS_VACIOS);
   const [error, setError] = useState("");
+  // En móvil los filtros arrancan plegados para no empujar la lista fuera de pantalla;
+  // en escritorio viven en el riel lateral y conviene tenerlos abiertos.
+  const [filtrosAbiertos, setFiltrosAbiertos] = useState(
+    () => window.matchMedia("(min-width: 1024px)").matches
+  );
 
   useEffect(() => {
     const id = setTimeout(() => setFiltrosAplicados(filtros), RETARDO_BUSQUEDA_MS);
@@ -153,10 +168,6 @@ function TableroOperador({ token, onSalir }) {
     }
   }, [token, filtrosAplicados]);
 
-  const cambiar = (campo) => (e) =>
-    setFiltros((f) => ({ ...f, [campo]: e.target.value }));
-  const hayFiltros = Object.values(filtros).some((v) => v !== "");
-
   // Carga inicial y polling automático.
   useEffect(() => {
     cargar();
@@ -175,169 +186,230 @@ function TableroOperador({ token, onSalir }) {
     }
   }
 
+  const cambiar = (campo) => (e) =>
+    setFiltros((f) => ({ ...f, [campo]: e.target.value }));
+  const activos = Object.values(filtros).filter((v) => v !== "").length;
+
   return (
-    <main className="contenedor-panel">
+    <main className="consola">
       <header className="barra-panel">
-        <h1>SIREC · Panel</h1>
+        <div className="marca">
+          <h1>SIREC</h1>
+          <span className="rotulo">Consola de despacho</span>
+        </div>
         <button className="boton-secundario" onClick={onSalir}>
           Salir
         </button>
       </header>
 
-      <section className="contadores">
+      <section className="contadores" aria-label="Totales por urgencia">
         <Contador etiqueta="Alta" valor={resumen.alta} clase="urg-alta" />
         <Contador etiqueta="Media" valor={resumen.media} clase="urg-media" />
         <Contador etiqueta="Baja" valor={resumen.baja} clase="urg-baja" />
         <Contador etiqueta="Hoy" valor={resumen.totalHoy} clase="urg-total" />
       </section>
 
-      <section className="filtros" aria-label="Filtros de reportes">
-        <div className="filtros-encabezado">
-          <h2>Filtros</h2>
-          <button
-            className="boton-secundario boton-limpiar"
-            onClick={() => setFiltros(FILTROS_VACIOS)}
-            disabled={!hayFiltros}
-          >
-            Limpiar filtros
-          </button>
-        </div>
+      <div className="consola-cuerpo">
+        <details
+          className="filtros"
+          open={filtrosAbiertos}
+          onToggle={(e) => setFiltrosAbiertos(e.currentTarget.open)}
+        >
+          <summary>
+            Filtros
+            {activos > 0 && (
+              <span className="marca-filtros" aria-label={`${activos} filtros activos`}>
+                {activos}
+              </span>
+            )}
+          </summary>
 
-        <div className="filtros-rejilla">
-          <Campo id="f-texto" etiqueta="Buscar en el texto">
-            <input
-              id="f-texto"
-              type="search"
-              placeholder="p. ej. agua, poste, atrapado"
-              value={filtros.texto}
-              onChange={cambiar("texto")}
-            />
-          </Campo>
+          <div className="filtros-cuerpo">
+            <div className="filtros-rejilla">
+              <Campo id="f-texto" etiqueta="Buscar en el texto">
+                <input
+                  id="f-texto"
+                  className="campo-control"
+                  type="search"
+                  placeholder="agua, poste, atrapado…"
+                  value={filtros.texto}
+                  onChange={cambiar("texto")}
+                />
+              </Campo>
 
-          <Campo id="f-colonia" etiqueta="Colonia">
-            <input
-              id="f-colonia"
-              type="search"
-              placeholder="p. ej. Las Brisas"
-              value={filtros.colonia}
-              onChange={cambiar("colonia")}
-            />
-          </Campo>
+              <Campo id="f-colonia" etiqueta="Colonia">
+                <input
+                  id="f-colonia"
+                  className="campo-control"
+                  type="search"
+                  placeholder="Las Brisas"
+                  value={filtros.colonia}
+                  onChange={cambiar("colonia")}
+                />
+              </Campo>
 
-          <Campo id="f-telefono" etiqueta="Teléfono">
-            <input
-              id="f-telefono"
-              type="search"
-              placeholder="lada o terminación"
-              value={filtros.telefono}
-              onChange={cambiar("telefono")}
-            />
-          </Campo>
+              <Campo id="f-telefono" etiqueta="Teléfono">
+                <input
+                  id="f-telefono"
+                  className="campo-control"
+                  type="search"
+                  inputMode="numeric"
+                  placeholder="lada o terminación"
+                  value={filtros.telefono}
+                  onChange={cambiar("telefono")}
+                />
+              </Campo>
 
-          <Campo id="f-categoria" etiqueta="Categoría">
-            <select id="f-categoria" value={filtros.categoria} onChange={cambiar("categoria")}>
-              <option value="">Todas</option>
-              {Object.entries(CATEGORIAS).map(([valor, etiqueta]) => (
-                <option key={valor} value={valor}>
-                  {etiqueta}
-                </option>
-              ))}
-            </select>
-          </Campo>
+              <Campo id="f-categoria" etiqueta="Categoría">
+                <select
+                  id="f-categoria"
+                  className="campo-control"
+                  value={filtros.categoria}
+                  onChange={cambiar("categoria")}
+                >
+                  <option value="">Todas</option>
+                  {Object.entries(CATEGORIAS).map(([valor, etiqueta]) => (
+                    <option key={valor} value={valor}>
+                      {etiqueta}
+                    </option>
+                  ))}
+                </select>
+              </Campo>
 
-          <Campo id="f-urgencia" etiqueta="Urgencia">
-            <select id="f-urgencia" value={filtros.urgencia} onChange={cambiar("urgencia")}>
-              <option value="">Todas</option>
-              {Object.entries(URGENCIAS).map(([valor, etiqueta]) => (
-                <option key={valor} value={valor}>
-                  {etiqueta}
-                </option>
-              ))}
-            </select>
-          </Campo>
+              <Campo id="f-urgencia" etiqueta="Urgencia">
+                <select
+                  id="f-urgencia"
+                  className="campo-control"
+                  value={filtros.urgencia}
+                  onChange={cambiar("urgencia")}
+                >
+                  <option value="">Todas</option>
+                  {Object.entries(URGENCIAS).map(([valor, etiqueta]) => (
+                    <option key={valor} value={valor}>
+                      {etiqueta}
+                    </option>
+                  ))}
+                </select>
+              </Campo>
 
-          <Campo id="f-estado" etiqueta="Estado">
-            <select id="f-estado" value={filtros.estado} onChange={cambiar("estado")}>
-              <option value="">Todos</option>
-              {Object.entries(ESTADOS).map(([valor, etiqueta]) => (
-                <option key={valor} value={valor}>
-                  {etiqueta}
-                </option>
-              ))}
-            </select>
-          </Campo>
+              <Campo id="f-estado" etiqueta="Estado">
+                <select
+                  id="f-estado"
+                  className="campo-control"
+                  value={filtros.estado}
+                  onChange={cambiar("estado")}
+                >
+                  <option value="">Todos</option>
+                  {Object.entries(ESTADOS).map(([valor, etiqueta]) => (
+                    <option key={valor} value={valor}>
+                      {etiqueta}
+                    </option>
+                  ))}
+                </select>
+              </Campo>
 
-          <Campo id="f-revision" etiqueta="Revisión manual">
-            <select
-              id="f-revision"
-              value={filtros.requiereRevision}
-              onChange={cambiar("requiereRevision")}
+              <Campo id="f-revision" etiqueta="Revisión manual">
+                <select
+                  id="f-revision"
+                  className="campo-control"
+                  value={filtros.requiereRevision}
+                  onChange={cambiar("requiereRevision")}
+                >
+                  <option value="">Todos</option>
+                  <option value="true">Solo los marcados</option>
+                  <option value="false">Solo los no marcados</option>
+                </select>
+              </Campo>
+
+              <Campo id="f-conf-cat" etiqueta="Confianza de categoría">
+                <select
+                  id="f-conf-cat"
+                  className="campo-control"
+                  value={filtros.bandaConfCategoria}
+                  onChange={cambiar("bandaConfCategoria")}
+                >
+                  <option value="">Cualquiera</option>
+                  {Object.entries(BANDAS_CONFIANZA).map(([valor, { etiqueta }]) => (
+                    <option key={valor} value={valor}>
+                      {etiqueta}
+                    </option>
+                  ))}
+                </select>
+              </Campo>
+
+              <Campo id="f-conf-urg" etiqueta="Confianza de urgencia">
+                <select
+                  id="f-conf-urg"
+                  className="campo-control"
+                  value={filtros.bandaConfUrgencia}
+                  onChange={cambiar("bandaConfUrgencia")}
+                >
+                  <option value="">Cualquiera</option>
+                  {Object.entries(BANDAS_CONFIANZA).map(([valor, { etiqueta }]) => (
+                    <option key={valor} value={valor}>
+                      {etiqueta}
+                    </option>
+                  ))}
+                </select>
+              </Campo>
+
+              <Campo id="f-desde" etiqueta="Desde">
+                <input
+                  id="f-desde"
+                  className="campo-control"
+                  type="date"
+                  value={filtros.desde}
+                  onChange={cambiar("desde")}
+                />
+              </Campo>
+
+              <Campo id="f-hasta" etiqueta="Hasta">
+                <input
+                  id="f-hasta"
+                  className="campo-control"
+                  type="date"
+                  value={filtros.hasta}
+                  onChange={cambiar("hasta")}
+                />
+              </Campo>
+            </div>
+
+            <button
+              className="boton-secundario"
+              onClick={() => setFiltros(FILTROS_VACIOS)}
+              disabled={activos === 0}
             >
-              <option value="">Todos</option>
-              <option value="true">Solo los marcados</option>
-              <option value="false">Solo los no marcados</option>
-            </select>
-          </Campo>
+              Limpiar filtros
+            </button>
+          </div>
+        </details>
 
-          <Campo id="f-conf-cat" etiqueta="Confianza de categoría">
-            <select
-              id="f-conf-cat"
-              value={filtros.bandaConfCategoria}
-              onChange={cambiar("bandaConfCategoria")}
-            >
-              <option value="">Cualquiera</option>
-              {Object.entries(BANDAS_CONFIANZA).map(([valor, { etiqueta }]) => (
-                <option key={valor} value={valor}>
-                  {etiqueta}
-                </option>
-              ))}
-            </select>
-          </Campo>
+        <div className="columna-lista">
+          {error && (
+            <p className="mensaje-error" role="alert">
+              {error}
+            </p>
+          )}
 
-          <Campo id="f-conf-urg" etiqueta="Confianza de urgencia">
-            <select
-              id="f-conf-urg"
-              value={filtros.bandaConfUrgencia}
-              onChange={cambiar("bandaConfUrgencia")}
-            >
-              <option value="">Cualquiera</option>
-              {Object.entries(BANDAS_CONFIANZA).map(([valor, { etiqueta }]) => (
-                <option key={valor} value={valor}>
-                  {etiqueta}
-                </option>
-              ))}
-            </select>
-          </Campo>
-
-          <Campo id="f-desde" etiqueta="Desde">
-            <input id="f-desde" type="date" value={filtros.desde} onChange={cambiar("desde")} />
-          </Campo>
-
-          <Campo id="f-hasta" etiqueta="Hasta">
-            <input id="f-hasta" type="date" value={filtros.hasta} onChange={cambiar("hasta")} />
-          </Campo>
-        </div>
-      </section>
-
-      {error && <p className="mensaje-error">{error}</p>}
-
-      <p className="conteo-resultados">
-        {reportes.length === 1 ? "1 reporte" : `${reportes.length} reportes`}
-        {hayFiltros && " con los filtros aplicados"}
-      </p>
-
-      <section className="lista-reportes">
-        {reportes.length === 0 && (
-          <p className="vacio">
-            {hayFiltros
-              ? "Ningún reporte coincide con los filtros."
-              : "No hay reportes que mostrar."}
+          <p className="conteo-resultados" aria-live="polite">
+            {reportes.length === 1 ? "1 reporte" : `${reportes.length} reportes`}
+            {activos > 0 && " con los filtros aplicados"}
           </p>
-        )}
-        {reportes.map((r) => (
-          <TarjetaReporte key={r.id} reporte={r} onAvanzar={() => avanzarEstado(r)} />
-        ))}
-      </section>
+
+          <section className="lista-reportes">
+            {reportes.length === 0 && (
+              <p className="vacio">
+                {activos > 0
+                  ? "Ningún reporte coincide con los filtros."
+                  : "Todavía no hay reportes."}
+              </p>
+            )}
+            {reportes.map((r) => (
+              <TarjetaReporte key={r.id} reporte={r} onAvanzar={() => avanzarEstado(r)} />
+            ))}
+          </section>
+        </div>
+      </div>
     </main>
   );
 }
@@ -371,7 +443,10 @@ function TarjetaReporte({ reporte, onAvanzar }) {
         </span>
         <span className="categoria">{etiquetaCategoria(reporte.categoria)}</span>
         {reporte.requiereRevision && (
-          <span className="insignia insignia-revision" title="El clasificador no respondió; revisar manualmente">
+          <span
+            className="insignia insignia-revision"
+            title="El clasificador no respondió; revisar manualmente"
+          >
             revisar
           </span>
         )}
@@ -384,7 +459,7 @@ function TarjetaReporte({ reporte, onAvanzar }) {
         {reporte.telefono && <span>📞 {reporte.telefono}</span>}
         <span>🕒 {tiempoTranscurrido(reporte.creadoEn)}</span>
         <span className="confianza">
-          conf. cat {Math.round(reporte.confianzaCategoria * 100)}% · urg{" "}
+          cat {Math.round(reporte.confianzaCategoria * 100)}% · urg{" "}
           {Math.round(reporte.confianzaUrgencia * 100)}%
         </span>
       </div>
