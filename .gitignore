@@ -43,3 +43,6 @@ Thumbs.db
 
 # Nota: appsettings.Development.json SÍ se versiona (repo privado, credenciales
 # solo de desarrollo). Las credenciales de PRODUCCIÓN nunca van al repositorio.
+
+# Entorno para generar los documentos de las entregas (python-docx, matplotlib)
+.venv-docs/
