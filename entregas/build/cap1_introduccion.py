@@ -136,11 +136,12 @@ def escribir(d):
     d.h2("Alcance")
 
     d.p(
-        "El presente trabajo se delimita al desarrollo y la evaluación de un producto mínimo "
-        "viable, no de un sistema comercial completo ni de un despliegue gubernamental. El foco "
-        "está en el componente de inteligencia artificial y en su integración operativa, de "
-        "modo que la propuesta pueda demostrarse de principio a fin con un alcance abordable en "
-        "el tiempo disponible. En concreto, el alcance comprende los siguientes elementos:"
+        "El presente trabajo se delimita al desarrollo y la evaluación de un producto mínimo viable "
+        "del Sistema Inteligente de Reportes de Emergencia Ciudadana, en adelante SIREC, y no de un "
+        "sistema comercial completo ni de un despliegue gubernamental. El foco está en el componente "
+        "de inteligencia artificial y en su integración operativa, de modo que la propuesta pueda "
+        "demostrarse de principio a fin con un alcance abordable en el tiempo disponible. En "
+        "concreto, el alcance comprende los siguientes elementos:"
     )
 
     d.vineta([
