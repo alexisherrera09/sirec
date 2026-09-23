@@ -1,0 +1,13 @@
+La Entrega 2 tiene un valor de únicamente 1.5 puntos sobre 10 en la evaluación final; por ello, lo más importante en este avance es atender las observaciones para fortalecer la siguiente entrega.
+
+Estimados alumnos del equipo 3032C:
+
+Su Entrega 2 atiende de manera muy sólida las observaciones del avance anterior. La introducción ahora contextualiza y delimita bien el problema, el título desarrolla la sigla SIREC, los objetivos son claros y medibles y los capítulos presentan una estructura consistente. En Empatizar combinan visitas a instituciones, análisis del proceso y una encuesta a 42 personas; además, explican sus limitaciones y traducen los resultados en decisiones concretas. El fundamento teórico y el estado del arte tienen profundidad académica, comparan métodos, datos, métricas y limitaciones, y conducen con claridad hacia la brecha que atiende la propuesta.
+
+También se aprecia la mejora del prototipo: la arquitectura, el formulario y el panel permiten comprender entradas, salidas y revisión humana. El capítulo 4 vincula responsabilidades, historias, estimaciones y sprints, y las capturas de GitHub Projects respaldan la organización del trabajo. Esa continuidad entre el problema, el diseño y la planificación es una fortaleza del avance.
+
+Han alcanzado la puntuación máxima en esta entrega. Continúen con este nivel de trabajo y conserven la evidencia de las decisiones, los avances y los resultados que obtengan en la siguiente etapa.
+
+Saludos cordiales.
+
+Efrén Juárez Castillo
