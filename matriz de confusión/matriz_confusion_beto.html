@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matriz de confusión — BETO ajustado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F5F8F8; --surface:#FFFFFF;
+  --ink:#12252A; --ink-2:#3D555C; --muted:#61797F;
+  --rule:#D8E3E5; --rule-strong:#B4C6CA;
+  --accent:#0E6E7F; --accent-soft:#E4EFF0;
+  --hit:14,110,127; --err:179,42,30;
+  --ok:#1C6E48; --ok-wash:#E4F0EA;
+  --warn:#9C6206; --warn-wash:#FAF0DE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1618; --surface:#142124;
+    --ink:#E7F0F1; --ink-2:#B6C9CD; --muted:#8CA3A8;
+    --rule:#26383C; --rule-strong:#3A5054;
+    --accent:#4FB3C4; --accent-soft:#163237;
+    --hit:79,179,196; --err:238,134,118;
+    --ok:#63BC90; --ok-wash:#152A20;
+    --warn:#D9A85C; --warn-wash:#2A2114;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1618; --surface:#142124;
+  --ink:#E7F0F1; --ink-2:#B6C9CD; --muted:#8CA3A8;
+  --rule:#26383C; --rule-strong:#3A5054;
+  --accent:#4FB3C4; --accent-soft:#163237;
+  --hit:79,179,196; --err:238,134,118;
+  --ok:#63BC90; --ok-wash:#152A20;
+  --warn:#D9A85C; --warn-wash:#2A2114;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px 88px;}
+header{border-bottom:2px solid var(--ink);padding:40px 0 22px;}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;
+}
+h1{
+  font-family:"Newsreader",Georgia,serif;font-weight:600;
+  font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.07;letter-spacing:-.018em;
+  margin:0 0 12px;text-wrap:balance;
+}
+.standfirst{
+  font-family:"Newsreader",Georgia,serif;font-size:clamp(1rem,2.1vw,1.17rem);
+  line-height:1.5;color:var(--ink-2);max-width:64ch;margin:0;
+}
+section{padding-top:46px;}
+h2{
+  font-family:"Newsreader",Georgia,serif;font-weight:600;
+  font-size:clamp(1.4rem,3.2vw,1.9rem);line-height:1.15;
+  margin:0 0 6px;letter-spacing:-.012em;
+}
+h3{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+  margin:34px 0 12px;
+}
+.sec-note{color:var(--muted);font-size:14.5px;margin:0 0 22px;max-width:70ch;}
+code{
+  font-family:"IBM Plex Mono",monospace;font-size:.86em;
+  background:var(--accent-soft);padding:1.5px 5px;border-radius:2px;
+}
+strong{font-weight:600;color:var(--ink);}
+/* ---- cifras de cabecera ---- */
+.stats{display:flex;flex-wrap:wrap;gap:0;border-top:1.4px solid var(--ink);
+  border-bottom:1px solid var(--rule);margin:0 0 4px;}
+.stats div{padding:14px 28px 14px 0;min-width:120px;}
+.stats .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;}
+.stats .v{font-family:"Newsreader",Georgia,serif;font-size:1.75rem;font-weight:600;
+  line-height:1.2;letter-spacing:-.01em;}
+/* ---- tablas ---- */
+.scroll{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13.6px;line-height:1.45;
+  background:var(--surface);}
+table.apa{min-width:620px;border-top:1.4px solid var(--ink);border-bottom:1.4px solid var(--ink);}
+table.apa thead th{text-align:right;font-weight:600;color:var(--ink);
+  padding:9px 16px 9px 0;border-bottom:1px solid var(--ink);vertical-align:bottom;}
+table.apa thead th:first-child{text-align:left;}
+table.apa tbody td{padding:9px 16px 9px 0;text-align:right;border:none;}
+table.apa tbody td:first-child{text-align:left;}
+table.apa th:last-child,table.apa td:last-child{padding-right:0;}
+table.apa tbody tr.macro td{border-top:1px solid var(--rule-strong);font-weight:600;}
+/* ---- matriz ---- */
+table.mx{min-width:560px;border-top:1.4px solid var(--ink);border-bottom:1.4px solid var(--ink);
+  font-family:"IBM Plex Mono",monospace;font-size:12.5px;}
+table.mx th{font-weight:600;color:var(--ink);padding:8px 10px;}
+table.mx thead th{border-bottom:1px solid var(--ink);vertical-align:bottom;
+  font-size:11px;letter-spacing:.02em;text-align:center;}
+table.mx thead th.corner{text-align:left;color:var(--muted);font-weight:500;
+  text-transform:uppercase;letter-spacing:.09em;font-size:10px;}
+table.mx tbody th{text-align:left;white-space:nowrap;font-size:11.5px;}
+table.mx td{padding:8px 10px;text-align:center;}
+table.mx td.cero{color:var(--muted);}
+table.mx td.hit{font-weight:600;}
+table.mx .tot{color:var(--muted);border-left:1px solid var(--rule);}
+table.mx tfoot td,table.mx tfoot th{border-top:1px solid var(--rule-strong);color:var(--muted);}
+table.mx tfoot th{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin:12px 0 0;font-size:12.6px;color:var(--muted);}
+.legend span{display:flex;align-items:center;gap:7px;}
+.sw{width:13px;height:13px;border-radius:2px;display:inline-block;}
+.crit{color:var(--warn);}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:16px 20px;margin:26px 0 0;max-width:74ch;}
+.callout p{margin:0;font-size:14.6px;color:var(--ink-2);}
+.callout p+p{margin-top:9px;}
+footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;
+  letter-spacing:.03em;color:var(--muted);line-height:1.8;}
+footer b{color:var(--ink-2);font-weight:500;}
+@media (max-width:520px){.stats div{padding-right:20px;min-width:104px;}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><p class="eyebrow">SIREC · objetivo específico 5 · modelo desplegado</p><h1>Matriz de confusión — BETO ajustado</h1><p class="standfirst">Las dos tareas del modelo que corre en producción, evaluadas sobre el mismo conjunto de prueba que el modelo de referencia: los 180 reportes del gold.</p></header>
+<section>
+<h2>Categoría temática <span style='color:var(--muted);font-size:.62em'>· 7 clases</span></h2>
+<p class="sec-note">Clase crítica: <code>persona_en_riesgo</code>. Sus falsos negativos son el error más grave del sistema, porque un reporte que no se escala a tiempo es el que puede costar una vida.</p>
+<div class="stats"><div><span class="k">Accuracy</span><span class="v">0.778</span></div><div><span class="k">Macro-F1</span><span class="v">0.744</span></div><div><span class="k">Exhaustividad persona en riesgo</span><span class="v">0.867</span></div><div><span class="k">Casos de prueba</span><span class="v">180</span></div></div>
+<h3>Matriz de confusión</h3>
+<div class="scroll"><table class="mx"><thead><tr><th class="corner" scope="col">real \ predicho</th><th scope="col">caida_<wbr>poste_<wbr>cable</th><th scope="col">dano_<wbr>estructural</th><th scope="col">deslave</th><th scope="col">incendio</th><th scope="col">inundacion</th><th scope="col">otro</th><th scope="col">persona_<wbr>en_<wbr>riesgo</th><th scope="col" class="tot">Total</th></tr></thead><tbody><tr><th scope="row">caida_poste_cable</th><td class="hit" style="background:rgba(var(--hit),0.655)">17</td><td class="cero">·</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.133)">1</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.133)">1</td><td class="cero">·</td><td class="tot">19</td></tr><tr><th scope="row">dano_estructural</th><td class="err" style="background:rgba(var(--err),0.203)">1</td><td class="hit" style="background:rgba(var(--hit),0.41)">3</td><td class="err" style="background:rgba(var(--err),0.203)">1</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.203)">1</td><td class="cero">·</td><td class="cero">·</td><td class="tot">6</td></tr><tr><th scope="row">deslave</th><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.139)">1</td><td class="hit" style="background:rgba(var(--hit),0.642)">14</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.139)">1</td><td class="cero">·</td><td class="cero">·</td><td class="tot">16</td></tr><tr><th scope="row">incendio</th><td class="err" style="background:rgba(var(--err),0.119)">1</td><td class="cero">·</td><td class="cero">·</td><td class="hit" style="background:rgba(var(--hit),0.682)">31</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.119)">1</td><td class="cero">·</td><td class="tot">33</td></tr><tr><th scope="row">inundacion</th><td class="cero">·</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.139)">1</td><td class="cero">·</td><td class="hit" style="background:rgba(var(--hit),0.565)">12</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.216)">3</td><td class="tot">16</td></tr><tr><th scope="row">otro</th><td class="err" style="background:rgba(var(--err),0.169)">5</td><td class="err" style="background:rgba(var(--err),0.128)">2</td><td class="err" style="background:rgba(var(--err),0.114)">1</td><td class="err" style="background:rgba(var(--err),0.141)">3</td><td class="err" style="background:rgba(var(--err),0.141)">3</td><td class="hit" style="background:rgba(var(--hit),0.431)">24</td><td class="err" style="background:rgba(var(--err),0.196)">7</td><td class="tot">45</td></tr><tr><th scope="row">persona_en_riesgo <span class="crit">&#9888;</span></th><td class="cero">·</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.114)">1</td><td class="err" style="background:rgba(var(--err),0.128)">2</td><td class="cero">·</td><td class="err" style="background:rgba(var(--err),0.141)">3</td><td class="hit" style="background:rgba(var(--hit),0.637)">39</td><td class="tot">45</td></tr></tbody><tfoot><tr><th scope="row">Total</th><td>24</td><td>6</td><td>18</td><td>37</td><td>17</td><td>29</td><td>49</td><td class="tot">180</td></tr></tfoot></table></div>
+<div class="legend"><span><i class="sw" style="background:rgba(var(--hit),.55)"></i>Diagonal: aciertos</span><span><i class="sw" style="background:rgba(var(--err),.45)"></i>Fuera de la diagonal: errores</span><span>La intensidad es la proporción sobre la fila · <code>·</code> es cero</span></div>
+<h3>Métricas por clase</h3>
+<div class="scroll"><table class="apa"><thead><tr><th scope="col">Clase</th><th scope="col">Precisión</th><th scope="col">Exhaustividad</th><th scope="col">F1</th><th scope="col">Soporte</th><th scope="col">Falsos negativos</th></tr></thead><tbody><tr><td><code>caida_poste_cable</code></td><td>0.708</td><td>0.895</td><td>0.791</td><td>19</td><td>2 / 19</td></tr><tr><td><code>dano_estructural</code></td><td>0.500</td><td>0.500</td><td>0.500</td><td>6</td><td>3 / 6</td></tr><tr><td><code>deslave</code></td><td>0.778</td><td>0.875</td><td>0.824</td><td>16</td><td>2 / 16</td></tr><tr><td><code>incendio</code></td><td>0.838</td><td>0.939</td><td>0.886</td><td>33</td><td>2 / 33</td></tr><tr><td><code>inundacion</code></td><td>0.706</td><td>0.750</td><td>0.727</td><td>16</td><td>4 / 16</td></tr><tr><td><code>otro</code></td><td>0.828</td><td>0.533</td><td>0.649</td><td>45</td><td>21 / 45</td></tr><tr><td><code>persona_en_riesgo</code> <span class="crit">&#9888;</span></td><td>0.796</td><td>0.867</td><td>0.830</td><td>45</td><td>6 / 45</td></tr><tr class="macro"><td>Macro promedio</td><td>0.736</td><td>0.766</td><td>0.744</td><td>180</td><td>—</td></tr></tbody></table></div>
+<h3>Principales confusiones</h3>
+<div class="scroll"><table class="apa"><thead><tr><th scope="col">Clase real</th><th scope="col">Predicha como</th><th scope="col">Casos</th></tr></thead><tbody><tr><td><code>otro</code></td><td><code>persona_en_riesgo</code></td><td>7</td></tr><tr><td><code>otro</code></td><td><code>caida_poste_cable</code></td><td>5</td></tr><tr><td><code>persona_en_riesgo</code></td><td><code>otro</code></td><td>3</td></tr><tr><td><code>otro</code></td><td><code>inundacion</code></td><td>3</td></tr><tr><td><code>otro</code></td><td><code>incendio</code></td><td>3</td></tr></tbody></table></div>
+</section>
+<section>
+<h2>Nivel de urgencia <span style='color:var(--muted);font-size:.62em'>· 3 niveles</span></h2>
+<p class="sec-note">Clase crítica: <code>alta</code>. Sus falsos negativos son el error más grave del sistema, porque un reporte que no se escala a tiempo es el que puede costar una vida.</p>
+<div class="stats"><div><span class="k">Accuracy</span><span class="v">0.689</span></div><div><span class="k">Macro-F1</span><span class="v">0.546</span></div><div><span class="k">Exhaustividad alta</span><span class="v">0.771</span></div><div><span class="k">Casos de prueba</span><span class="v">180</span></div></div>
+<h3>Matriz de confusión</h3>
+<div class="scroll"><table class="mx"><thead><tr><th class="corner" scope="col">real \ predicho</th><th scope="col">alta</th><th scope="col">baja</th><th scope="col">media</th><th scope="col" class="tot">Total</th></tr></thead><tbody><tr><th scope="row">alta <span class="crit">&#9888;</span></th><td class="hit" style="background:rgba(var(--hit),0.578)">37</td><td class="err" style="background:rgba(var(--err),0.139)">3</td><td class="err" style="background:rgba(var(--err),0.203)">8</td><td class="tot">48</td></tr><tr><th scope="row">baja</th><td class="err" style="background:rgba(var(--err),0.144)">1</td><td class="hit" style="background:rgba(var(--hit),0.233)">3</td><td class="err" style="background:rgba(var(--err),0.543)">10</td><td class="tot">14</td></tr><tr><th scope="row">media</th><td class="err" style="background:rgba(var(--err),0.237)">26</td><td class="err" style="background:rgba(var(--err),0.142)">8</td><td class="hit" style="background:rgba(var(--hit),0.541)">84</td><td class="tot">118</td></tr></tbody><tfoot><tr><th scope="row">Total</th><td>64</td><td>14</td><td>102</td><td class="tot">180</td></tr></tfoot></table></div>
+<div class="legend"><span><i class="sw" style="background:rgba(var(--hit),.55)"></i>Diagonal: aciertos</span><span><i class="sw" style="background:rgba(var(--err),.45)"></i>Fuera de la diagonal: errores</span><span>La intensidad es la proporción sobre la fila · <code>·</code> es cero</span></div>
+<h3>Métricas por clase</h3>
+<div class="scroll"><table class="apa"><thead><tr><th scope="col">Clase</th><th scope="col">Precisión</th><th scope="col">Exhaustividad</th><th scope="col">F1</th><th scope="col">Soporte</th><th scope="col">Falsos negativos</th></tr></thead><tbody><tr><td><code>alta</code> <span class="crit">&#9888;</span></td><td>0.578</td><td>0.771</td><td>0.661</td><td>48</td><td>11 / 48</td></tr><tr><td><code>baja</code></td><td>0.214</td><td>0.214</td><td>0.214</td><td>14</td><td>11 / 14</td></tr><tr><td><code>media</code></td><td>0.824</td><td>0.712</td><td>0.764</td><td>118</td><td>34 / 118</td></tr><tr class="macro"><td>Macro promedio</td><td>0.539</td><td>0.566</td><td>0.546</td><td>180</td><td>—</td></tr></tbody></table></div>
+<h3>Principales confusiones</h3>
+<div class="scroll"><table class="apa"><thead><tr><th scope="col">Clase real</th><th scope="col">Predicha como</th><th scope="col">Casos</th></tr></thead><tbody><tr><td><code>media</code></td><td><code>alta</code></td><td>26</td></tr><tr><td><code>baja</code></td><td><code>media</code></td><td>10</td></tr><tr><td><code>media</code></td><td><code>baja</code></td><td>8</td></tr><tr><td><code>alta</code></td><td><code>media</code></td><td>8</td></tr><tr><td><code>alta</code></td><td><code>baja</code></td><td>3</td></tr></tbody></table></div>
+</section>
+<div class="callout"><p><b>Cómo se obtuvo.</b> <b>No se reentrenó nada.</b> Se cargaron los pesos ya ajustados y se hizo únicamente inferencia sobre los 180 reportes del gold, uno por uno y con los mismos parámetros que usa el microservicio en producción (truncación a 128 tokens, modo evaluación, sin dropout).</p><p>Los pesos leídos son copia bit a bit de los desplegados: se verificó el sha256 de <code>model.safetensors</code>, <code>config.json</code> y el tokenizador contra los de producción, que no se modificaron. Al ser inferencia determinista, las predicciones son siempre las mismas y reproducen las cifras publicadas.</p></div>
+<footer>Conjunto de prueba: los <b>180 reportes reales</b> del gold adjudicado por consenso (<code>datos-modelo/gold_kappa.csv</code>). Sin fuga: el gold nunca se usó para entrenar. Generado el 2026-09-23.<br>Pesos: <code>beto_categoria/</code> y <code>beto_urgencia/</code>, los mismos que sirve el microservicio en producción (sha256 verificado).<br>Las cifras coinciden con las reportadas en el capítulo 6.</footer>
+</div>
+</body>
+</html>
