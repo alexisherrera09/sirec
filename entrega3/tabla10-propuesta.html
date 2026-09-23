@@ -1,0 +1,295 @@
+<title>Tabla 10 Revisada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#F5F8F8; --surface:#FFFFFF;
+  --ink:#12252A; --ink-2:#3D555C; --muted:#61797F;
+  --rule:#D8E3E5; --rule-strong:#B4C6CA;
+  --accent:#0E6E7F; --accent-soft:#E4EFF0;
+  --new:#1C6E48; --new-wash:#E4F0EA;
+  --mod:#9C6206; --mod-wash:#FAF0DE;
+  --del:#B32A1E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1618; --surface:#142124;
+    --ink:#E7F0F1; --ink-2:#B6C9CD; --muted:#8CA3A8;
+    --rule:#26383C; --rule-strong:#3A5054;
+    --accent:#4FB3C4; --accent-soft:#163237;
+    --new:#63BC90; --new-wash:#152A20;
+    --mod:#D9A85C; --mod-wash:#2A2114;
+    --del:#EE8676;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1618; --surface:#142124;
+  --ink:#E7F0F1; --ink-2:#B6C9CD; --muted:#8CA3A8;
+  --rule:#26383C; --rule-strong:#3A5054;
+  --accent:#4FB3C4; --accent-soft:#163237;
+  --new:#63BC90; --new-wash:#152A20;
+  --mod:#D9A85C; --mod-wash:#2A2114;
+  --del:#EE8676;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px 88px;}
+header{border-bottom:2px solid var(--ink);padding:40px 0 20px;}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 16px;
+}
+h1{
+  font-family:"Newsreader",Georgia,serif;font-weight:600;
+  font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.07;letter-spacing:-.018em;
+  margin:0 0 12px;text-wrap:balance;
+}
+.standfirst{
+  font-family:"Newsreader",Georgia,serif;font-size:clamp(1rem,2.1vw,1.17rem);
+  line-height:1.5;color:var(--ink-2);max-width:62ch;margin:0;
+}
+section{padding-top:48px;}
+h2{
+  font-family:"Newsreader",Georgia,serif;font-weight:600;
+  font-size:clamp(1.4rem,3.2vw,1.9rem);line-height:1.15;
+  margin:0 0 6px;letter-spacing:-.012em;text-wrap:balance;
+}
+.sec-note{color:var(--muted);font-size:14.5px;margin:0 0 26px;max-width:68ch;}
+.prose{max-width:68ch;}
+.prose p{margin:0 0 14px;}
+.prose p:last-child{margin-bottom:0;}
+strong{font-weight:600;color:var(--ink);}
+code{
+  font-family:"IBM Plex Mono",monospace;font-size:.85em;
+  background:var(--accent-soft);padding:1.5px 5px;border-radius:2px;
+}
+
+/* ---- rotulo APA ---- */
+.cap{margin:0 0 8px;font-size:15px;line-height:1.45;max-width:70ch;}
+.cap b{font-weight:600;}
+.cap i{font-style:italic;}
+
+/* ---- tabla en formato APA 7 ---- */
+.scroll{overflow-x:auto;}
+table.apa{
+  width:100%;min-width:720px;border-collapse:collapse;
+  font-size:13.6px;line-height:1.45;
+  border-top:1.4px solid var(--ink);border-bottom:1.4px solid var(--ink);
+  background:var(--surface);
+}
+table.apa thead th{
+  text-align:left;font-weight:600;color:var(--ink);
+  padding:9px 16px 9px 0;border-bottom:1px solid var(--ink);vertical-align:bottom;
+}
+table.apa tbody td{
+  padding:9px 16px 9px 0;vertical-align:top;border:none;
+}
+table.apa th:last-child,table.apa td:last-child{padding-right:0;}
+table.apa tbody tr.grp td{padding-top:16px;}
+.plano{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;
+}
+.src{font-size:12.6px;color:var(--muted);margin:8px 0 0;font-style:italic;}
+.hint{font-size:12.6px;color:var(--muted);margin:14px 0 0;max-width:66ch;}
+
+/* ---- diff ---- */
+.diff{list-style:none;padding:0;margin:0;border-top:2px solid var(--ink);}
+.diff>li{padding:20px 0;border-bottom:1px solid var(--rule);}
+.dhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 12px;}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;padding:3px 7px;border-radius:2px;
+}
+.chip.n{background:var(--new-wash);color:var(--new);}
+.chip.m{background:var(--mod-wash);color:var(--mod);}
+.dwhat{font-weight:600;font-size:15.4px;}
+.ba{display:grid;gap:8px;margin:0;max-width:78ch;}
+.ba div{display:grid;grid-template-columns:62px 1fr;gap:12px;align-items:start;font-size:14px;}
+.ba .k{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--muted);padding-top:4px;
+}
+.ba .antes{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--del);}
+.ba .desp{color:var(--ink);}
+.why{font-size:13.8px;color:var(--ink-2);margin:12px 0 0;max-width:72ch;}
+.why b{color:var(--ink);font-weight:600;}
+
+.callout{
+  border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:16px 20px;margin:0;max-width:72ch;
+}
+.callout p{margin:0;font-size:14.6px;color:var(--ink-2);}
+.callout p+p{margin-top:9px;}
+footer{
+  margin-top:60px;padding-top:20px;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;
+  letter-spacing:.03em;color:var(--muted);line-height:1.7;
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">SIREC · § 4.4.4 · propuesta de reemplazo</p>
+  <h1>Tabla 10 Revisada</h1>
+  <p class="standfirst">Diez filas en lugar de ocho. Cubre las ocho métricas que pidió el profesor sin comprometer ninguna cifra: todos los umbrales siguen siendo relativos al modelo de referencia, salvo la latencia que ya estaba.</p>
+</header>
+
+<section>
+  <h2>La tabla</h2>
+  <p class="sec-note">Lista para transcribir a Word con el formato APA que ya usa el documento: filete superior, filete bajo el encabezado en negrita, filete inferior, sin líneas verticales y con la fila de encabezado marcada para repetirse entre páginas.</p>
+
+  <p class="cap"><b>Tabla 10.</b> <i>Métricas, criterios de éxito y evidencia de verificación.</i></p>
+
+  <div class="scroll">
+    <table class="apa">
+      <thead>
+        <tr>
+          <th scope="col">Plano</th>
+          <th scope="col">Métrica</th>
+          <th scope="col">Umbral o criterio de éxito</th>
+          <th scope="col">Evidencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="plano">Técnico</td>
+          <td>Medida F1 por clase y macro en ambas tareas, categoría y urgencia</td>
+          <td>El promedio macro debe superar al modelo de referencia sobre la misma partición; el valor por clase se reporta íntegro</td>
+          <td>Reporte comparativo de modelos</td>
+        </tr>
+        <tr>
+          <td class="plano">Técnico</td>
+          <td>Exhaustividad por clase, con énfasis en las clases críticas</td>
+          <td>Prioritaria sobre la precisión; se reporta por clase en ambas tareas</td>
+          <td>Métricas por clase del reporte comparativo</td>
+        </tr>
+        <tr>
+          <td class="plano">Técnico</td>
+          <td>Precisión por clase en ambas tareas</td>
+          <td>Se reporta junto con la exhaustividad; todo descenso frente al modelo de referencia se declara y se justifica</td>
+          <td>Métricas por clase del reporte comparativo</td>
+        </tr>
+        <tr>
+          <td class="plano">Técnico</td>
+          <td>Matriz de confusión de ambas tareas</td>
+          <td>Se reporta completa; se identifican los pares de clases confundidos y se valora si comprometen el uso operativo</td>
+          <td>Matrices del reporte comparativo</td>
+        </tr>
+        <tr>
+          <td class="plano">Técnico</td>
+          <td>Falsos negativos en persona en riesgo y urgencia alta</td>
+          <td>Reducción respecto del modelo de referencia</td>
+          <td>Análisis de errores del reporte comparativo</td>
+        </tr>
+        <tr>
+          <td class="plano">Técnico</td>
+          <td>Acuerdo entre anotadores</td>
+          <td>Medición y reporte con independencia del valor obtenido</td>
+          <td>Cálculo del kappa de Cohen sobre la muestra doble</td>
+        </tr>
+        <tr class="grp">
+          <td class="plano">Operativo</td>
+          <td>Latencia de clasificación por reporte</td>
+          <td>Inferior a dos segundos en régimen estable</td>
+          <td>Verificación de extremo a extremo en producción</td>
+        </tr>
+        <tr>
+          <td class="plano">Operativo</td>
+          <td>Continuidad ante fallo del clasificador</td>
+          <td>Ningún reporte se pierde</td>
+          <td>Prueba de resiliencia con el servicio detenido</td>
+        </tr>
+        <tr class="grp">
+          <td class="plano">Valor</td>
+          <td>Tiempo de triaje manual frente al automático</td>
+          <td>Reducción medible</td>
+          <td>Comparación documentada en el capítulo de validación</td>
+        </tr>
+        <tr>
+          <td class="plano">Valor</td>
+          <td>Cobertura de casos que requieren revisión humana</td>
+          <td>Señalización visible en el panel</td>
+          <td>Captura del panel con el filtro correspondiente</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="src">Fuente: elaboración propia.</p>
+  <p class="hint">El espacio extra antes de «Operativo» y «Valor» agrupa visualmente los tres planos sin añadir filas de subtítulo. Es opcional: si estorba al maquetar, se quita sin perder nada.</p>
+</section>
+
+<section>
+  <h2>Qué cambia respecto a la tabla actual</h2>
+  <p class="sec-note">Dos filas nuevas, tres modificaciones y el rótulo. Las seis filas restantes se quedan exactamente como están.</p>
+
+  <ul class="diff">
+
+    <li>
+      <div class="dhead"><span class="chip m">Modificada</span><span class="dwhat">Encabezado de la tercera columna</span></div>
+      <div class="ba">
+        <div><span class="k">Antes</span><span class="antes">Umbral establecido</span></div>
+        <div><span class="k">Después</span><span class="desp">Umbral o criterio de éxito</span></div>
+      </div>
+      <p class="why">En cuatro de las filas lo que hay no es un umbral sino una política —«prioritaria sobre la precisión», «ningún reporte se pierde»—, así que el encabezado no describía su propio contenido. <b>Y ahora la tabla usa literalmente la palabra del profesor:</b> él pidió «criterios mínimos de éxito».</p>
+    </li>
+
+    <li>
+      <div class="dhead"><span class="chip m">Modificada</span><span class="dwhat">Primera fila: faltaba la mitad del modelo</span></div>
+      <div class="ba">
+        <div><span class="k">Antes</span><span class="antes">Medida F1 macro en clasificación temática</span></div>
+        <div><span class="k">Después</span><span class="desp">Medida F1 por clase y macro en ambas tareas, categoría y urgencia</span></div>
+      </div>
+      <p class="why">La tabla declaraba el macro-F1 solo de la clasificación temática, y <b>la urgencia se quedaba sin métrica global declarada</b> aunque es la otra mitad del sistema. Añadir «por clase» hace que la fila reproduzca la frase exacta del profesor, «F1 por clase y macro». Ya tienes los cuatro números, así que declararlo no cuesta nada.</p>
+    </li>
+
+    <li>
+      <div class="dhead"><span class="chip m">Modificada</span><span class="dwhat">Segunda fila: la exhaustividad solo cubría las clases críticas</span></div>
+      <div class="ba">
+        <div><span class="k">Antes</span><span class="antes">Exhaustividad en las clases críticas · Prioritaria sobre la precisión; se reporta por clase</span></div>
+        <div><span class="k">Después</span><span class="desp">Exhaustividad por clase, con énfasis en las clases críticas · Prioritaria sobre la precisión; se reporta por clase en ambas tareas</span></div>
+      </div>
+      <p class="why">El profesor pide recall por clase, no solo de las críticas. El énfasis se conserva, que es lo que sostiene todo el argumento de la asimetría de los errores.</p>
+    </li>
+
+    <li>
+      <div class="dhead"><span class="chip n">Nueva</span><span class="dwhat">Precisión por clase en ambas tareas</span></div>
+      <p class="why">Era el hueco más claro: en todo el capítulo 4 la palabra «precisión» aparecía <b>una sola vez, y como lo que se sacrifica</b> («prioritaria sobre la precisión»), nunca como métrica a reportar. El profesor la nombra primero en su lista. El criterio está redactado para no comprometer nada: se reporta y, si baja frente al baseline, se declara y se justifica — que es exactamente lo que uno espera al priorizar recall.</p>
+    </li>
+
+    <li>
+      <div class="dhead"><span class="chip n">Nueva</span><span class="dwhat">Matriz de confusión de ambas tareas</span></div>
+      <p class="why">Estaba, pero <b>escondida en la columna de evidencia de otra fila</b>. El profesor la enumera de forma explícita entre lo que hay que definir, así que merece fila propia. El criterio va más allá de «se reporta»: dice qué se hace con ella —identificar los pares confundidos y valorar si comprometen el uso operativo—, que es lo que la convierte en análisis y no en un adorno.</p>
+    </li>
+
+  </ul>
+</section>
+
+<section>
+  <h2>Lo que no cabe en la tabla</h2>
+  <div class="prose">
+    <p>Queda un elemento del párrafo del profesor que esta tabla no puede resolver: <strong>«con qué datos»</strong>, es decir el mismo conjunto y las particiones reproducibles. No es una métrica con umbral, así que no admite fila.</p>
+    <p>Va en prosa <strong>inmediatamente antes de la tabla</strong>, en el § 4.4.4. Son cinco o seis líneas y el contenido ya existe en el proyecto: los ciento ochenta reportes del conjunto de consenso como prueba —cien por ciento reales, doblemente anotados y adjudicados, nunca usados para entrenar—, los doscientos veinte reales restantes más los novecientos sintéticos como entrenamiento, ningún sintético en la prueba, y semilla fija para que la partición se reproduzca.</p>
+  </div>
+  <div class="callout">
+    <p><b>Comprobación de cobertura.</b> Con la tabla revisada más ese párrafo quedan cubiertas las ocho métricas que enumeró el profesor —precisión, exhaustividad, F1 por clase y macro, matriz de confusión, falsos negativos en categorías críticas, acuerdo de etiquetado, tiempo de respuesta y criterios mínimos de éxito— y sus cuatro preguntas de cierre: contra qué se compara, con qué datos, mediante qué procedimiento y qué resultados lo vuelven adecuado.</p>
+    <p>Sin prometer una sola cifra nueva. Los criterios siguen siendo relativos al modelo de referencia, y esa comparación <b>ya la ganaste</b>.</p>
+  </div>
+</section>
+
+<footer>
+  Propuesta de reemplazo para la Tabla 10 de «260826 - Grupo 3032C - Entrega 2 - SIREC.docx»<br>
+  Contrastada contra la retroalimentación del avance anterior y los criterios publicados para esta entrega<br>
+  22 de agosto de 2026
+</footer>
+
+</div>

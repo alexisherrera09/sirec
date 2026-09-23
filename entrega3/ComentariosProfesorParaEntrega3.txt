@@ -1,0 +1,200 @@
+Comentarios Alumno:
+
+Buenas tardes Profesor, espero se encuentre bien.
+
+Por este medio me permito externar algunas dudas acerca de la evaluación y observaciones proporcionadas a nuestro primer entregable, mismas que nos gustaría conocer de antemano para evitar lo mismo en el segundo:
+
+¿Cuantas páginas debe comprender el documento, considerando que se agregara lo de SCRUM?
+Nos menciono en los comentarios, que se esperaba un mínimo de 20 a 30 paginas para el entregable pasado, sin embargo en las sesiones en vivo, nunca se detallo o especifico lo anterior, podría por lo tanto indicarnos cual es el numero esperado de paginas para este entregable considerando que se agregara lo de SCRUM?
+
+¿Cuantas páginas se esperan para cada nueva seccion de SCRUM?
+De igual manera y relacionado al tema de paginas, nos gustaría saber de antemano, la expectativa en extension para cada sección de SCRUM, ya que otro de los comentarios que recibimos en una de las secciones desarrolladas "Fundamento Teórico" nos indica que este debe ser mas extenso y comprender varias páginas, sin embargo pues tampoco es lo suficientemente claro para darnos una idea de lo que se consideraría suficiente para una buena sustentación basada en lo que nos retroalimentó, si el objetivo no es llenar contenido por saturar el documento, pero un párrafo no es suficiente, nos gustaría por lo tanto saber la expectativa minima en longitud para considerar que cada una de las secciones está lo suficientemente documentada y cumple con el requisito de extensión solicitado, cabe mencionar que, éste tampoco se especifico en las sesiones en vivo y tampoco esta en las diapositivas.
+
+¿Prototipar (teoria) vs Practica?
+En la sección de prototipar, bajo la premisa de que en este punto no hemos hecho mas allá del mapa conceptual y de alto diseño de nuestro prototipo (no desarrollado aún), se nos pide un comparativo entre una herramienta existente y lo que vendría siendo nuestra propuesta (sistema con un agente o multiagente) sin embargo, es estamos en la fase de documentar inicialmente el prototipo (lo que sería la teoría), que es lo que se esperaba para la comparativa de algo que ya funciona vs algo que apenas esta en papel (en la primer fase de desarrollo), se nos indican métricas de rendimiento, pero pues de igual manera, es algo que apenas estamos ideando. Podría por favor clarificarnos que es lo que podemos documentar, con base a lo mencionado?
+
+Dado que el próximo entregable aborda mucho tema teórico y de planificación (recursos, historias, backlogs, etc...) nos gustaría conocer previamente cual es la expectativa completa del próximo entregable para evitar cualquier ambigüedad entre lo que se espera y lo que está especificado en las diapositivas y/o en la sesión en vivo.
+
+Agradecemos de antemano su atención.
+
+SALUDOS!!
+
+
+Comentarios profesor:
+
+Buenas tardes.
+
+Muchas gracias por plantear sus dudas. Con gusto aclaro algunos puntos para que puedan trabajar la siguiente entrega con mayor certeza.
+
+Respecto a la extensión, la tabla que presenté en la última sesión y que también se encuentra publicada en este foro debe entenderse únicamente como una referencia orientativa sobre la extensión mínima esperada. Sin embargo, no deben preocuparse por “llenar hojas” ni por alcanzar una cantidad determinada de páginas. Lo importante es que cada capítulo tenga la profundidad necesaria y contenga información pertinente, bien fundamentada y directamente relacionada con su proyecto.
+
+Entregar un mayor número de páginas no implica obtener una mejor calificación. De hecho, por la naturaleza de un trabajo de seminario, en algunos proyectos puede resultar difícil concentrar todo el desarrollo en aproximadamente 50 páginas. Si las características de su investigación requieren una extensión mayor, pueden superarla sin problema; no habrá penalización por exceder de manera razonable los rangos indicados, siempre que el contenido adicional sea relevante y contribuya realmente al trabajo.
+
+Si en la retroalimentación de su primera entrega realicé alguna observación relacionada con la extensión, no debe interpretarse como la única ni como la principal área de mejora. En realidad, la extensión es uno de los aspectos menos importantes frente a la calidad académica del documento. Les recomiendo atender de manera integral todas las observaciones recibidas, procurando mejorar no solo la extensión, sino principalmente la calidad, profundidad, coherencia, fundamentación y claridad del trabajo.
+
+En particular, para el capítulo 4, correspondiente a Scrum y Lean, es importante que dentro del propio capítulo se presente evidencia suficiente de los elementos desarrollados, de manera que pueda observarse claramente cómo se está aplicando la metodología al proyecto. Esto no significa que deban incluir todas las capturas, tablas o evidencias disponibles. Por ejemplo, si cuentan con varias capturas similares de una herramienta de gestión, pueden incluir en el capítulo una que sea representativa y colocar las adicionales en los anexos. De la misma manera, si un backlog, una tabla o algún otro elemento resulta demasiado extenso, pueden presentar en el capítulo una parte representativa que permita comprenderlo y colocar la versión completa en los anexos, haciendo la referencia correspondiente.
+
+La intención es que el capítulo contenga la evidencia necesaria para comprender y sustentar lo que están desarrollando, sin saturarlo. Los anexos deben servir para ampliar o complementar la información, no para trasladar a ellos toda la evidencia relevante del proyecto.
+
+Por esta misma razón, tampoco existe una cantidad rígida de páginas para cada apartado de Scrum. La extensión dependerá de lo que realmente necesiten explicar. Se valorará especialmente su capacidad de síntesis: presentar información suficiente, clara y de calidad, sin omitir aspectos importantes, pero también sin incorporar contenido únicamente para aumentar el número de páginas.
+
+Sobre el prototipo, en el capítulo 3 debe quedar descrito principalmente a nivel de diseño. Pueden apoyarse, por ejemplo, en una arquitectura o diagrama de bloques que muestre los módulos de la propuesta, sus relaciones, entradas, salidas y flujos de información; cuando corresponda, también pueden incluir wireframes o diseños de pantallas. En esta etapa no se espera que presenten resultados de una implementación que todavía no han realizado.
+
+En cuanto a la comparación, pueden definir desde ahora cuál será el referente o baseline contra el que posteriormente evaluarán su propuesta. Puede tratarse de una herramienta existente, un procedimiento manual u otro método que actualmente se utilice para resolver el mismo problema. En esta etapa lo importante es establecer qué se comparará y mediante qué criterios o métricas, no demostrar todavía que la propuesta desarrollada es superior.
+
+Finalmente, los criterios específicos de evaluación de la Entrega 2 ya fueron publicados en otro comentario de este mismo foro. Les recomiendo revisarlos y utilizarlos como guía, junto con la tabla de extensión y las observaciones recibidas en la primera entrega.
+
+En síntesis, la extensión es una referencia, no el objetivo. Lo que se evaluará principalmente es la calidad del contenido, su profundidad, claridad, fundamentación, aplicación al proyecto y capacidad de síntesis. Si el trabajo requiere una extensión mayor, pueden desarrollarlo con libertad, siempre que cada página aporte información útil. Cuando algún elemento requiera demasiado detalle, pueden apoyarse en los anexos, procurando que en el cuerpo del documento permanezca la información y evidencia necesarias para comprender adecuadamente el trabajo.
+
+Saludos cordiales.
+
+
+Cierre y retroalimentación del Primer Avance
+
+Estimadas y estimados estudiantes:
+
+Quiero felicitarlos por la entrega de su primer avance del proyecto de Seminario de Investigación en Inteligencia Artificial. Este primer ejercicio representa un paso importante en la construcción de su trabajo final y, sobre todo, permite identificar desde ahora aquellos aspectos que pueden fortalecerse durante las siguientes etapas.
+
+Es importante recordar que esta primera entrega representa únicamente 1.5 puntos de la evaluación total, es decir, el 15% del trabajo completo. Por ello, más que centrar la atención exclusivamente en la calificación obtenida en este momento, les invito a aprovechar especialmente la retroalimentación recibida. Esta primera revisión está pensada precisamente para que tengan oportunidad de corregir, fortalecer y enriquecer su proyecto antes de llegar a las entregas de mayor peso. Una observación realizada en esta etapa puede convertirse en una mejora importante para el resultado final.
+
+En este Primer Avance se evaluaron los capítulos 1, 2 y 3, considerando tanto la estructura académica del documento como la claridad del problema, la fundamentación y el desarrollo de la propuesta. Para dar mayor transparencia al proceso de evaluación, los rubros considerados y su ponderación fueron los siguientes:
+
+Conformidad estructural y extensión: 0.75 puntos.
+Título, introducción, objetivos y coherencia: 1.00 punto.
+Empatizar, aplicación y evidencia: 1.25 puntos.
+Definir, HMW y criterios de éxito: 0.75 puntos.
+Fundamento teórico: 1.25 puntos.
+Antecedentes y estado del arte: 1.25 puntos.
+Ideación de alternativas y selección: 0.75 puntos.
+Prototipo y evidencia visual: 0.75 puntos.
+Citas, referencias y calidad de las fuentes: 1.00 punto.
+Control editorial y calidad de la escritura: 1.25 puntos.
+
+Total de la rúbrica del avance: 10 puntos.
+
+La calificación obtenida mediante esta rúbrica se convierte posteriormente al valor correspondiente de esta primera entrega dentro de la evaluación de la asignatura. Lo más valioso en este momento es que cada uno identifique con claridad qué está haciendo bien y qué puede mejorar, mientras todavía existe suficiente oportunidad para fortalecer el proyecto.
+
+Asimismo, para que tengan una referencia sobre la extensión aproximada que se espera del trabajo final, pueden considerar la siguiente distribución:
+
+Introducción
+Objetivo aproximado: 3 páginas.
+Rango esperado: 2 a 3 páginas.
+
+Objetivos
+Objetivo aproximado: 1 página.
+Rango esperado: 1 a 2 páginas.
+
+Desarrollo conceptual / Design Thinking
+Objetivo aproximado: 13 páginas.
+Rango esperado: 11 a 15 páginas.
+
+Metodología: Scrum y Lean
+Objetivo aproximado: 7 páginas.
+Rango esperado: 6 a 8 páginas.
+
+Implementación de la propuesta
+Objetivo aproximado: 11 páginas.
+Rango esperado: 9 a 13 páginas.
+
+Validación y diseño experimental
+Objetivo aproximado: 9 páginas.
+Rango esperado: 7 a 10 páginas.
+
+Conclusiones y trabajo futuro
+Objetivo aproximado: 3 páginas.
+Rango esperado: 2 a 4 páginas.
+
+Referencias bibliográficas
+Objetivo aproximado: 3 páginas.
+Rango esperado: 2 a 4 páginas.
+
+Total aproximado del documento: 50 páginas.
+Rango esperado: 40 a 60 páginas.
+
+Estos rangos son orientativos y no deben entenderse como límites rígidos. Su función es proporcionarles una idea de la profundidad y proporción esperadas en cada apartado. Lo verdaderamente importante es que las páginas contengan contenido sustantivo, pertinente y bien fundamentado, evitando extender artificialmente el documento únicamente para alcanzar determinada cantidad de páginas.
+
+De igual manera, si por las características de su investigación el trabajo requiere una extensión mayor y supera las 60 páginas, esto no representa por sí mismo un inconveniente, siempre que la información incluida sea relevante y contribuya efectivamente al desarrollo del proyecto. Para esta referencia de extensión no se consideran portada, índices ni anexos.
+
+Van avanzando en la construcción de un proyecto que se irá consolidando progresivamente. Aprovechen esta primera retroalimentación para fortalecer la coherencia entre el problema que desean resolver, sus fundamentos teóricos, la metodología seleccionada y la solución que están proponiendo.
+
+Felicitaciones por este primer avance. Tomen esta entrega como una oportunidad para afinar el rumbo del proyecto: todavía queda la mayor parte del camino y, por lo mismo, existe un amplio margen para incorporar las observaciones y lograr un trabajo final cada vez más sólido, claro y bien fundamentado.
+
+Criterios de evaluación de la Entrega 2
+
+Estimados alumnos:
+
+Espero que se encuentren muy bien. Deseo que todos puedan presentar un trabajo sólido y de buena calidad en la Entrega 2. Recuerden que esta entrega es una continuación del avance anterior: deberán incluir los capítulos 1, 2 y 3 que ya habían entregado, incorporando las correcciones y mejoras señaladas en la retroalimentación, y agregar el capítulo 4, correspondiente a la metodología Scrum y Lean.
+
+Es importante que aprovechen esta oportunidad para fortalecer su trabajo. No se espera que vuelvan a presentar los capítulos anteriores sin cambios. La finalidad de las entregas parciales es que puedan mejorar progresivamente su documento y llegar a la entrega final con un trabajo bien fundamentado, coherente y con la calidad académica esperada en una maestría.
+
+La Entrega 2 tiene una ponderación de 1.5 puntos en la evaluación final de la asignatura, lo cual corresponde al 15% de la calificación final. La entrega será evaluada inicialmente sobre una escala de 0 a 10 y posteriormente se aplicará esta ponderación.
+
+Para evitar cualquier duda sobre la evaluación, les comento que no existe una rúbrica oficial específica para la Entrega 1 ni para la Entrega 2. La rúbrica oficial disponible en la asignatura corresponde únicamente a la entrega final, en la que se evalúan el documento completo y el video de presentación. Debido a que las entregas parciales no cuentan con una rúbrica propia, a continuación les indico de manera transparente los criterios que se utilizarán para evaluar la Entrega 2 y la puntuación correspondiente a cada uno.
+
+Conformidad estructural y extensión: 0.45 puntos
+Uso correcto de la plantilla, estructura completa de los capítulos 1 al 4, numeración, extensión proporcional y ausencia de instrucciones, ejemplos o residuos de la plantilla. Este criterio se aplica al documento completo.
+
+Título, introducción, objetivos y coherencia: 0.60 puntos
+Correspondencia entre título, problema, contexto, alcance, objetivo general, objetivos específicos y solución propuesta.
+
+Capítulo 3. Desarrollo conceptual mediante Design Thinking
+
+Empatizar: aplicación y evidencia: 0.75 puntos
+Aplicación de encuestas, entrevistas, observación u otro instrumento; descripción de participantes, procedimiento, resultados, interpretación y decisiones derivadas.
+
+Definir: HMW y criterios de éxito: 0.45 puntos
+Formulación del problema a partir de los resultados de Empatizar, pregunta HMW clara y criterios de éxito concretos, observables y medibles.
+
+Fundamento teórico: 0.75 puntos
+Desarrollo en prosa académica de los conceptos y tecnologías de inteligencia artificial necesarios para sustentar el proyecto, con literatura académica válida.
+
+Antecedentes y estado del arte: 0.75 puntos
+Revisión de trabajos científicos similares y análisis de sus métodos, modelos, datos, métricas, resultados y limitaciones, así como identificación de la brecha que atenderá la propuesta.
+
+Ideación de alternativas y selección: 0.45 puntos
+Generación de alternativas diferentes y selección justificada mediante criterios relacionados con impacto, viabilidad, disponibilidad de datos, costo, tiempo y riesgos.
+
+Prototipo y evidencia visual: 0.45 puntos
+Definición del prototipo mediante arquitectura, módulos, entradas, salidas, flujo, wireframes, pantallas u otras figuras propias, pertinentes y legibles.
+
+Capítulo 4. Metodología Scrum y Lean
+
+Aplicación real de Scrum al proyecto: 0.50 puntos
+Explicación de cómo Scrum organizará el desarrollo concreto del prototipo. La teoría debe ser breve y la aplicación debe estar relacionada específicamente con el proyecto.
+
+Roles, responsabilidades, artefactos y eventos Scrum: 0.40 puntos
+Asignación de Product Owner, Scrum Master y equipo de desarrollo; responsabilidades reales; Product Backlog, Sprint Backlog, incremento, planeación, seguimiento, revisión y retrospectiva.
+
+Evidencias del uso de una herramienta de gestión: 0.60 puntos
+Capturas legibles de Jira, Trello, GitHub Projects, Azure DevOps, Notion u otra herramienta. Las evidencias deberán mostrar el tablero, backlog, historias, responsables, prioridades, estimaciones, sprints y estados de avance.
+
+Product Backlog, historias de usuario y criterios de aceptación: 0.80 puntos
+Backlog completo y priorizado, historias redactadas desde la necesidad del usuario y criterios de aceptación concretos y verificables.
+
+Estimación, priorización y planificación de sprints: 0.50 puntos
+Escala de Story Points, duración y número de sprints, capacidad del equipo, objetivos, historias asignadas, dependencias e incrementos esperados.
+
+Definition of Ready y Definition of Done: 0.40 puntos
+Criterios adaptados al proyecto para determinar cuándo una historia puede comenzar y cuándo está verdaderamente terminada, probada, documentada e integrada.
+
+MVP, aplicación de Lean, métricas y criterios de decisión: 0.80 puntos
+Delimitación del producto mínimo viable; aplicación del ciclo construir, medir, aprender y decidir; métricas técnicas y de valor; baseline o referente; umbrales de éxito y criterios para continuar, ajustar o replantear la solución.
+
+Control editorial y académico
+
+Citas, referencias y calidad de las fuentes: 0.60 puntos
+Uso de citas dentro del texto, correspondencia entre citas y lista de referencias, fuentes académicas válidas y formato APA reconocible y consistente. Este criterio se aplica a todos los capítulos entregados.
+
+Control editorial y calidad de la escritura: 0.75 puntos
+Redacción académica e impersonal, ortografía, párrafos legibles, formato correcto de tablas y figuras, numeración, títulos, uso de la plantilla y presentación general. Este criterio se aplica al documento completo.
+
+Total de la evaluación de la Entrega 2: 10.00 puntos
+
+Les recomiendo revisar cada uno de estos criterios antes de realizar su entrega. Asegúrense de que las correcciones señaladas en la Entrega 1 se reflejen claramente en el nuevo documento y de que el capítulo 4 presente evidencias reales de la aplicación de Scrum y Lean. Confío en que, con estas orientaciones, podrán presentar un avance mucho más completo, consistente y cercano a la calidad esperada para el trabajo final.
+
+Saludos cordiales,
+
+Efrén Juárez Castillo
+
+
+
