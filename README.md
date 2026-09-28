@@ -712,7 +712,7 @@ ya entrenado**, servido por el microservicio dentro del sistema web. Todo lo dem
 donde se construyó y se probó.
 
 > **Trazabilidad de conceptos:** las secciones 8.3–8.7 aplican, en orden, **todos** los conceptos del
-> glosario (§1): desde inteligencia artificial, PLN, corpus, anotador, kappa y adjudicación, pasando
+> glosario (§1): desde **inteligencia artificial**, PLN, corpus, anotador, kappa y adjudicación, pasando
 > por vector, TF-IDF, SVM, regresión logística, red neuronal, transformer, BERT, BETO, fine-tuning,
 > class weights y GPU, hasta las métricas (precisión, recall, falso negativo, F1, macro-F1) y toda la
 > infraestructura (microservicio, API REST, HTTP, FastAPI, frontend, backend, PostgreSQL, Docker, JWT,
